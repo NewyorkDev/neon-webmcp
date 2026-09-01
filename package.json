@@ -1,0 +1,21 @@
+{
+  "name": "neon-webmcp-marketplace",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "benchmark": "node scripts/benchmark.mjs",
+    "preview": "vite preview",
+    "test": "vitest run",
+    "verify:native": "node scripts/verify-native.mjs"
+  },
+  "dependencies": {
+    "vite": "8.2.2"
+  },
+  "devDependencies": {
+    "playwright-core": "^1.62.1",
+    "vitest": "4.1.11"
+  }
+}

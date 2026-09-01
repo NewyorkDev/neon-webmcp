@@ -1,0 +1,84 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-09-01T05:53:02.056Z",
+  "browser": "Google Chrome with WebMCP enabled",
+  "url": "http://127.0.0.1:5174/",
+  "toolNames": [
+    "compare_providers",
+    "find_service_availability",
+    "get_booking_status",
+    "get_marketplace_context",
+    "get_provider_profile",
+    "prepare_booking_review",
+    "request_booking",
+    "search_providers",
+    "select_appointment",
+    "set_marketplace_preferences"
+  ],
+  "context": {
+    "mode": "sandbox_marketplace",
+    "city": "Tampa",
+    "supportedLocales": [
+      "en",
+      "es"
+    ],
+    "categories": [
+      "barber",
+      "hair",
+      "nails",
+      "skincare",
+      "massage"
+    ],
+    "nextBestAction": "search_providers",
+    "chargesMoney": false,
+    "contactsRealProviders": false
+  },
+  "searchCount": 1,
+  "bestRatedProviderId": "marco-ruiz",
+  "slotCount": 3,
+  "reviewProviderId": "marco-ruiz",
+  "preApprovalBlocked": true,
+  "finalBooking": {
+    "reference": "NEON-MR-0910-1030",
+    "status": "confirmed",
+    "createdAt": "2026-09-01T05:53:01.167Z",
+    "customer": {
+      "id": "alex-morgan",
+      "name": "Alex Morgan",
+      "email": "alex@example.test",
+      "phone": "(813) 555-0148"
+    },
+    "provider": {
+      "id": "marco-ruiz",
+      "name": "Marco Ruiz",
+      "business": "Cigar City Cuts",
+      "neighborhood": "Ybor City",
+      "languages": [
+        "English",
+        "Spanish"
+      ]
+    },
+    "service": {
+      "id": "signature-cut",
+      "name": "Signature haircut",
+      "nameEs": "Corte exclusivo",
+      "duration": 45,
+      "price": 46
+    },
+    "slot": {
+      "id": "mr-0910-1030",
+      "date": "2026-09-10",
+      "time": "10:30 AM"
+    },
+    "price": 46,
+    "cancellation": "Free cancellation up to 12 hours before the appointment.",
+    "paymentDueNow": 0,
+    "sandbox": true,
+    "contactsRealProvider": false,
+    "chargesMoney": false,
+    "consumesProductionInventory": false
+  },
+  "providerCalendarUpdated": true,
+  "providerCalendarText": "WEBMCP · JUST NOW\nAlex Morgan\nSignature haircut · 45 min\n10:30 AM · $46 · confirmed",
+  "methodology": "Discovered and invoked all tools through document.modelContext.getTools() and document.modelContext.executeTool(). The visible customer approval button was clicked between the blocked and successful booking calls."
+}
