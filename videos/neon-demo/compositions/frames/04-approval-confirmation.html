@@ -1,0 +1,157 @@
+<template>
+  <style>
+    #root {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      container-type: size;
+      color: #171717;
+    }
+
+    #\30 4-approval-confirmation-ground {
+      position: absolute;
+      inset: 0;
+      background: transparent;
+    }
+
+    #\30 4-approval-confirmation-video-mask {
+      position: absolute;
+      inset: 0 0 auto 0;
+      height: 83.2cqh;
+      overflow: hidden;
+      background: #171717;
+      border-bottom: 0.4cqw solid #171717;
+      box-sizing: border-box;
+    }
+
+    #\30 4-approval-confirmation-footer {
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 83.2cqh;
+      bottom: 0;
+      background: #FFFDF8;
+    }
+
+    .\30 4-approval-confirmation-state {
+      position: absolute;
+      top: 3.3cqw;
+      right: 3.3cqw;
+      z-index: 4;
+      max-width: 38cqw;
+      padding: 1.05cqw 1.3cqw 0.95cqw;
+      border: 0.4cqw solid #171717;
+      border-radius: 0;
+      background: #915DFF;
+      box-shadow: 1.25cqw 1.25cqw 0 #D9C7FF, 1.25cqw 1.25cqw 0 0.2cqw #171717;
+      color: #171717;
+      font-size: 2.4cqw;
+      font-weight: 900;
+      line-height: 1;
+      letter-spacing: -0.01em;
+      text-transform: uppercase;
+      text-align: left;
+    }
+
+    #\30 4-approval-confirmation-approved {
+      background: #4F6B00;
+      color: #FFFDF8;
+      box-shadow: none;
+    }
+
+    #\30 4-approval-confirmation-confirmed {
+      top: 4.8cqw;
+      right: auto;
+      left: 5cqw;
+      max-width: 54cqw;
+      padding: 1.25cqw 1.55cqw 1.1cqw;
+      background: #7BA900;
+      color: #FFFDF8;
+      box-shadow: none;
+      font-size: 3.35cqw;
+    }
+
+    #\30 4-approval-confirmation-code {
+      position: absolute;
+      z-index: 5;
+      right: 3.3cqw;
+      top: 13.2cqw;
+      padding: 0.55cqw 0.9cqw;
+      border: 0.2cqw solid #171717;
+      border-radius: 999px;
+      background: #FFFDF8;
+      color: #171717;
+      font-family: monospace;
+      font-size: 1.25cqw;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+  </style>
+
+  <div data-hf-id="hf-hvf5" id="root" data-composition-id="04-approval-confirmation" data-width="1920" data-height="1080">
+    <div data-hf-id="hf-33s1" id="04-approval-confirmation-ground" class="clip" data-start="0" data-duration="12" data-track-index="0"></div>
+    <!-- approved frame video hoisted by assemble-index -->
+    <div data-hf-id="hf-gjgj" id="04-approval-confirmation-footer" class="clip" data-start="0" data-duration="12" data-track-index="2"></div>
+
+    <div data-hf-id="hf-rrp2" id="04-approval-confirmation-warning" class="04-approval-confirmation-state clip" data-start="0" data-duration="12" data-track-index="3">Exact match · $46 · Pay in person</div>
+    <div data-hf-id="hf-4e9n" id="04-approval-confirmation-approved" class="04-approval-confirmation-state clip" data-start="0" data-duration="12" data-track-index="4">Inside the customer's policy</div>
+    <div data-hf-id="hf-si61" id="04-approval-confirmation-code" class="clip" data-start="0" data-duration="12" data-track-index="5">STANDING PERMISSION</div>
+    <div data-hf-id="hf-g6k0" id="04-approval-confirmation-confirmed" class="04-approval-confirmation-state clip" data-start="0" data-duration="12" data-track-index="6">Booked without another interruption</div>
+  </div>
+
+  <script src="node_modules/gsap/dist/gsap.min.js"></script>
+  <script>
+    (() => {
+      const timeline = gsap.timeline({ paused: true });
+
+      timeline.fromTo(
+        '[id="04-approval-confirmation-video-mask"]',
+        { opacity: 0.01 },
+        { opacity: 1, duration: 0.45, ease: "power2.out" },
+        0
+      );
+      timeline.fromTo(
+        '[id="04-approval-confirmation-warning"]',
+        { opacity: 0, scale: 0.82, x: 24 },
+        { opacity: 1, scale: 1, x: 0, duration: 0.48, ease: "back.out(1.5)" },
+        0.12
+      );
+
+      timeline.to(
+        '[id="04-approval-confirmation-warning"]',
+        { opacity: 0, scale: 0.78, duration: 0.24, ease: "power2.in" },
+        2.4
+      );
+      timeline.fromTo(
+        '[id="04-approval-confirmation-approved"]',
+        { opacity: 0, scale: 1.22 },
+        { opacity: 1, scale: 1, duration: 0.52, ease: "back.out(1.7)" },
+        2.52
+      );
+
+      timeline.fromTo(
+        '[id="04-approval-confirmation-code"]',
+        { opacity: 0, scale: 0.7, y: -18 },
+        { opacity: 1, scale: 1, y: 0, duration: 0.5, ease: "back.out(1.8)" },
+        5.48
+      );
+
+      timeline.to(
+        ['[id="04-approval-confirmation-approved"]', '[id="04-approval-confirmation-code"]'],
+        { opacity: 0, scale: 0.88, duration: 0.24, ease: "power2.in" },
+        8.9
+      );
+      timeline.fromTo(
+        '[id="04-approval-confirmation-confirmed"]',
+        { opacity: 0, scale: 0.78, x: -28 },
+        { opacity: 1, scale: 1, x: 0, duration: 0.62, ease: "back.out(1.55)" },
+        9
+      );
+
+      window.__timelines = window.__timelines || {};
+      window.__timelines["04-approval-confirmation"] = timeline;
+    })();
+  </script>
+</template>

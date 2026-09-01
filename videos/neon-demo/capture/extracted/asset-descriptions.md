@@ -1,5 +1,8 @@
 # Asset Descriptions
 
+- booksy-reloaded-native-workflow.mp4 [video] — 49.84-second, 1920x1080 verified Chrome recording showing the Booksy Reloaded homepage, site-owned customer login, configurable smart-booking policy, native WebMCP trace, unavailable-provider exception, exact $46 policy match, customer confirmation, and provider calendar.
+- booksy-reloaded-logo.png [image] — supplied black-and-white Booksy Reloaded identity with calendar mark and the line “Book · Manage · Grow.”
+
 ⚠️  GEMINI_API_KEY not set — descriptions below are catalog-derived (alt text, headings, section context, filename) instead of Vision-generated. To get richer Vision descriptions on the next capture, set GEMINI_API_KEY (or GOOGLE_API_KEY) and re-run.
 
 The `logo-<hash>.svg` filename prefix is a structural hint (DOM said this SVG was inside a `<header>`, home-link `<a>`, or had an aria-label matching the page brand). To pick the actual brand logo without Vision, open the `logo-*` candidates in a previewer or rasterize them with `sharp` before referencing — composing a fake logo ships off-brand in the final video.

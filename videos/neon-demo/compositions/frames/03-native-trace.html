@@ -1,0 +1,260 @@
+<template>
+  <div data-hf-id="hf-r6e6" id="root" data-composition-id="03-native-trace" data-width="1920" data-height="1080">
+    <div data-hf-id="hf-vzzj" class="clip 03-native-trace-ground" data-start="0" data-duration="17" data-track-index="0"></div>
+    <!-- approved frame video hoisted by assemble-index -->
+
+    <div data-hf-id="hf-z7e4" class="clip 03-native-trace-stage" data-start="0" data-duration="17" data-track-index="2">
+      <aside data-hf-id="hf-h6wm" class="03-native-trace-rail" aria-label="Native WebMCP execution steps">
+        <div data-hf-id="hf-0je1" class="03-native-trace-kicker">NATIVE WEBMCP TRACE</div>
+
+        <div data-hf-id="hf-ywkw" class="03-native-trace-step" id="03-native-trace-history">
+          <span data-hf-id="hf-47ie" class="03-native-trace-state"><b data-hf-id="hf-27a2">01</b><i data-hf-id="hf-q7i5">✓</i></span>
+          <span data-hf-id="hf-rek8" data-layout-allow-occlusion="">AUTHENTICATE SESSION</span>
+          <em data-hf-id="hf-6k4j" class="03-native-trace-strike"></em>
+        </div>
+
+        <div data-hf-id="hf-lk62" class="03-native-trace-step" id="03-native-trace-options">
+          <span data-hf-id="hf-0q2y" class="03-native-trace-state"><b data-hf-id="hf-2ll3">02</b><i data-hf-id="hf-qrv5">✓</i></span>
+          <span data-hf-id="hf-dm35" data-layout-allow-occlusion="">FIND REBOOKING OPTIONS</span>
+          <em data-hf-id="hf-9dur" class="03-native-trace-strike"></em>
+        </div>
+
+        <div data-hf-id="hf-hthk" class="03-native-trace-chain" id="03-native-trace-chain">
+          <span data-hf-id="hf-zm1v">AGENT REQUEST</span><b data-hf-id="hf-qmvp">→</b><span data-hf-id="hf-lh3f">WEBMCP TOOL</span><b data-hf-id="hf-jeyx">→</b><span data-hf-id="hf-s9uz">SHARED UI STATE</span>
+          <i data-hf-id="hf-sf31" id="03-native-trace-underline"></i>
+        </div>
+
+        <div data-hf-id="hf-4uyw" class="03-native-trace-step" id="03-native-trace-select">
+          <span data-hf-id="hf-14dz" class="03-native-trace-state"><b data-hf-id="hf-2zw4">03</b><i data-hf-id="hf-rys8">✓</i></span>
+          <span data-hf-id="hf-vhlc">SELECT APPOINTMENT</span>
+          <em data-hf-id="hf-8zjq" class="03-native-trace-strike"></em>
+        </div>
+
+        <div data-hf-id="hf-6390" class="03-native-trace-step" id="03-native-trace-review">
+          <span data-hf-id="hf-1ip0" class="03-native-trace-state"><b data-hf-id="hf-3e75">04</b><i data-hf-id="hf-rkh7">✓</i></span>
+          <span data-hf-id="hf-qzbh">PREPARE BOOKING REVIEW</span>
+          <em data-hf-id="hf-8l8p" class="03-native-trace-strike"></em>
+        </div>
+
+        <div data-hf-id="hf-793i" class="03-native-trace-approval" id="03-native-trace-approval">
+          <span data-hf-id="hf-mgrd" class="03-native-trace-lock">!</span>
+          <strong data-hf-id="hf-hviu">CUSTOMER CHOICE REQUIRED</strong>
+        </div>
+      </aside>
+    </div>
+
+    <style>
+      #root {
+        position: relative;
+        width: 1920px;
+        height: 1080px;
+        overflow: hidden;
+        container-type: size;
+        color: #171717;
+        font-family: sans-serif;
+      }
+
+      .\30 3-native-trace-ground {
+        position: absolute;
+        inset: 0;
+        background: transparent;
+      }
+
+      .\30 3-native-trace-video {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      .\30 3-native-trace-stage {
+        position: absolute;
+        inset: 0;
+        background: rgba(23, 23, 23, 0.12);
+      }
+
+      .\30 3-native-trace-rail {
+        position: absolute;
+        top: 3.3cqw;
+        left: 3.3cqw;
+        width: 28.5cqw;
+        max-height: 76cqh;
+        box-sizing: border-box;
+        border: 0.4cqw solid #171717;
+        background: rgba(255, 253, 248, 0.96);
+      }
+
+      .\30 3-native-trace-kicker {
+        padding: 0.72cqw 1cqw;
+        border-bottom: 0.3cqw solid #171717;
+        background: #171717;
+        color: #FFFDF8;
+        font-size: 1.25cqw;
+        line-height: 1;
+        letter-spacing: 0.14em;
+      }
+
+      .\30 3-native-trace-step {
+        position: relative;
+        min-height: 4.2cqw;
+        box-sizing: border-box;
+        display: grid;
+        grid-template-columns: 2.6cqw 1fr;
+        align-items: center;
+        gap: 0.8cqw;
+        padding: 0.7cqw 1cqw;
+        border-bottom: 0.2cqw solid #171717;
+        font-size: 1.25cqw;
+        line-height: 1.15;
+        letter-spacing: 0.04em;
+      }
+
+      .\30 3-native-trace-state {
+        position: relative;
+        width: 2.25cqw;
+        height: 2.25cqw;
+        display: grid;
+        place-items: center;
+        box-sizing: border-box;
+        border: 0.2cqw solid #171717;
+        border-radius: 50%;
+        font-size: 0.9cqw;
+      }
+
+      .\30 3-native-trace-state i {
+        position: absolute;
+        inset: 0;
+        display: grid;
+        place-items: center;
+        border-radius: 50%;
+        background: #4F6B00;
+        color: #FFFDF8;
+        font-style: normal;
+        font-size: 1.25cqw;
+        opacity: 0;
+      }
+
+      .\30 3-native-trace-strike {
+        position: absolute;
+        left: 4.35cqw;
+        right: 1cqw;
+        top: 50%;
+        height: 0.12cqw;
+        background: #171717;
+        transform-origin: left center;
+      }
+
+      .\30 3-native-trace-chain {
+        position: relative;
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 0.42cqw;
+        padding: 0.95cqw 1cqw 1.15cqw;
+        border-bottom: 0.3cqw solid #171717;
+        background: #D9C7FF;
+        font-size: 0.92cqw;
+        line-height: 1.2;
+        letter-spacing: 0.025em;
+      }
+
+      .\30 3-native-trace-chain b { font-size: 1.2cqw; }
+
+      .\30 3-native-trace-chain i {
+        position: absolute;
+        left: 1cqw;
+        right: 1cqw;
+        bottom: 0.55cqw;
+        height: 0.22cqw;
+        background: #171717;
+        transform-origin: left center;
+      }
+
+      .\30 3-native-trace-approval {
+        display: grid;
+        grid-template-columns: 3cqw 1fr;
+        align-items: center;
+        gap: 0.75cqw;
+        padding: 0.9cqw 1cqw;
+        border-top: 0.2cqw solid #171717;
+        background: #C8FF35;
+        box-shadow: 1.05cqw 1.05cqw 0 #D9C7FF, 1.05cqw 1.05cqw 0 0.2cqw #171717;
+      }
+
+      .\30 3-native-trace-lock {
+        width: 2.6cqw;
+        height: 2.6cqw;
+        display: grid;
+        place-items: center;
+        border: 0.22cqw solid #171717;
+        border-radius: 50%;
+        font-size: 1.55cqw;
+        font-weight: 900;
+      }
+
+      .\30 3-native-trace-approval strong {
+        font-size: 1.46cqw;
+        line-height: 0.92;
+      }
+    </style>
+
+    <script src="node_modules/gsap/dist/gsap.min.js"></script>
+    <script>
+      (() => {
+        const byId = (id) => document.getElementById(id);
+        const tl = gsap.timeline({ paused: true });
+        window.__timelines = window.__timelines || {};
+        window.__timelines["03-native-trace"] = tl;
+
+        const completeStep = (id, time) => {
+          const row = byId(id);
+          tl.to(row.querySelector('.\\30 3-native-trace-state b'), { opacity: 0, duration: 0.12 }, time)
+            .fromTo(row.querySelector('.\\30 3-native-trace-state i'),
+              { opacity: 0, scale: 0.35 },
+              { opacity: 1, scale: 1, duration: 0.36, ease: 'back.out(2)' }, time)
+            .fromTo(row.querySelector('.\\30 3-native-trace-strike'),
+              { scaleX: 0 },
+              { scaleX: 1, duration: 0.34, ease: 'power2.out' }, time + 0.12)
+            .to(row, { color: '#587900', duration: 0.24 }, time + 0.12);
+        };
+
+        tl.fromTo('.\\30 3-native-trace-rail',
+          { x: -90, opacity: 0 },
+          { x: 0, opacity: 1, duration: 0.48, ease: 'power3.out' }, 0)
+          .fromTo('#\\30 3-native-trace-history',
+            { y: 32, opacity: 0 },
+            { y: 0, opacity: 1, duration: 0.42, ease: 'back.out(1.35)' }, 0.35)
+          .fromTo('#\\30 3-native-trace-options',
+            { y: 32, opacity: 0 },
+            { y: 0, opacity: 1, duration: 0.42, ease: 'back.out(1.35)' }, 2.75);
+
+        completeStep('03-native-trace-history', 2.15);
+        completeStep('03-native-trace-options', 4.65);
+
+        tl.fromTo('#\\30 3-native-trace-chain',
+          { y: 34, opacity: 0 },
+          { y: 0, opacity: 1, duration: 0.5, ease: 'power3.out' }, 5.35)
+          .fromTo('#\\30 3-native-trace-underline',
+            { scaleX: 0 },
+            { scaleX: 1, duration: 1.2, ease: 'power2.inOut' }, 6.15)
+          .fromTo('#\\30 3-native-trace-select',
+            { y: 34, opacity: 0 },
+            { y: 0, opacity: 1, duration: 0.44, ease: 'back.out(1.35)' }, 10.9)
+          .fromTo('#\\30 3-native-trace-review',
+            { y: 34, opacity: 0 },
+            { y: 0, opacity: 1, duration: 0.44, ease: 'back.out(1.35)' }, 11.75);
+
+        completeStep('03-native-trace-select', 12.45);
+        completeStep('03-native-trace-review', 13.45);
+
+        tl.fromTo('#\\30 3-native-trace-approval',
+          { y: 48, opacity: 0, scale: 0.82, transformOrigin: 'left top' },
+          { y: 0, opacity: 1, scale: 1, duration: 0.58, ease: 'back.out(1.8)' }, 14.25)
+          .fromTo('#\\30 3-native-trace-approval strong',
+            { x: -18, opacity: 0 },
+            { x: 0, opacity: 1, duration: 0.35, ease: 'power3.out' }, 14.55);
+      })();
+    </script>
+  </div>
+</template>

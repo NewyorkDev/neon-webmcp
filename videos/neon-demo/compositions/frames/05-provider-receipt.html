@@ -1,0 +1,44 @@
+<template>
+  <div data-hf-id="hf-t37v" id="root" data-composition-id="05-provider-receipt" data-width="1920" data-height="1080">
+    <div data-hf-id="hf-79fz" class="clip" id="05-provider-receipt-ground" data-start="0" data-duration="9" data-track-index="0"></div>
+    <!-- approved frame video hoisted by assemble-index -->
+    <div data-hf-id="hf-8czb" class="clip" id="05-provider-receipt-treatment" data-start="0" data-duration="9" data-track-index="2" aria-hidden="true"></div>
+    <div data-hf-id="hf-74c3" class="clip" id="05-provider-receipt-overlay" data-start="0" data-duration="9" data-track-index="3">
+      <div data-hf-id="hf-4lp1" id="05-provider-receipt-provider-side">PROVIDER SIDE</div>
+      <div data-hf-id="hf-8cwm" id="05-provider-receipt-calendar-outline" aria-hidden="true"><span data-hf-id="hf-syqy">CALENDAR · ALEX MORGAN</span></div>
+      <div data-hf-id="hf-yf6a" id="05-provider-receipt-feed-outline" data-layout-allow-overlap="" aria-hidden="true"><span data-hf-id="hf-91ek">ACTIVITY FEED</span></div>
+      <div data-hf-id="hf-fkpv" id="05-provider-receipt-shared-link" aria-hidden="true"><i data-hf-id="hf-wt6k"></i><b data-hf-id="hf-xujp"></b><i data-hf-id="hf-zeb8"></i></div>
+      <div data-hf-id="hf-8i28" id="05-provider-receipt-callout" data-layout-allow-overlap="">SAME APPOINTMENT.<br data-hf-id="hf-x5px">BOTH SIDES.</div>
+      <div data-hf-id="hf-chez" id="05-provider-receipt-safe-floor" aria-hidden="true"></div>
+    </div>
+  </div>
+  <style>
+    #root { position: relative; width: 100%; height: 100%; overflow: hidden; container-type: size; color: #171717; }
+    [id="05-provider-receipt-ground"] { position: absolute; inset: 0; background: transparent; }
+    [id="05-provider-receipt-treatment"] { position: absolute; inset: 0 0 16.6667% 0; background: rgba(23,23,23,.26); pointer-events: none; }
+    [id="05-provider-receipt-overlay"] { position: absolute; inset: 0; overflow: hidden; pointer-events: none; }
+    [id="05-provider-receipt-provider-side"] { position: absolute; top: 3.3cqw; left: 3.3cqw; z-index: 8; padding: .62cqw 1.05cqw; border: .2cqw solid #171717; border-radius: 999px; background: #FFFDF8; color: #171717; font-size: 1.25cqw; font-weight: 700; line-height: 1; letter-spacing: .06em; }
+    [id="05-provider-receipt-calendar-outline"], [id="05-provider-receipt-feed-outline"] { position: absolute; top: 17.8cqw; height: 22.8cqw; z-index: 5; border: .4cqw solid #C8FF35; background: rgba(200,255,53,.04); }
+    [id="05-provider-receipt-calendar-outline"] { left: 17.4cqw; width: 42.8cqw; }
+    [id="05-provider-receipt-feed-outline"] { left: 61.4cqw; width: 19.8cqw; }
+    [id="05-provider-receipt-calendar-outline"] span, [id="05-provider-receipt-feed-outline"] span { position: absolute; top: -1.82cqw; left: -.4cqw; padding: .38cqw .72cqw; background: #C8FF35; color: #171717; font-size: 1.05cqw; font-weight: 800; line-height: 1; letter-spacing: .06em; white-space: nowrap; }
+    [id="05-provider-receipt-shared-link"] { position: absolute; left: 58.7cqw; top: 28.4cqw; width: 4.8cqw; height: 1.2cqw; z-index: 6; display: flex; align-items: center; }
+    [id="05-provider-receipt-shared-link"] i { width: 1.05cqw; height: 1.05cqw; flex: 0 0 auto; border: .2cqw solid #171717; border-radius: 50%; background: #C8FF35; }
+    [id="05-provider-receipt-shared-link"] b { height: .2cqw; flex: 1 1 auto; background: #171717; }
+    [id="05-provider-receipt-callout"] { position: absolute; top: 4.7cqw; left: 47.8cqw; width: 39cqw; z-index: 9; padding: 1.35cqw 1.6cqw 1.15cqw; border: .4cqw solid #171717; background: #915DFF; box-shadow: 1.25cqw 1.25cqw 0 #D9C7FF, 1.25cqw 1.25cqw 0 .2cqw #171717; color: #171717; font-size: 4.2cqw; font-weight: 900; line-height: .92; letter-spacing: -.01em; text-transform: uppercase; }
+    [id="05-provider-receipt-safe-floor"] { position: absolute; left: 0; right: 0; top: 83.3333%; bottom: 0; z-index: 20; border-top: .3cqw solid #171717; background: #FFFDF8; }
+  </style>
+  <script src="node_modules/gsap/dist/gsap.min.js"></script>
+  <script>
+    (() => {
+      const timeline = gsap.timeline({ paused: true });
+      timeline.fromTo('[id="05-provider-receipt-provider-side"]', { x: -84, opacity: 0 }, { x: 0, opacity: 1, duration: .55, ease: 'power2.out' }, .12);
+      timeline.fromTo('[id="05-provider-receipt-treatment"]', { opacity: 0 }, { opacity: 1, duration: .65, ease: 'power1.out' }, 2.9);
+      timeline.fromTo(['[id="05-provider-receipt-calendar-outline"]', '[id="05-provider-receipt-feed-outline"]'], { scale: .975, opacity: 0 }, { scale: 1, opacity: 1, duration: .52, stagger: .16, ease: 'power2.out' }, 3.15);
+      timeline.fromTo('[id="05-provider-receipt-shared-link"]', { scaleX: 0, opacity: 0, transformOrigin: 'center center' }, { scaleX: 1, opacity: 1, duration: .58, ease: 'power2.out' }, 4.15);
+      timeline.fromTo('[id="05-provider-receipt-callout"]', { y: 42, scale: .94, opacity: 0 }, { y: 0, scale: 1, opacity: 1, duration: .72, ease: 'back.out(1.2)' }, 6.4);
+      window.__timelines = window.__timelines || {};
+      window.__timelines['05-provider-receipt'] = timeline;
+    })();
+  </script>
+</template>

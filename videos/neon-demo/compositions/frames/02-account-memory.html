@@ -1,0 +1,222 @@
+<template>
+  <div data-hf-id="hf-y4t8" id="root" data-composition-id="02-account-memory" data-width="1920" data-height="1080" data-duration="9">
+    <div data-hf-id="hf-3val" class="clip f02-account-memory-ground" data-start="0" data-duration="9" data-track-index="0"></div>
+
+    <!-- approved frame video hoisted by assemble-index -->
+    <!-- approved frame video hoisted by assemble-index -->
+    <!-- approved frame video hoisted by assemble-index -->
+
+    <div data-hf-id="hf-pewq" class="f02-account-memory-vignette" aria-hidden="true"></div>
+
+    <div data-hf-id="hf-xyb6" class="f02-account-memory-account-label">SITE-OWNED AUTHENTICATION</div>
+
+    <div data-hf-id="hf-37gn" class="f02-account-memory-callout f02-account-memory-marco" aria-hidden="true">
+      <span data-hf-id="hf-bta1">USUAL PROVIDER</span>
+    </div>
+    <div data-hf-id="hf-179j" class="f02-account-memory-callout f02-account-memory-visits" aria-hidden="true">
+      <span data-hf-id="hf-brwq">$50 AUTOMATIC LIMIT</span>
+    </div>
+
+    <div data-hf-id="hf-ihxd" class="f02-account-memory-rebook-group">
+      <div data-hf-id="hf-ver7" class="f02-account-memory-rebook-rule" aria-hidden="true"></div>
+      <div data-hf-id="hf-qw0o" class="f02-account-memory-rebook-label">CONFIGURABLE BOOKING POLICY</div>
+    </div>
+  </div>
+
+  <style>
+    #root {
+      position: relative;
+      width: 1920px;
+      height: 1080px;
+      overflow: hidden;
+      container-type: size;
+      color: #171717;
+    }
+
+    .f02-account-memory-ground {
+      position: absolute;
+      inset: 0;
+      background: transparent;
+    }
+
+    .f02-account-memory-vignette {
+      position: absolute;
+      inset: 0 0 184px 0;
+      z-index: 2;
+      pointer-events: none;
+      background: rgba(23, 23, 23, 0.16);
+    }
+
+    .f02-account-memory-account-label,
+    .f02-account-memory-callout span,
+    .f02-account-memory-rebook-label {
+      font-family: monospace;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      line-height: 1;
+    }
+
+    .f02-account-memory-account-label {
+      position: absolute;
+      z-index: 4;
+      top: 54px;
+      left: 64px;
+      padding: 15px 22px 14px;
+      color: #FFFDF8;
+      background: #171717;
+      border: 4px solid #C8FF35;
+      border-radius: 0;
+      font-size: 24px;
+      white-space: nowrap;
+    }
+
+    .f02-account-memory-callout {
+      position: absolute;
+      z-index: 4;
+      box-sizing: border-box;
+      border: 5px solid #C8FF35;
+      border-radius: 0;
+      pointer-events: none;
+    }
+
+    .f02-account-memory-callout::before,
+    .f02-account-memory-callout::after {
+      content: "";
+      position: absolute;
+      width: 17px;
+      height: 17px;
+      background: #C8FF35;
+    }
+
+    .f02-account-memory-callout::before {
+      top: -9px;
+      left: -9px;
+    }
+
+    .f02-account-memory-callout::after {
+      right: -9px;
+      bottom: -9px;
+    }
+
+    .f02-account-memory-callout span {
+      position: absolute;
+      left: -5px;
+      bottom: calc(100% + 5px);
+      padding: 9px 13px 8px;
+      color: #171717;
+      background: #C8FF35;
+      font-size: 19px;
+      white-space: nowrap;
+    }
+
+    .f02-account-memory-marco {
+      top: 472px;
+      left: 503px;
+      width: 292px;
+      height: 82px;
+    }
+
+    .f02-account-memory-visits {
+      top: 500px;
+      left: 1095px;
+      width: 445px;
+      height: 102px;
+    }
+
+    .f02-account-memory-visits span {
+      top: calc(100% + 5px);
+      bottom: auto;
+    }
+
+    .f02-account-memory-rebook-group {
+      position: absolute;
+      z-index: 4;
+      top: 392px;
+      left: 1095px;
+      width: 410px;
+      height: 76px;
+      pointer-events: none;
+    }
+
+    .f02-account-memory-rebook-rule {
+      position: absolute;
+      left: 0;
+      top: 36px;
+      width: 170px;
+      height: 5px;
+      background: #C8FF35;
+    }
+
+    .f02-account-memory-rebook-rule::after {
+      content: "";
+      position: absolute;
+      right: -1px;
+      top: -7px;
+      width: 19px;
+      height: 19px;
+      border-top: 5px solid #C8FF35;
+      border-right: 5px solid #C8FF35;
+      box-sizing: border-box;
+    }
+
+    .f02-account-memory-rebook-label {
+      position: absolute;
+      left: 0;
+      top: 0;
+      padding: 11px 14px 10px;
+      color: #171717;
+      background: #C8FF35;
+      border: 4px solid #171717;
+      border-radius: 0;
+      font-size: 20px;
+      white-space: nowrap;
+    }
+  </style>
+
+  <script>
+    (() => {
+      const timeline = gsap.timeline({ paused: true });
+
+      timeline.fromTo(
+        ".f02-account-memory-account-label",
+        { x: -40, opacity: 0 },
+        { x: 0, opacity: 1, duration: 0.5, ease: "power2.out" },
+        0
+      );
+
+      timeline.fromTo(
+        ".f02-account-memory-marco",
+        { scale: 0.92, opacity: 0, transformOrigin: "left center" },
+        { scale: 1, opacity: 1, duration: 0.45, ease: "power2.out" },
+        3.2
+      );
+      timeline.fromTo(
+        ".f02-account-memory-visits",
+        { scale: 0.92, opacity: 0, transformOrigin: "left center" },
+        { scale: 1, opacity: 1, duration: 0.45, ease: "power2.out" },
+        3.65
+      );
+
+      timeline.fromTo(
+        ".f02-account-memory-rebook-group",
+        { x: -34, opacity: 0 },
+        { x: 0, opacity: 1, duration: 0.5, ease: "power2.out" },
+        6.4
+      );
+
+      timeline.to(
+        [
+          ".f02-account-memory-account-label",
+          ".f02-account-memory-marco",
+          ".f02-account-memory-visits",
+          ".f02-account-memory-rebook-group"
+        ],
+        { opacity: 0, duration: 0.35, ease: "power1.out", stagger: 0.05 },
+        8.15
+      );
+
+      window.__timelines = window.__timelines || {};
+      window.__timelines["02-account-memory"] = timeline;
+    })();
+  </script>
+</template>

@@ -1,0 +1,188 @@
+<template>
+  <div data-hf-id="hf-fthn" id="root" data-composition-id="01-ask-instead" data-width="1920" data-height="1080">
+    <div data-hf-id="hf-17o3" class="clip f01-ask-instead-ground" data-start="0" data-duration="7" data-track-index="0"></div>
+    <!-- approved frame video hoisted by assemble-index -->
+
+    <div data-hf-id="hf-7ruu" class="f01-ask-instead-wash"></div>
+
+    <section data-hf-id="hf-75pl" class="f01-ask-instead-strip" aria-label="Booksy Reloaded introduction">
+      <div data-hf-id="hf-octp" class="f01-ask-instead-rule"></div>
+      <img data-hf-id="hf-dq3n" class="f01-ask-instead-logo" src="assets/booksy-reloaded-logo.png" alt="Booksy Reloaded">
+      <div data-hf-id="hf-1h13" class="f01-ask-instead-swap-wrap">
+        <div data-hf-id="hf-uoht" class="f01-ask-instead-copy f01-ask-instead-copy-a">ASK AI. KEEP YOUR LIMITS.</div>
+        <div data-hf-id="hf-9hiz" class="f01-ask-instead-copy f01-ask-instead-copy-b">BOOK AT CONVERSATION SPEED</div>
+      </div>
+    </section>
+  </div>
+
+  <style>
+    #root {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      container-type: size;
+      color: #fffdf8;
+    }
+
+    .f01-ask-instead-ground {
+      position: absolute;
+      inset: 0;
+      background: transparent;
+    }
+
+    .f01-ask-instead-video {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 83cqh;
+      object-fit: cover;
+      object-position: top center;
+    }
+
+    .f01-ask-instead-wash {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 83cqh;
+      background: rgba(23, 23, 23, 0.34);
+      pointer-events: none;
+    }
+
+    .f01-ask-instead-strip {
+      position: absolute;
+      left: 3.3cqw;
+      right: 3.3cqw;
+      top: 3.3cqh;
+      height: 12.5cqh;
+      display: grid;
+      grid-template-columns: 8.2cqw 1fr;
+      align-items: center;
+      padding: 0 2.1cqw;
+      background: #171717;
+      border: 0.4cqw solid #171717;
+      box-sizing: border-box;
+      overflow: hidden;
+    }
+
+    .f01-ask-instead-rule {
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 100%;
+      height: 0.65cqh;
+      background: #c8ff35;
+    }
+
+    .f01-ask-instead-logo {
+      display: block;
+      width: 5.3cqw;
+      height: 8.1cqh;
+      object-fit: contain;
+      object-position: center;
+    }
+
+    .f01-ask-instead-swap-wrap {
+      position: relative;
+      width: 100%;
+      height: 8.2cqh;
+    }
+
+    .f01-ask-instead-copy {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      transform-origin: 50% 50%;
+      color: #fffdf8;
+      font-family: sans-serif;
+      font-size: 4.2cqw;
+      font-weight: 900;
+      line-height: 0.92;
+      letter-spacing: -0.01em;
+      white-space: nowrap;
+    }
+
+    .f01-ask-instead-copy-b {
+      z-index: 2;
+      color: #c8ff35;
+    }
+  </style>
+
+  <script src="node_modules/gsap/dist/gsap.min.js"></script>
+  <script>
+    (() => {
+      const tl = gsap.timeline({ paused: true });
+
+      tl.fromTo(
+        ".f01-ask-instead-video",
+        { scale: 1.025, opacity: 0.72 },
+        { scale: 1, opacity: 1, duration: 0.5, ease: "power3.out" },
+        0
+      );
+      tl.fromTo(
+        ".f01-ask-instead-strip",
+        { y: -34, opacity: 0 },
+        { y: 0, opacity: 1, duration: 0.52, ease: "power3.out" },
+        0.08
+      );
+      tl.fromTo(
+        ".f01-ask-instead-logo",
+        { scale: 0.78, opacity: 0 },
+        { scale: 1, opacity: 1, duration: 0.55, ease: "back.out(1.4)" },
+        0.18
+      );
+      tl.fromTo(
+        ".f01-ask-instead-copy-a",
+        { scale: 0.82, opacity: 0 },
+        { scale: 1, opacity: 1, duration: 0.58, ease: "back.out(1.4)" },
+        0.25
+      );
+
+      tl.to(
+        ".f01-ask-instead-copy-a",
+        { scale: 0.72, opacity: 0, duration: 0.4, ease: "power2.in" },
+        2.4
+      );
+      tl.fromTo(
+        ".f01-ask-instead-copy-b",
+        { scale: 0.72, opacity: 0 },
+        { scale: 1, opacity: 1, duration: 0.62, ease: "back.out(1.4)" },
+        2.64
+      );
+      tl.fromTo(
+        ".f01-ask-instead-rule",
+        { scaleX: 0, transformOrigin: "0% 50%" },
+        { scaleX: 1, duration: 0.7, ease: "power3.out" },
+        2.78
+      );
+
+      tl.to(
+        ".f01-ask-instead-copy-b",
+        { scale: 0.72, opacity: 0, duration: 0.38, ease: "power2.in" },
+        5.6
+      );
+      tl.to(
+        ".f01-ask-instead-logo",
+        { opacity: 0, duration: 0.3, ease: "power2.in" },
+        5.68
+      );
+      tl.to(
+        ".f01-ask-instead-strip",
+        { y: -150, duration: 0.48, ease: "power3.in" },
+        5.82
+      );
+      tl.to(
+        ".f01-ask-instead-wash",
+        { opacity: 0, duration: 0.42, ease: "power2.out" },
+        5.86
+      );
+
+      window.__timelines = window.__timelines || {};
+      window.__timelines["01-ask-instead"] = tl;
+    })();
+  </script>
+</template>

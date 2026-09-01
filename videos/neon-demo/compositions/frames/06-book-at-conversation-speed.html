@@ -1,0 +1,139 @@
+<template>
+  <div data-hf-id="hf-a3q1" id="root" data-composition-id="06-book-at-conversation-speed" data-width="1920" data-height="1080">
+    <div data-hf-id="hf-gw4w" class="clip 06-book-at-conversation-speed-ground" data-start="0" data-duration="6" data-track-index="0"></div>
+    <!-- approved frame video hoisted by assemble-index -->
+    <div data-hf-id="hf-lsjr" class="clip 06-book-at-conversation-speed-dim" data-start="0" data-duration="6" data-track-index="2"></div>
+    <section data-hf-id="hf-w5se" class="clip 06-book-at-conversation-speed-lockup" data-start="0" data-duration="6" data-track-index="3" aria-label="Booksy Reloaded proof and demo link">
+      <img data-hf-id="hf-zh4b" id="06-book-at-conversation-speed-logo" class="06-book-at-conversation-speed-logo" src="assets/booksy-reloaded-logo.png" alt="Booksy Reloaded">
+      <div data-hf-id="hf-q03w" id="06-book-at-conversation-speed-proof" class="06-book-at-conversation-speed-proof">
+        <span data-hf-id="hf-quuc">15 NATIVE TOOLS</span><b data-hf-id="hf-dhmi" aria-hidden="true">·</b><span data-hf-id="hf-b9g4">SMART POLICY</span><b data-hf-id="hf-aeqm" aria-hidden="true">·</b><span data-hf-id="hf-en5t">TWO-SIDED RECEIPT</span>
+      </div>
+      <div data-hf-id="hf-np7p" id="06-book-at-conversation-speed-url" class="06-book-at-conversation-speed-url">newyorkdev.github.io/neon-webmcp</div>
+    </section>
+  </div>
+
+  <style>
+    #root {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      container-type: size;
+      color: #fffdf8;
+    }
+
+    .\30 6-book-at-conversation-speed-ground {
+      position: absolute;
+      inset: 0;
+      background: transparent;
+    }
+
+    .\30 6-book-at-conversation-speed-video {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+    }
+
+    .\30 6-book-at-conversation-speed-dim {
+      position: absolute;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.9);
+    }
+
+    .\30 6-book-at-conversation-speed-lockup {
+      position: absolute;
+      inset: 0 0 17cqh;
+      display: grid;
+      grid-template-rows: 56cqh 10cqh 10cqh;
+      justify-items: center;
+      align-items: center;
+      box-sizing: border-box;
+      padding: 2.5cqh 5cqw 0;
+    }
+
+    .\30 6-book-at-conversation-speed-logo {
+      width: 29cqw;
+      height: 53cqh;
+      display: block;
+      object-fit: contain;
+      object-position: center;
+      transform-origin: 50% 50%;
+    }
+
+    .\30 6-book-at-conversation-speed-proof {
+      width: 90cqw;
+      min-height: 6.4cqh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1.15cqw;
+      box-sizing: border-box;
+      border-top: 0.28cqw solid #c8ff35;
+      border-bottom: 0.28cqw solid #c8ff35;
+      color: #fffdf8;
+      font-family: sans-serif;
+      font-size: 1.46cqw;
+      font-weight: 900;
+      line-height: 0.92;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    .\30 6-book-at-conversation-speed-proof b {
+      color: #c8ff35;
+      font-size: 1.8cqw;
+      line-height: 1;
+    }
+
+    .\30 6-book-at-conversation-speed-url {
+      align-self: start;
+      margin-top: 1.5cqh;
+      color: #c8ff35;
+      font-family: monospace;
+      font-size: 1.46cqw;
+      font-weight: 400;
+      line-height: 1.2;
+      letter-spacing: 0.06em;
+      white-space: nowrap;
+    }
+  </style>
+
+  <script src="node_modules/gsap/dist/gsap.min.js"></script>
+  <script>
+    (() => {
+      const logo = document.getElementById("06-book-at-conversation-speed-logo");
+      const proof = document.getElementById("06-book-at-conversation-speed-proof");
+      const url = document.getElementById("06-book-at-conversation-speed-url");
+      const dim = document.querySelector(".\\30 6-book-at-conversation-speed-dim");
+      const tl = gsap.timeline({ paused: true });
+
+      tl.fromTo(dim,
+        { backgroundColor: "rgba(0, 0, 0, 0.48)" },
+        { backgroundColor: "rgba(0, 0, 0, 0.90)", duration: 1.25, ease: "power2.out" },
+        0
+      );
+      tl.fromTo(logo,
+        { opacity: 0, scale: 0.95 },
+        { opacity: 1, scale: 1, duration: 1.05, ease: "power2.out" },
+        0.12
+      );
+      tl.fromTo(proof,
+        { opacity: 0, y: 18 },
+        { opacity: 1, y: 0, duration: 0.62, ease: "power3.out" },
+        2.2
+      );
+      tl.fromTo(url,
+        { opacity: 0, y: 12 },
+        { opacity: 1, y: 0, duration: 0.5, ease: "power3.out" },
+        4.4
+      );
+
+      window.__timelines = window.__timelines || {};
+      window.__timelines["06-book-at-conversation-speed"] = tl;
+    })();
+  </script>
+</template>
