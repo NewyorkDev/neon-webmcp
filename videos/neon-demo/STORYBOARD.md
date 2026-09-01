@@ -55,9 +55,9 @@ keyMessage: Existing customers should be able to ask instead of starting over.
 - sfx: none
 
 Adapt: keep the held real browser surface and use sparse callouts instead of reconstructed device screens.
-Scene 1 (0.0–3.2s): the source window plays the prefilled customer login at full width; CUSTOMER ACCOUNT appears in the upper-left safe zone.
-Scene 2 (3.2–6.4s): the account dashboard arrives; MARCO RUIZ and 4 COMPLETED VISITS receive thin acid-lime outline callouts without covering the interface.
-Scene 3 (6.4–9.0s): ASK AI TO REBOOK appears beside the real account action, then all callouts clear and the page holds.
+Scene 1 (0.0–3.2s): the source window plays the prefilled customer login at full width; SITE-OWNED AUTHENTICATION appears in the upper-left safe zone.
+Scene 2 (3.2–6.4s): the account dashboard arrives; USUAL PROVIDER and $50 AUTOMATIC LIMIT receive thin acid-lime outline callouts over the real controls.
+Scene 3 (6.4–9.0s): CONFIGURABLE BOOKING POLICY appears beside the real policy card, then all callouts clear and the page holds.
 
 narrativeRole: Prove the shortcut comes from explicit marketplace history, not invisible model memory.
 keyMessage: The account already has the context needed for a useful request.
@@ -80,10 +80,10 @@ keyMessage: The account already has the context needed for a useful request.
 - sfx: none
 
 Adapt: the recording already contains the working theater, so keep its real trace panel as the signature receipt and add only step labels.
-Scene 1 (0.0–5.2s): the real profile and availability play full-frame; GET CUSTOMER HISTORY then FIND REBOOKING OPTIONS reveal sequentially in a narrow upper-left rail.
+Scene 1 (0.0–5.2s): the real profile and availability play full-frame; AUTHENTICATE SESSION then FIND REBOOKING OPTIONS reveal sequentially in a narrow upper-left rail.
 Scene 2 (5.2–10.8s): the live WebMCP trace opens in the recording; AGENT REQUEST → WEBMCP TOOL → SHARED UI STATE is underlined as real JSON input and output remain readable.
 Scene 3 (10.8–14.2s): SELECT APPOINTMENT and PREPARE BOOKING REVIEW check off as the interface reaches the exact review.
-Scene 4 (14.2–17.0s): the preapproval request is shown blocked; APPROVAL REQUIRED lands in acid lime and holds.
+Scene 4 (14.2–17.0s): the requested window has no exact availability; CUSTOMER CHOICE REQUIRED lands in acid lime while the real alternatives remain visible.
 
 narrativeRole: Answer the judge's main technical question with visible native tool traffic and shared state.
 keyMessage: This is structured WebMCP execution, not hidden click automation.
@@ -105,14 +105,14 @@ keyMessage: This is structured WebMCP execution, not hidden click automation.
 - roles: browser recording = background
 - sfx: none
 
-Adapt: use the real browser interaction and emphasize the two state changes, blocked then approved, without adding a fake cursor.
-Scene 1 (0.0–3.4s): the exact review is held full-frame with NOTHING BOOKS YET in the upper-right safe zone.
-Scene 2 (3.4–7.0s): the real approval click changes the review; HUMAN APPROVED replaces the warning with a smooth scale-swap.
-Scene 3 (7.0–9.4s): the final native booking call completes and the real BR-MR-0903-1130 confirmation appears.
-Scene 4 (9.4–12.0s): the customer account fills the frame with YOUR BOOKING IS CONFIRMED and the confirmation-preview receipt visible.
+Adapt: use the real browser interaction and emphasize the policy evaluation without adding a fake cursor.
+Scene 1 (0.0–3.4s): the exact review is held full-frame with EXACT MATCH · $46 · PAY IN PERSON in the upper-right safe zone.
+Scene 2 (3.4–7.0s): INSIDE THE CUSTOMER'S POLICY and STANDING PERMISSION replace the first label with a smooth scale-swap.
+Scene 3 (7.0–9.4s): the final native booking call completes and the real confirmation appears.
+Scene 4 (9.4–12.0s): the customer account fills the frame with BOOKED WITHOUT ANOTHER INTERRUPTION and the confirmation-preview receipt visible.
 
-narrativeRole: Prove that WebMCP accelerates the work without taking the consequential decision away from the customer.
-keyMessage: The human remains the approval boundary.
+narrativeRole: Prove that WebMCP can respect customer control without inserting a pointless click into every familiar booking.
+keyMessage: The customer sets the policy once, and the agent stays inside it.
 
 ## Frame 5 — The provider receives the same appointment
 
