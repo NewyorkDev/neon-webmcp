@@ -7,6 +7,8 @@ await mkdir(new URL('../artifacts/screenshots/', import.meta.url), { recursive: 
 
 const browser = await chromium.launch({ headless: true, executablePath, args: ['--enable-blink-features=WebMCP'] });
 const page = await browser.newPage({ viewport: { width: 1440, height: 1000 }, deviceScaleFactor: 1 });
+const pageErrors = [];
+page.on('pageerror', (error) => pageErrors.push(error.message));
 
 try {
   await page.goto(url, { waitUntil: 'networkidle' });
@@ -72,6 +74,7 @@ try {
   };
   await writeFile(new URL('../artifacts/native-webmcp-verification.json', import.meta.url), `${JSON.stringify(artifact, null, 2)}\n`);
   console.log(JSON.stringify(artifact, null, 2));
+  if (pageErrors.length) throw new Error(`Browser page errors: ${pageErrors.join(' | ')}`);
   if (result.toolNames.length !== 15 || signedOutStatus.status !== 'authentication_required' || result.authentication.status !== 'signed_in' || result.authorizationMode !== 'standing_exact_match_permission' || !result.substitutionRequiresCustomerChoice || result.customerProfiles !== 3 || result.previousProviderId !== 'marco-ruiz' || result.rememberedServiceId !== 'signature-cut' || result.rebookingSlotCount !== 2 || result.searchCount < 5 || result.recommendedProviderId !== 'marco-ruiz' || !bookingResult.providerCalendarUpdated || !providerText.includes('Alex Morgan')) process.exitCode = 1;
 } finally {
   await browser.close();

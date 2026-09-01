@@ -14,6 +14,7 @@ const escapeHtml = (value = '') => String(value).replace(/[&<>'"]/g, (char) => (
 let nativeTools = 0;
 let lastError = '';
 let mapInstance = null;
+let mapFrame = null;
 let customerLoggedIn = false;
 let loginOpen = false;
 let customerPage = 'marketplace';
@@ -219,16 +220,23 @@ function runRebookDemo() {
 }
 
 function render(state = engine.getState()) {
+  if (mapFrame !== null) { cancelAnimationFrame(mapFrame); mapFrame = null; }
   if (mapInstance) { mapInstance.remove(); mapInstance = null; }
   root.innerHTML = `${header(state)}${state.role === 'customer' ? (customerPage === 'account' ? customerAccountView(state) : customerView(state)) : providerView(state)}${loginModal(state)}<footer><b>BOOKSY RELOADED</b><span>${t(state, 'Independent WebMCP prototype · Not affiliated with Booksy · No real appointments', 'Prototipo WebMCP independiente · No afiliado con Booksy · Sin citas reales')}</span></footer>`;
   document.documentElement.lang = state.locale;
   bind(state);
-  if (state.role === 'customer' && customerPage === 'marketplace') requestAnimationFrame(() => mountMap(state));
+  if (state.role === 'customer' && customerPage === 'marketplace') {
+    mapFrame = requestAnimationFrame(() => {
+      mapFrame = null;
+      mountMap(state);
+    });
+  }
 }
 
 function mountMap(state) {
   const mapRoot = document.querySelector('#market-map');
   if (!mapRoot) return;
+  if (mapInstance) { mapInstance.remove(); mapInstance = null; }
   const activeCustomer = CUSTOMER_PROFILES.find((item) => item.id === state.customerProfileId) || CUSTOMER_PROFILES[0];
   mapInstance = L.map(mapRoot, { zoomControl: false, attributionControl: true, scrollWheelZoom: false }).setView(activeCustomer.coordinates, 12);
   L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 19, attribution: '&copy; OpenStreetMap contributors' }).addTo(mapInstance);

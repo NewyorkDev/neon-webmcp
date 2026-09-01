@@ -15,6 +15,7 @@ Verified September 1, 2026.
 
 - Fifteen imperative tools register through `document.modelContext.registerTool(...)`.
 - `artifacts/native-webmcp-verification.json` records all fifteen discovered tool names.
+- The verifier fails on browser page errors; the current full workflow completes with none.
 - Customer history is unavailable before site-owned sign-in.
 - The authenticated session exposes only the customer-history, booking-preference, and sandbox-booking scopes.
 - The usual $46 pay-in-person rebooking can proceed under the customer's $50 standing policy.

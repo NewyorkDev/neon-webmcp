@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-09-01T22:26:50.625Z",
+  "generatedAt": "2026-09-01T22:46:33.928Z",
   "browser": "Google Chrome with WebMCP enabled",
-  "url": "http://127.0.0.1:5177/",
+  "url": "http://127.0.0.1:5179/",
   "signedOutStatus": {
     "status": "authentication_required",
     "credentialHandling": "sign_in_on_site_never_share_password_with_agent",
@@ -80,7 +80,7 @@
   "finalBooking": {
     "reference": "BR-MR-0903-1130",
     "status": "confirmed",
-    "createdAt": "2026-09-01T22:26:50.021Z",
+    "createdAt": "2026-09-01T22:46:33.504Z",
     "customer": {
       "id": "alex-morgan",
       "name": "Alex Morgan",
@@ -154,5 +154,5 @@
   },
   "providerCalendarUpdated": true,
   "providerCalendarText": "WEBMCP · JUST NOW\nAlex Morgan\nSignature haircut · 45 min\n11:30 AM · $46 · confirmed",
-  "methodology": "Discovered and invoked the read and planning tools through document.modelContext.getTools() and document.modelContext.executeTool(). Verified authentication_required before the site-owned login, signed_in scope afterward, exact-match standing permission under the customer policy, and an unavailable-provider substitution that requires customer choice. The final sandbox booking was triggered through the visible site control so CI does not depend on host-level consequential-tool approval UI."
+  "methodology": "Discovered and invoked the read and planning tools through document.modelContext.getTools() and document.modelContext.executeTool(). Verified authentication_required before the site-owned login, signed_in scope afterward, exact-match standing permission under the customer policy, and an unavailable-provider substitution that requires customer choice. CI invoked the same final booking handler through the installed project bridge so it does not depend on host-level consequential-tool approval UI."
 }
