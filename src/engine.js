@@ -137,6 +137,10 @@ export function createMarketplaceEngine({ database = createDatabase(), onChange 
         state.booking = null;
         const alternatives = provider.slots.filter((slot) => slot.date !== input.requestedDate).slice(0, 3);
         state.rebookingException = state.availability.length ? null : { provider: { id: provider.id, name: provider.name, business: provider.business }, requestedDate: input.requestedDate, timePreference: input.timePreference || 'any', alternatives };
+        if (!state.availability.length) {
+          state.selectedProviderId = null;
+          state.selectedServiceId = null;
+        }
         value = { customer: { id: customer.id, name: customer.name }, rememberedRelationship: { visits: customer.relationship.visits, lastVisit: customer.relationship.lastVisit, note: customer.relationship.note }, previousProvider: { id: provider.id, name: provider.name, business: provider.business }, previousService: service, requestedDate: input.requestedDate, timePreference: input.timePreference || 'any', slots: state.availability, canBookExactMatchUnderStandingPermission: state.bookingPermission === 'book_exact_matches' && state.availability.length > 0, substitution: state.availability.length ? null : { reason: 'usual_provider_unavailable_in_requested_window', requiresCustomerChoice: true, choices: { sameProviderDifferentTime: alternatives, differentProvider: 'personalize_recommendations' } }, nextBestAction: state.availability.length ? 'select_appointment' : 'ask_customer_about_substitution' };
         break;
       }
