@@ -19,8 +19,8 @@ try {
       return JSON.parse(await document.modelContext.executeTool(tool, JSON.stringify(input)));
     };
     const context = await call('get_marketplace_context');
-    await call('set_marketplace_preferences', { city: 'Tampa', category: 'barber', spokenLanguage: 'Spanish', minimumRating: 4.8, accessibleOnly: false, date: '2026-09-10', interfaceLanguage: 'en' });
-    const search = await call('search_providers', { category: 'barber', spokenLanguage: 'Spanish', minimumRating: 4.8, accessibleOnly: false });
+    const profiles = await call('list_customer_profiles');
+    const search = await call('personalize_recommendations', { customerProfileId: 'alex-morgan', category: '', date: '2026-09-10' });
     const comparison = await call('compare_providers');
     await call('get_provider_profile', { providerId: 'marco-ruiz' });
     const availability = await call('find_service_availability', { providerId: 'marco-ruiz', serviceId: 'signature-cut', date: '2026-09-10' });
@@ -28,7 +28,7 @@ try {
     const review = await call('prepare_booking_review');
     let preApprovalBlocked = false;
     try { await call('request_booking', { confirmed: true }); } catch { preApprovalBlocked = true; }
-    return { toolNames: tools.map((tool) => tool.name).sort(), context, searchCount: search.count, bestRatedProviderId: comparison.bestRatedProviderId, slotCount: availability.slots.length, reviewProviderId: review.review.provider.id, preApprovalBlocked };
+    return { toolNames: tools.map((tool) => tool.name).sort(), context, customerProfiles: profiles.profiles.length, searchCount: search.count, recommendedProviderId: comparison.recommendedProviderId, topMatchScore: comparison.comparison[0].matchScore, slotCount: availability.slots.length, reviewProviderId: review.review.provider.id, preApprovalBlocked };
   });
 
   await page.locator('#approve-button').click();
@@ -57,7 +57,7 @@ try {
   };
   await writeFile(new URL('../artifacts/native-webmcp-verification.json', import.meta.url), `${JSON.stringify(artifact, null, 2)}\n`);
   console.log(JSON.stringify(artifact, null, 2));
-  if (result.toolNames.length !== 10 || !result.preApprovalBlocked || result.searchCount !== 1 || !bookingResult.providerCalendarUpdated || !providerText.includes('Alex Morgan')) process.exitCode = 1;
+  if (result.toolNames.length !== 12 || !result.preApprovalBlocked || result.customerProfiles !== 3 || result.searchCount < 5 || result.recommendedProviderId !== 'marco-ruiz' || !bookingResult.providerCalendarUpdated || !providerText.includes('Alex Morgan')) process.exitCode = 1;
 } finally {
   await browser.close();
 }

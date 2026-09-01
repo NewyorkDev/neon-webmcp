@@ -1,0 +1,84 @@
+[b] NEON
+[button] Business calendar
+[small] CUSTOMER DEMO
+[b] Alex Morgan
+[p] TAMPA · AGENT-READY MARKETPLACE
+[h1] Your next favorite
+[h1] appointment is
+[em] closer.
+[p] Tell your assistant what matters. Neon compares the details and keeps every decision visible.
+[span] What are you looking for?
+[option] Barbers
+[option] Hair
+[option] Nails
+[option] Skin care
+[option] Massage
+[span] Provider language
+[option] English
+[option] Spanish
+[option] Mandarin
+[span] Date
+[button] Find my person
+[b] Try the shared agent flow
+[small] Find a Spanish-speaking Tampa barber rated 4.8+
+[p] EXPLORE
+[h2] Book by mood.
+[p] Five ways to feel more like yourself.
+[b] Barbers
+[b] Hair
+[b] Nails
+[b] Skin care
+[b] Massage
+[p] CURATED IN TAMPA
+[h2] People worth meeting.
+[span] Next 10:30 AM
+[div] 4.96
+[span] (418)
+[h3] Cigar City Cuts
+[p] Marco Ruiz · Ybor City
+[span] English + Spanish
+[span] 2.1 mi
+[strong] From $34
+[button] View times
+[span] Next 11:00 AM
+[div] 4.91
+[span] (286)
+[h3] The Edit Tampa
+[p] Nia Brooks · Hyde Park
+[span] English
+[span] 3.4 mi
+[strong] From $82
+[button] View times
+[span] Next 12:00 PM
+[div] 4.88
+[span] (193)
+[h3] Soft Set Studio
+[p] Mei Chen · Channelside
+[span] English + Mandarin
+[span] 1.6 mi
+[strong] From $68
+[button] View times
+[span] Next 2:30 PM
+[div] 4.93
+[span] (241)
+[h3] Luz Skin Room
+[p] Sofía Alvarez · West Tampa
+[span] English + Spanish
+[span] 4.2 mi
+[strong] From $72
+[button] View times
+[span] Next 4:00 PM
+[div] 4.89
+[span] (167)
+[h3] Palmetto Bodywork
+[p] Darius Cole · Seminole Heights
+[span] English
+[span] 3.8 mi
+[strong] From $110
+[button] View times
+[b] Live WebMCP evidence
+[small] 10 site tools available
+[span] calls
+[span] estimated I/O tokens
+[li] No agent actions yet.
+[span] Experimental WebMCP marketplace · Tampa, Florida · No real appointments

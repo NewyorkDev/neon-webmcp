@@ -1,14 +1,16 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-09-01T05:56:36.108Z",
+  "generatedAt": "2026-09-01T06:12:12.564Z",
   "browser": "Google Chrome with WebMCP enabled",
-  "url": "https://newyorkdev.github.io/neon-webmcp/",
+  "url": "http://127.0.0.1:5175/",
   "toolNames": [
     "compare_providers",
     "find_service_availability",
     "get_booking_status",
     "get_marketplace_context",
     "get_provider_profile",
+    "list_customer_profiles",
+    "personalize_recommendations",
     "prepare_booking_review",
     "request_booking",
     "search_providers",
@@ -27,26 +29,64 @@
       "hair",
       "nails",
       "skincare",
-      "massage"
+      "massage",
+      "medspa"
     ],
-    "nextBestAction": "search_providers",
+    "personalizationSignals": [
+      "goals",
+      "distance",
+      "budget",
+      "review themes",
+      "language",
+      "accessibility",
+      "availability",
+      "new-provider promotions"
+    ],
+    "nextBestAction": "personalize_recommendations",
     "chargesMoney": false,
     "contactsRealProviders": false
   },
-  "searchCount": 1,
-  "bestRatedProviderId": "marco-ruiz",
+  "customerProfiles": 3,
+  "searchCount": 6,
+  "recommendedProviderId": "marco-ruiz",
+  "topMatchScore": 93,
   "slotCount": 3,
   "reviewProviderId": "marco-ruiz",
   "preApprovalBlocked": true,
   "finalBooking": {
     "reference": "NEON-MR-0910-1030",
     "status": "confirmed",
-    "createdAt": "2026-09-01T05:56:35.908Z",
+    "createdAt": "2026-09-01T06:12:12.181Z",
     "customer": {
       "id": "alex-morgan",
       "name": "Alex Morgan",
       "email": "alex@example.test",
-      "phone": "(813) 555-0148"
+      "phone": "(813) 555-0148",
+      "home": "Downtown Tampa",
+      "coordinates": [
+        27.9506,
+        -82.4572
+      ],
+      "headline": "Busy, bilingual, and value conscious",
+      "preferences": {
+        "goals": [
+          "precision fades",
+          "beard design"
+        ],
+        "spokenLanguage": "Spanish",
+        "maxDistanceMiles": 4,
+        "maxPrice": 65,
+        "minimumRating": 4.8,
+        "accessibleOnly": false,
+        "preferredTime": "morning",
+        "priorities": {
+          "specialty": 35,
+          "distance": 25,
+          "value": 20,
+          "trust": 15,
+          "availability": 5
+        }
+      }
     },
     "provider": {
       "id": "marco-ruiz",

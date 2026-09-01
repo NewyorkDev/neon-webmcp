@@ -12,6 +12,7 @@
     "verify:native": "node scripts/verify-native.mjs"
   },
   "dependencies": {
+    "leaflet": "^1.9.4",
     "vite": "8.2.2"
   },
   "devDependencies": {

@@ -12,8 +12,8 @@ function execute() {
   const engine = createMarketplaceEngine({ database: createDatabase(memoryStorage()) });
   const started = performance.now();
   engine.run('get_marketplace_context');
-  engine.run('set_marketplace_preferences', { city: 'Tampa', category: 'barber', spokenLanguage: 'Spanish', minimumRating: 4.8, accessibleOnly: false, date: '2026-09-10', interfaceLanguage: 'en' });
-  engine.run('search_providers', { category: 'barber', spokenLanguage: 'Spanish', minimumRating: 4.8, accessibleOnly: false });
+  engine.run('list_customer_profiles');
+  engine.run('personalize_recommendations', { customerProfileId: 'alex-morgan', category: '', date: '2026-09-10' });
   engine.run('compare_providers');
   engine.run('get_provider_profile', { providerId: 'marco-ruiz' });
   engine.run('find_service_availability', { providerId: 'marco-ruiz', serviceId: 'signature-cut', date: '2026-09-10' });

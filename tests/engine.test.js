@@ -17,6 +17,22 @@ function prepare(engine) {
 }
 
 describe('Neon marketplace engine', () => {
+  it('changes the recommendation for three different customer profiles', () => {
+    const engine = createMarketplaceEngine({ database: createDatabase(memoryStorage()) });
+    const winners = ['alex-morgan', 'jamie-rivera', 'taylor-kim'].map((customerProfileId) => engine.run('personalize_recommendations', { customerProfileId, category: '', date: '2026-09-10' }).recommendations[0].id);
+    expect(winners).toEqual(['marco-ruiz', 'sofia-alvarez', 'mei-chen']);
+  });
+
+  it('keeps a new promoted provider competitive without hiding the short track record', () => {
+    const engine = createMarketplaceEngine({ database: createDatabase(memoryStorage()) });
+    engine.run('personalize_recommendations', { customerProfileId: 'jamie-rivera', category: '', date: '2026-09-10' });
+    const comparison = engine.run('compare_providers');
+    const newcomer = comparison.comparison.find((item) => item.id === 'amaya-patel');
+    expect(newcomer.matchScore).toBeGreaterThan(50);
+    expect(newcomer.reviews).toBe(11);
+    expect(comparison.paidPlacement).toBe(false);
+  });
+
   it('finds the requested bilingual Tampa barber', () => {
     const engine = createMarketplaceEngine({ database: createDatabase(memoryStorage()) });
     const result = engine.run('search_providers', { category: 'barber', spokenLanguage: 'Spanish', minimumRating: 4.8, accessibleOnly: false });

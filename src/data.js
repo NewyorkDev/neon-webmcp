@@ -4,6 +4,7 @@ export const CATEGORIES = [
   { id: 'nails', label: 'Nails', labelEs: 'Uñas', glyph: '✦' },
   { id: 'skincare', label: 'Skin care', labelEs: 'Cuidado facial', glyph: '◌' },
   { id: 'massage', label: 'Massage', labelEs: 'Masaje', glyph: '≈' },
+  { id: 'medspa', label: 'Med spa', labelEs: 'Spa médico', glyph: '◇' },
 ];
 
 export const PROVIDERS = [
@@ -11,6 +12,14 @@ export const PROVIDERS = [
     id: 'marco-ruiz', business: 'Cigar City Cuts', name: 'Marco Ruiz', category: 'barber',
     neighborhood: 'Ybor City', distance: 2.1, rating: 4.96, reviews: 418,
     languages: ['English', 'Spanish'], accessible: true, image: './images/marco-ruiz.png',
+    coordinates: [27.9601, -82.4421], priceLevel: 1,
+    specialties: ['precision fades', 'beard design', 'sensory-friendly appointments', 'first-time consultations'],
+    amenities: ['Free parking', 'Quiet appointments', 'Wheelchair accessible'],
+    reviewThemes: [
+      { theme: 'listens carefully', mentions: 96, sentiment: 0.98 },
+      { theme: 'excellent fades', mentions: 141, sentiment: 0.99 },
+      { theme: 'welcoming in Spanish', mentions: 73, sentiment: 0.99 },
+    ],
     accent: '#c8ff35', bio: 'Precision fades, classic cuts, and straight-razor detail in a relaxed neighborhood studio.',
     bioEs: 'Desvanecidos precisos, cortes clásicos y detalles con navaja en un estudio relajado del vecindario.',
     cancellation: 'Free cancellation up to 12 hours before the appointment.',
@@ -30,6 +39,14 @@ export const PROVIDERS = [
     id: 'nia-brooks', business: 'The Edit Tampa', name: 'Nia Brooks', category: 'hair',
     neighborhood: 'Hyde Park', distance: 3.4, rating: 4.91, reviews: 286,
     languages: ['English'], accessible: true, image: './images/nia-brooks.png',
+    coordinates: [27.9367, -82.4852], priceLevel: 2,
+    specialties: ['healthy hair', 'texture expertise', 'low-maintenance styling', 'detailed consultations'],
+    amenities: ['Wheelchair accessible', 'Fragrance-light products', 'Online consultation notes'],
+    reviewThemes: [
+      { theme: 'protects hair health', mentions: 112, sentiment: 0.98 },
+      { theme: 'explains every step', mentions: 84, sentiment: 0.97 },
+      { theme: 'styles last for days', mentions: 76, sentiment: 0.96 },
+    ],
     accent: '#d9c7ff', bio: 'Healthy-hair specialist known for silk presses, dimensional styling, and thoughtful consultations.',
     bioEs: 'Especialista en cabello saludable, alisados, peinados con dimensión y consultas detalladas.',
     cancellation: 'Free cancellation up to 24 hours before the appointment.',
@@ -46,6 +63,14 @@ export const PROVIDERS = [
     id: 'mei-chen', business: 'Soft Set Studio', name: 'Mei Chen', category: 'nails',
     neighborhood: 'Channelside', distance: 1.6, rating: 4.88, reviews: 193,
     languages: ['English', 'Mandarin'], accessible: true, image: './images/mei-chen.png',
+    coordinates: [27.9442, -82.4478], priceLevel: 2,
+    specialties: ['natural nail health', 'minimal nail art', 'private appointments', 'sensitive skin'],
+    amenities: ['One client at a time', 'Low-odor products', 'Wheelchair accessible'],
+    reviewThemes: [
+      { theme: 'calm private studio', mentions: 81, sentiment: 0.99 },
+      { theme: 'meticulous detail', mentions: 103, sentiment: 0.98 },
+      { theme: 'gentle technique', mentions: 67, sentiment: 0.98 },
+    ],
     accent: '#ff8b7b', bio: 'Detailed natural-nail care and modern art in a calm, one-client-at-a-time studio.',
     bioEs: 'Cuidado detallado de uñas naturales y arte moderno en un estudio tranquilo y privado.',
     cancellation: 'Free cancellation up to 12 hours before the appointment.',
@@ -62,6 +87,14 @@ export const PROVIDERS = [
     id: 'sofia-alvarez', business: 'Luz Skin Room', name: 'Sofía Alvarez', category: 'skincare',
     neighborhood: 'West Tampa', distance: 4.2, rating: 4.93, reviews: 241,
     languages: ['English', 'Spanish'], accessible: true, image: './images/sofia-alvarez.png',
+    coordinates: [27.9568, -82.5008], priceLevel: 2,
+    specialties: ['barrier repair', 'acne support', 'sensitive skin', 'simple home routines'],
+    amenities: ['Wheelchair accessible', 'Bilingual consultations', 'Unscented treatment option'],
+    reviewThemes: [
+      { theme: 'never oversells products', mentions: 92, sentiment: 0.99 },
+      { theme: 'great with sensitive skin', mentions: 88, sentiment: 0.98 },
+      { theme: 'clear bilingual guidance', mentions: 61, sentiment: 0.99 },
+    ],
     accent: '#d9c7ff', bio: 'Bilingual esthetician offering barrier-first facials and clear, practical home-care guidance.',
     bioEs: 'Esteticista bilingüe que ofrece faciales enfocados en la barrera de la piel y consejos prácticos.',
     cancellation: 'Free cancellation up to 24 hours before the appointment.',
@@ -78,6 +111,14 @@ export const PROVIDERS = [
     id: 'darius-cole', business: 'Palmetto Bodywork', name: 'Darius Cole', category: 'massage',
     neighborhood: 'Seminole Heights', distance: 3.8, rating: 4.89, reviews: 167,
     languages: ['English'], accessible: false, image: './images/darius-cole.png',
+    coordinates: [27.9922, -82.4596], priceLevel: 3,
+    specialties: ['desk tension', 'athletic recovery', 'deep tissue', 'quiet sessions'],
+    amenities: ['Free parking', 'Heated table', 'Silent-session option'],
+    reviewThemes: [
+      { theme: 'finds the source of tension', mentions: 79, sentiment: 0.98 },
+      { theme: 'strong pressure', mentions: 64, sentiment: 0.97 },
+      { theme: 'calm and professional', mentions: 72, sentiment: 0.99 },
+    ],
     accent: '#c8ff35', bio: 'Restorative bodywork for desk tension, training recovery, and a quieter nervous system.',
     bioEs: 'Masaje restaurativo para tensión de oficina, recuperación física y un sistema nervioso más tranquilo.',
     cancellation: 'Free cancellation up to 24 hours before the appointment.',
@@ -90,8 +131,56 @@ export const PROVIDERS = [
       { id: 'dc-0912-1130', date: '2026-09-12', time: '11:30 AM' },
     ],
   },
+  {
+    id: 'amaya-patel', business: 'Gulf Glow Med Spa', name: 'Amaya Patel', category: 'medspa',
+    neighborhood: 'Tampa Heights', distance: 2.8, rating: 4.82, reviews: 11,
+    languages: ['English', 'Spanish'], accessible: true, image: './images/amaya-patel.png',
+    coordinates: [27.9689, -82.4632], priceLevel: 1, isNew: true,
+    promotion: { label: 'New client launch offer', detail: '$59 consultation and express hydrafacial', expires: '2026-09-30' },
+    specialties: ['hydration facials', 'first-time med spa guidance', 'sensitive skin', 'budget-friendly plans'],
+    amenities: ['Wheelchair accessible', 'Bilingual consultations', 'Free parking'],
+    reviewThemes: [
+      { theme: 'takes time to explain options', mentions: 7, sentiment: 1 },
+      { theme: 'comfortable first med spa visit', mentions: 6, sentiment: 1 },
+      { theme: 'transparent pricing', mentions: 8, sentiment: 0.99 },
+    ],
+    accent: '#ff806f',
+    bio: 'A new neighborhood med spa focused on transparent pricing, first-visit education, and gentle hydration treatments.',
+    bioEs: 'Un nuevo spa médico enfocado en precios transparentes, educación para la primera visita y tratamientos suaves de hidratación.',
+    cancellation: 'Free cancellation up to 12 hours before the appointment.',
+    services: [
+      { id: 'launch-hydrafacial', name: 'Launch hydrafacial offer', nameEs: 'Oferta de hydrafacial', duration: 45, price: 59, regularPrice: 95 },
+      { id: 'skin-consult', name: 'Skin goals consultation', nameEs: 'Consulta de objetivos de piel', duration: 30, price: 35 },
+      { id: 'hydration-reset', name: 'Hydration reset facial', nameEs: 'Facial de hidratación', duration: 60, price: 89 },
+    ],
+    slots: [
+      { id: 'ap-0910-0930', date: '2026-09-10', time: '9:30 AM' },
+      { id: 'ap-0910-1230', date: '2026-09-10', time: '12:30 PM' },
+      { id: 'ap-0910-1500', date: '2026-09-10', time: '3:00 PM' },
+      { id: 'ap-0911-1100', date: '2026-09-11', time: '11:00 AM' },
+    ],
+  },
 ];
 
-export const DEMO_CUSTOMER = {
-  id: 'alex-morgan', name: 'Alex Morgan', email: 'alex@example.test', phone: '(813) 555-0148',
-};
+export const CUSTOMER_PROFILES = [
+  {
+    id: 'alex-morgan', name: 'Alex Morgan', email: 'alex@example.test', phone: '(813) 555-0148',
+    home: 'Downtown Tampa', coordinates: [27.9506, -82.4572],
+    headline: 'Busy, bilingual, and value conscious',
+    preferences: { goals: ['precision fades', 'beard design'], spokenLanguage: 'Spanish', maxDistanceMiles: 4, maxPrice: 65, minimumRating: 4.8, accessibleOnly: false, preferredTime: 'morning', priorities: { specialty: 35, distance: 25, value: 20, trust: 15, availability: 5 } },
+  },
+  {
+    id: 'jamie-rivera', name: 'Jamie Rivera', email: 'jamie@example.test', phone: '(813) 555-0183',
+    home: 'West Tampa', coordinates: [27.9587, -82.4893],
+    headline: 'Sensitive skin, Spanish guidance, no hard sell',
+    preferences: { goals: ['sensitive skin', 'barrier repair', 'simple home routines'], spokenLanguage: 'Spanish', maxDistanceMiles: 6, maxPrice: 120, minimumRating: 4.85, accessibleOnly: true, preferredTime: 'afternoon', priorities: { specialty: 40, distance: 10, value: 10, trust: 30, availability: 10 } },
+  },
+  {
+    id: 'taylor-kim', name: 'Taylor Kim', email: 'taylor@example.test', phone: '(813) 555-0116',
+    home: 'Channelside', coordinates: [27.9453, -82.4497],
+    headline: 'Quiet experience and meticulous care',
+    preferences: { goals: ['private appointments', 'natural nail health', 'gentle technique'], spokenLanguage: '', maxDistanceMiles: 3, maxPrice: 85, minimumRating: 4.75, accessibleOnly: true, preferredTime: 'midday', priorities: { specialty: 30, distance: 30, value: 10, trust: 20, availability: 10 } },
+  },
+];
+
+export const DEMO_CUSTOMER = CUSTOMER_PROFILES[0];

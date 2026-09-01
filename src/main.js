@@ -1,5 +1,7 @@
 import './styles.css';
-import { CATEGORIES, PROVIDERS } from './data.js';
+import 'leaflet/dist/leaflet.css';
+import L from 'leaflet';
+import { CATEGORIES, CUSTOMER_PROFILES, PROVIDERS } from './data.js';
 import { createMarketplaceEngine } from './engine.js';
 import { installWebMcp, TOOL_DEFINITIONS } from './webmcp.js';
 
@@ -11,6 +13,7 @@ const escapeHtml = (value = '') => String(value).replace(/[&<>'"]/g, (char) => (
 
 let nativeTools = 0;
 let lastError = '';
+let mapInstance = null;
 const engine = createMarketplaceEngine({ onChange: render });
 
 function icon(name) {
@@ -28,12 +31,15 @@ function icon(name) {
 function providerCard(provider, state) {
   const full = PROVIDERS.find((item) => item.id === provider.id) || provider;
   return `<article class="provider-card" data-provider="${provider.id}">
-    <div class="provider-photo"><img src="${full.image}" alt="Fictional provider ${escapeHtml(full.name)}"><span class="next-pill">${t(state, 'Next', 'Próximo')} ${full.slots[0].time}</span></div>
+    <div class="provider-photo"><img src="${full.image}" alt="Fictional provider ${escapeHtml(full.name)}"><span class="next-pill">${t(state, 'Next', 'Próximo')} ${full.slots[0].time}</span>${provider.matchScore != null ? `<strong class="match-score">${provider.matchScore}% ${t(state, 'fit', 'compatible')}</strong>` : ''}${full.isNew ? `<span class="new-provider">${t(state, 'NEW PROVIDER', 'NUEVO')}</span>` : ''}</div>
     <div class="provider-copy">
       <div class="rating">${icon('star')} ${full.rating} <span>(${full.reviews})</span></div>
       <h3>${escapeHtml(full.business)}</h3>
       <p>${escapeHtml(full.name)} · ${full.neighborhood}</p>
-      <div class="provider-meta"><span>${full.languages.join(' + ')}</span><span>${full.distance} mi</span></div>
+      <div class="specialty-row">${full.specialties.slice(0, 2).map((item) => `<span>${escapeHtml(item)}</span>`).join('')}</div>
+      ${provider.reasons?.length ? `<p class="match-reason">${icon('check')} ${escapeHtml(provider.reasons[0])}</p>` : ''}
+      ${full.promotion ? `<div class="promotion"><b>${escapeHtml(full.promotion.label)}</b><span>${escapeHtml(full.promotion.detail)}</span></div>` : ''}
+      <div class="provider-meta"><span>${full.languages.join(' + ')}</span><span>${provider.distance ?? full.distance} mi</span></div>
       <div class="card-bottom"><strong>${t(state, 'From', 'Desde')} ${money(Math.min(...full.services.map((item) => item.price)))}</strong><button data-open="${provider.id}">${t(state, 'View times', 'Ver horarios')} ${icon('arrow')}</button></div>
     </div>
   </article>`;
@@ -49,13 +55,14 @@ function customerView(state) {
       <p class="eyebrow">TAMPA · ${t(state, 'AGENT-READY MARKETPLACE', 'MERCADO PARA AGENTES')}</p>
       <h1>${t(state, 'Your next favorite<br>appointment is <em>closer.</em>', 'Tu próxima cita<br>favorita está <em>cerca.</em>')}</h1>
       <p class="hero-lede">${t(state, 'Tell your assistant what matters. Neon compares the details and keeps every decision visible.', 'Dile a tu asistente lo que importa. Neon compara los detalles y mantiene cada decisión visible.')}</p>
+      <div class="persona-switcher"><span>${t(state, 'SEE THE SAME MARKET THROUGH:', 'VER EL MISMO MERCADO COMO:')}</span>${CUSTOMER_PROFILES.map((customer) => `<button data-customer="${customer.id}" class="${state.customerProfileId === customer.id ? 'active' : ''}"><b>${customer.name}</b><small>${customer.headline}</small></button>`).join('')}</div>
       <div class="search-shell">
-        <label><span>${t(state, 'What are you looking for?', '¿Qué estás buscando?')}</span><select id="category-select">${CATEGORIES.map((category) => `<option value="${category.id}" ${category.id === state.preferences.category ? 'selected' : ''}>${state.locale === 'es' ? category.labelEs : category.label}</option>`).join('')}</select></label>
-        <label><span>${t(state, 'Provider language', 'Idioma del profesional')}</span><select id="language-select"><option>English</option><option ${state.preferences.spokenLanguage === 'Spanish' ? 'selected' : ''}>Spanish</option><option>Mandarin</option></select></label>
+        <label><span>${t(state, 'What are you looking for?', '¿Qué estás buscando?')}</span><select id="category-select"><option value="">${t(state, 'Best fit across services', 'Mejor opción entre servicios')}</option>${CATEGORIES.map((category) => `<option value="${category.id}" ${category.id === state.preferences.category ? 'selected' : ''}>${state.locale === 'es' ? category.labelEs : category.label}</option>`).join('')}</select></label>
+        <label><span>${t(state, 'Provider language', 'Idioma del profesional')}</span><select id="language-select"><option value="">${t(state, 'Any language', 'Cualquier idioma')}</option><option>English</option><option ${state.preferences.spokenLanguage === 'Spanish' ? 'selected' : ''}>Spanish</option><option>Mandarin</option></select></label>
         <label><span>${t(state, 'Date', 'Fecha')}</span><input id="date-input" type="date" value="${state.preferences.date}"></label>
         <button id="search-button" class="search-button">${t(state, 'Find my person', 'Encontrar profesional')} ${icon('arrow')}</button>
       </div>
-      <button id="agent-demo" class="agent-prompt"><span class="agent-dot"></span><b>${t(state, 'Try the shared agent flow', 'Probar el flujo compartido')}</b><small>${t(state, 'Find a Spanish-speaking Tampa barber rated 4.8+', 'Buscar un barbero en Tampa que hable español con 4.8+')}</small></button>
+        <button id="agent-demo" class="agent-prompt"><span class="agent-dot"></span><b>${t(state, 'Run the personalized agent flow', 'Probar el flujo personalizado')}</b><small>${t(state, 'Rank six providers for Alex, explain the winner, then prepare a booking', 'Comparar seis profesionales, explicar el ganador y preparar una cita')}</small></button>
     </section>
 
     <section class="category-section page-width">
@@ -64,7 +71,9 @@ function customerView(state) {
     </section>
 
     <section class="providers-section page-width" id="providers">
-      <div class="section-head"><div><p class="eyebrow dark">${t(state, 'CURATED IN TAMPA', 'SELECCIONADOS EN TAMPA')}</p><h2>${state.results.length ? t(state, `${state.results.length} matches for you.`, `${state.results.length} resultados para ti.`) : t(state, 'People worth meeting.', 'Profesionales que vale la pena conocer.')}</h2></div>${state.comparison ? `<div class="comparison-badge">${icon('check')} ${t(state, 'Agent compared rating, price, distance and language', 'El agente comparó calificación, precio, distancia e idioma')}</div>` : ''}</div>
+      <div class="section-head"><div><p class="eyebrow dark">${t(state, 'EXPLAINABLE FIT · NO PAID PLACEMENT', 'COMPATIBILIDAD EXPLICABLE')}</p><h2>${state.results.length ? t(state, `${state.results.length} personalized matches.`, `${state.results.length} resultados personalizados.`) : t(state, 'People worth meeting.', 'Profesionales que vale la pena conocer.')}</h2></div>${state.comparison ? `<div class="comparison-badge">${icon('check')} ${t(state, 'Goals, distance, value, trust and availability compared', 'Objetivos, distancia, valor y disponibilidad comparados')}</div>` : ''}</div>
+      <div class="market-map-shell"><div><b>${t(state, 'Proximity changes the answer', 'La proximidad cambia el resultado')}</b><span>${t(state, 'OpenStreetMap and Leaflet, no location API key required', 'OpenStreetMap y Leaflet, sin clave requerida')}</span></div><div id="market-map" aria-label="Map of fictional Tampa providers"></div></div>
+      ${state.comparison ? comparisonView(state) : ''}
       <div class="provider-grid">${results.map((item) => providerCard(item, state)).join('')}</div>
     </section>
 
@@ -74,6 +83,8 @@ function customerView(state) {
       <div class="profile-content">
         <p class="eyebrow dark">${provider.languages.join(' · ')}</p><h2>${provider.business}</h2><div class="profile-rating">${icon('star')} <b>${provider.rating}</b> from ${provider.reviews} ${t(state, 'reviews', 'reseñas')}</div>
         <p class="profile-bio">${state.locale === 'es' ? provider.bioEs : provider.bio}</p>
+        <div class="profile-proof"><div><b>${t(state, 'Specializes in', 'Especialidades')}</b>${provider.specialties.map((item) => `<span>${escapeHtml(item)}</span>`).join('')}</div><div><b>${t(state, 'Review themes', 'Temas en reseñas')}</b>${provider.reviewThemes.map((item) => `<span>“${escapeHtml(item.theme)}” · ${item.mentions}</span>`).join('')}</div></div>
+        ${provider.promotion ? `<div class="profile-promo"><b>${escapeHtml(provider.promotion.label)}</b><span>${escapeHtml(provider.promotion.detail)} · ${t(state, 'Regular pricing shown transparently', 'Precio regular visible')}</span></div>` : ''}
         <h3>${t(state, 'Choose a service', 'Elige un servicio')}</h3>
         <div class="service-list">${provider.services.map((item) => `<button data-service="${item.id}" class="${item.id === state.selectedServiceId ? 'selected' : ''}"><span><b>${state.locale === 'es' ? item.nameEs : item.name}</b><small>${item.duration} min</small></span><strong>${money(item.price)}</strong></button>`).join('')}</div>
         ${state.availability.length ? `<div class="slots"><h3>${t(state, 'Available times', 'Horarios disponibles')}</h3>${state.availability.map((slot) => `<button data-slot="${slot.id}" class="${slot.id === state.selectedSlotId ? 'selected' : ''}"><small>${dateLabel(slot.date, state.locale)}</small><b>${slot.time}</b></button>`).join('')}</div>` : service ? `<p class="loading-line">${t(state, 'Checking available times...', 'Buscando horarios disponibles...')}</p>` : ''}
@@ -85,6 +96,10 @@ function customerView(state) {
     ${state.booking ? successView(state) : ''}
     ${activityPanel(state)}
   </main>`;
+}
+
+function comparisonView(state) {
+  return `<div class="fit-ledger"><div class="fit-ledger-head"><div><p class="eyebrow dark">${t(state, 'WHY THIS ORDER', 'POR QUÉ ESTE ORDEN')}</p><h3>${t(state, 'The same six providers, ranked for this person.', 'Los mismos seis profesionales, clasificados para esta persona.')}</h3></div><span>${t(state, 'Deterministic fit score', 'Puntuación verificable')}</span></div><div class="fit-table">${state.comparison.map((item, index) => `<article><b class="rank">0${index + 1}</b><div><strong>${escapeHtml(item.business)}</strong><small>${escapeHtml(item.reasons.slice(0, 2).join(' · '))}</small>${item.tradeoffs.length ? `<em>${escapeHtml(item.tradeoffs[0])}</em>` : '<em>No major constraint conflicts</em>'}</div><div class="score-stack"><b>${item.matchScore}%</b><span>S ${item.scoreBreakdown.specialty} · D ${item.scoreBreakdown.distance} · V ${item.scoreBreakdown.value} · T ${item.scoreBreakdown.trust}</span></div></article>`).join('')}</div></div>`;
 }
 
 function reviewView(state) {
@@ -122,7 +137,8 @@ function header(state) {
 function bind(state) {
   root.querySelectorAll('[data-role]').forEach((button) => button.addEventListener('click', () => engine.setRole(button.dataset.role)));
   root.querySelector('#locale-button')?.addEventListener('click', () => engine.setLocale(state.locale === 'en' ? 'es' : 'en'));
-  root.querySelector('#search-button')?.addEventListener('click', () => safeRun('search_providers', { category: root.querySelector('#category-select').value, spokenLanguage: root.querySelector('#language-select').value, minimumRating: 4.8, accessibleOnly: false }));
+  root.querySelectorAll('[data-customer]').forEach((button) => button.addEventListener('click', () => { safeRun('personalize_recommendations', { customerProfileId: button.dataset.customer, category: '', date: state.preferences.date }); safeRun('compare_providers', {}); }));
+  root.querySelector('#search-button')?.addEventListener('click', () => { safeRun('personalize_recommendations', { customerProfileId: state.customerProfileId, category: root.querySelector('#category-select').value, spokenLanguage: root.querySelector('#language-select').value, date: root.querySelector('#date-input').value }); safeRun('compare_providers', {}); });
   root.querySelectorAll('[data-category]').forEach((button) => button.addEventListener('click', () => safeRun('search_providers', { category: button.dataset.category, spokenLanguage: '', minimumRating: 4.5, accessibleOnly: false })));
   root.querySelectorAll('[data-open]').forEach((button) => button.addEventListener('click', () => safeRun('get_provider_profile', { providerId: button.dataset.open })));
   root.querySelector('#close-profile')?.addEventListener('click', () => { engine.run('set_marketplace_preferences', state.preferences); });
@@ -142,8 +158,7 @@ function safeRun(name, input = {}) {
 }
 
 function runGuidedDemo() {
-  safeRun('set_marketplace_preferences', { city: 'Tampa', category: 'barber', spokenLanguage: 'Spanish', minimumRating: 4.8, accessibleOnly: false, date: '2026-09-10' });
-  safeRun('search_providers', { category: 'barber', spokenLanguage: 'Spanish', minimumRating: 4.8, accessibleOnly: false });
+  safeRun('personalize_recommendations', { customerProfileId: 'alex-morgan', category: '', date: '2026-09-10' });
   safeRun('compare_providers', {});
   safeRun('get_provider_profile', { providerId: 'marco-ruiz' });
   safeRun('find_service_availability', { providerId: 'marco-ruiz', serviceId: 'signature-cut', date: '2026-09-10' });
@@ -153,9 +168,25 @@ function runGuidedDemo() {
 }
 
 function render(state = engine.getState()) {
+  if (mapInstance) { mapInstance.remove(); mapInstance = null; }
   root.innerHTML = `${header(state)}${state.role === 'customer' ? customerView(state) : providerView(state)}<footer><b>NEON</b><span>${t(state, 'Experimental WebMCP marketplace · Tampa, Florida · No real appointments', 'Mercado WebMCP experimental · Tampa, Florida · Sin citas reales')}</span></footer>`;
   document.documentElement.lang = state.locale;
   bind(state);
+  if (state.role === 'customer') requestAnimationFrame(() => mountMap(state));
+}
+
+function mountMap(state) {
+  const mapRoot = document.querySelector('#market-map');
+  if (!mapRoot) return;
+  const activeCustomer = CUSTOMER_PROFILES.find((item) => item.id === state.customerProfileId) || CUSTOMER_PROFILES[0];
+  mapInstance = L.map(mapRoot, { zoomControl: false, attributionControl: true, scrollWheelZoom: false }).setView(activeCustomer.coordinates, 12);
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 19, attribution: '&copy; OpenStreetMap contributors' }).addTo(mapInstance);
+  L.circleMarker(activeCustomer.coordinates, { radius: 10, color: '#171717', weight: 4, fillColor: '#c8ff35', fillOpacity: 1 }).addTo(mapInstance).bindTooltip(`${activeCustomer.name} · ${activeCustomer.home}`);
+  const visible = state.results.length ? state.results : PROVIDERS;
+  visible.forEach((result, index) => {
+    const provider = PROVIDERS.find((item) => item.id === result.id) || result;
+    L.circleMarker(provider.coordinates, { radius: result.matchScore ? 7 + result.matchScore / 20 : 9, color: '#171717', weight: 3, fillColor: index === 0 && state.results.length ? '#ff806f' : provider.accent, fillOpacity: 0.95 }).addTo(mapInstance).bindTooltip(`${provider.business} · ${result.matchScore ?? 'Unranked'}${result.matchScore ? '% fit' : ''}`);
+  });
 }
 
 render();

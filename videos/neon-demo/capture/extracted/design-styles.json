@@ -1,0 +1,300 @@
+{
+  "typography": [
+    {
+      "role": "display",
+      "fontFamily": "Syne",
+      "fontSize": "90px",
+      "fontWeight": "700",
+      "lineHeight": "83.7px",
+      "letterSpacing": "-4.95px",
+      "color": "#FFFFFF",
+      "sampleText": "Your next favoriteappointment is closer."
+    },
+    {
+      "role": "heading",
+      "fontFamily": "Syne",
+      "fontSize": "58px",
+      "fontWeight": "700",
+      "lineHeight": "58px",
+      "letterSpacing": "-2.32px",
+      "color": "#171717",
+      "sampleText": "Book by mood."
+    },
+    {
+      "role": "heading-3",
+      "fontFamily": "Syne",
+      "fontSize": "24px",
+      "fontWeight": "700",
+      "lineHeight": "normal",
+      "letterSpacing": "normal",
+      "color": "#171717",
+      "sampleText": "Cigar City Cuts"
+    },
+    {
+      "role": "body",
+      "fontFamily": "DM Sans",
+      "fontSize": "17px",
+      "fontWeight": "400",
+      "lineHeight": "27.2px",
+      "letterSpacing": "normal",
+      "color": "#C9C7C1",
+      "sampleText": "Tell your assistant what matters. Neon compares the details "
+    },
+    {
+      "role": "link",
+      "fontFamily": "Syne",
+      "fontSize": "16px",
+      "fontWeight": "400",
+      "lineHeight": "normal",
+      "letterSpacing": "1.92px",
+      "color": "#171717",
+      "sampleText": "NNEON"
+    },
+    {
+      "role": "body-small",
+      "fontFamily": "DM Sans",
+      "fontSize": "10px",
+      "fontWeight": "400",
+      "lineHeight": "normal",
+      "letterSpacing": "normal",
+      "color": "#AAA8A2",
+      "sampleText": "Find a Spanish-speaking Tampa barber rated 4.8+"
+    }
+  ],
+  "spacing": {
+    "observed": [
+      1,
+      4,
+      5,
+      6,
+      7,
+      9,
+      10,
+      12,
+      14,
+      16,
+      18,
+      20,
+      22,
+      28,
+      30
+    ],
+    "baseUnit": 4
+  },
+  "radius": [
+    "14px",
+    "20px",
+    "22px"
+  ],
+  "shadows": [
+    {
+      "value": "rgba(23, 23, 23, 0.14) 0px 20px 70px 0px",
+      "count": 1
+    }
+  ],
+  "buttons": [
+    {
+      "label": "ES",
+      "background": "#FFFFFF",
+      "backgroundImage": "",
+      "backdropFilter": "",
+      "color": "#000000",
+      "padding": "0px 14px",
+      "borderRadius": "14px",
+      "border": "1px solid rgb(216, 211, 200)",
+      "boxShadow": "none",
+      "fontSize": "16px",
+      "fontWeight": "700",
+      "height": "46px"
+    },
+    {
+      "label": "Find my person",
+      "background": "#C8FF35",
+      "backgroundImage": "",
+      "backdropFilter": "",
+      "color": "#000000",
+      "padding": "0px 23px",
+      "borderRadius": "12px",
+      "border": "0px none rgb(0, 0, 0)",
+      "boxShadow": "none",
+      "fontSize": "16px",
+      "fontWeight": "800",
+      "height": "63px"
+    },
+    {
+      "label": "Try the shared agent flowFind a Spanish-",
+      "background": "#232321",
+      "backgroundImage": "",
+      "backdropFilter": "",
+      "color": "#FFFFFF",
+      "padding": "11px 17px",
+      "borderRadius": "14px",
+      "border": "1px solid rgb(74, 74, 72)",
+      "boxShadow": "none",
+      "fontSize": "16px",
+      "fontWeight": "400",
+      "height": "53px"
+    },
+    {
+      "label": "✂Barbers",
+      "background": "#C8FF35",
+      "backgroundImage": "",
+      "backdropFilter": "",
+      "color": "#000000",
+      "padding": "22px",
+      "borderRadius": "20px",
+      "border": "0px none rgb(0, 0, 0)",
+      "boxShadow": "none",
+      "fontSize": "16px",
+      "fontWeight": "400",
+      "height": "180px"
+    },
+    {
+      "label": "⌁Hair",
+      "background": "#D9C7FF",
+      "backgroundImage": "",
+      "backdropFilter": "",
+      "color": "#000000",
+      "padding": "22px",
+      "borderRadius": "20px",
+      "border": "0px none rgb(0, 0, 0)",
+      "boxShadow": "none",
+      "fontSize": "16px",
+      "fontWeight": "400",
+      "height": "180px"
+    },
+    {
+      "label": "✦Nails",
+      "background": "#FF806F",
+      "backgroundImage": "",
+      "backdropFilter": "",
+      "color": "#000000",
+      "padding": "22px",
+      "borderRadius": "20px",
+      "border": "0px none rgb(0, 0, 0)",
+      "boxShadow": "none",
+      "fontSize": "16px",
+      "fontWeight": "400",
+      "height": "180px"
+    }
+  ],
+  "cards": [
+    {
+      "label": "card",
+      "background": "#C8FF35",
+      "backgroundImage": "",
+      "backdropFilter": "",
+      "color": "#000000",
+      "padding": "22px",
+      "borderRadius": "20px",
+      "border": "0px none rgb(0, 0, 0)",
+      "boxShadow": "none",
+      "fontSize": "16px",
+      "fontWeight": "400",
+      "height": "180px"
+    },
+    {
+      "label": "card",
+      "background": "#D9C7FF",
+      "backgroundImage": "",
+      "backdropFilter": "",
+      "color": "#000000",
+      "padding": "22px",
+      "borderRadius": "20px",
+      "border": "0px none rgb(0, 0, 0)",
+      "boxShadow": "none",
+      "fontSize": "16px",
+      "fontWeight": "400",
+      "height": "180px"
+    },
+    {
+      "label": "card",
+      "background": "#FF806F",
+      "backgroundImage": "",
+      "backdropFilter": "",
+      "color": "#000000",
+      "padding": "22px",
+      "borderRadius": "20px",
+      "border": "0px none rgb(0, 0, 0)",
+      "boxShadow": "none",
+      "fontSize": "16px",
+      "fontWeight": "400",
+      "height": "180px"
+    },
+    {
+      "label": "card",
+      "background": "#DEDBD2",
+      "backgroundImage": "",
+      "backdropFilter": "",
+      "color": "#000000",
+      "padding": "22px",
+      "borderRadius": "20px",
+      "border": "0px none rgb(0, 0, 0)",
+      "boxShadow": "none",
+      "fontSize": "16px",
+      "fontWeight": "400",
+      "height": "180px"
+    }
+  ],
+  "nav": {
+    "label": "navigation",
+    "background": "#FFFDF8",
+    "backgroundImage": "",
+    "backdropFilter": "",
+    "color": "#171717",
+    "padding": "0px 36px",
+    "borderRadius": "0px",
+    "border": "",
+    "boxShadow": "none",
+    "fontSize": "16px",
+    "fontWeight": "400",
+    "height": "82px"
+  },
+  "chips": [
+    {
+      "label": "Next 10:30 AM",
+      "background": "#FFFFFF",
+      "color": "#171717",
+      "padding": "7px 11px",
+      "borderRadius": "30px",
+      "border": "0px none rgb(23, 23, 23)",
+      "boxShadow": "none",
+      "fontSize": "10px",
+      "fontWeight": "700",
+      "height": "27px"
+    },
+    {
+      "label": "N",
+      "background": "#C8FF35",
+      "color": "#171717",
+      "padding": "0px",
+      "borderRadius": "50%",
+      "border": "0px none rgb(23, 23, 23)",
+      "boxShadow": "none",
+      "fontSize": "16px",
+      "fontWeight": "800",
+      "height": "34px"
+    },
+    {
+      "label": "English + Spanish",
+      "background": "#EEEAE2",
+      "color": "#171717",
+      "padding": "5px 8px",
+      "borderRadius": "20px",
+      "border": "0px none rgb(23, 23, 23)",
+      "boxShadow": "none",
+      "fontSize": "10px",
+      "fontWeight": "400",
+      "height": "23px"
+    }
+  ],
+  "statCells": [],
+  "tabs": [],
+  "backgrounds": [
+    {
+      "value": "linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.35))",
+      "area": 634660
+    }
+  ],
+  "glass": []
+}

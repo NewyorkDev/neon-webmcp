@@ -1,13 +1,13 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-09-01T05:55:10.370Z",
+  "generatedAt": "2026-09-01T06:10:41.878Z",
   "methodology": "One warm-up plus 25 deterministic engine runs. Timings exclude rendering, networking, native WebMCP transport, and model inference. Token figures are ceil(JSON characters / 4) over serialized tool inputs and outputs, not provider-billed model tokens.",
   "iterations": 25,
   "successful": 25,
-  "medianElapsedMs": 0.129,
-  "p95ElapsedMs": 0.177,
+  "medianElapsedMs": 0.454,
+  "p95ElapsedMs": 0.645,
   "calls": 9,
-  "estimatedInputTokens": 115,
-  "estimatedOutputTokens": 1008,
-  "estimatedCombinedTokens": 1123
+  "estimatedInputTokens": 73,
+  "estimatedOutputTokens": 4267,
+  "estimatedCombinedTokens": 4340
 }

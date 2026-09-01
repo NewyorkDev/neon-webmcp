@@ -1,8 +1,9 @@
-import { DEMO_CUSTOMER, PROVIDERS } from './data.js';
+import { CUSTOMER_PROFILES, DEMO_CUSTOMER, PROVIDERS } from './data.js';
 import { createDatabase } from './database.js';
 
 export const initialState = {
   role: 'customer', locale: 'en',
+  customerProfileId: 'alex-morgan',
   preferences: { city: 'Tampa', category: 'barber', spokenLanguage: 'Spanish', minimumRating: 4.8, accessibleOnly: false, date: '2026-09-10' },
   results: [], comparison: null, selectedProviderId: null, selectedServiceId: null,
   availability: [], selectedSlotId: null, review: null, approved: false, booking: null,
@@ -14,6 +15,51 @@ const estimateTokens = (value) => Math.ceil(JSON.stringify(value ?? {}).length /
 
 function providerById(id) {
   return PROVIDERS.find((provider) => provider.id === id);
+}
+
+function customerById(id) {
+  return CUSTOMER_PROFILES.find((customer) => customer.id === id);
+}
+
+function milesBetween([lat1, lon1], [lat2, lon2]) {
+  const toRadians = (value) => value * Math.PI / 180;
+  const dLat = toRadians(lat2 - lat1);
+  const dLon = toRadians(lon2 - lon1);
+  const a = Math.sin(dLat / 2) ** 2 + Math.cos(toRadians(lat1)) * Math.cos(toRadians(lat2)) * Math.sin(dLon / 2) ** 2;
+  return 3958.8 * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+}
+
+function rankProvider(provider, customer, requested) {
+  const preferences = { ...customer.preferences, ...requested };
+  const priorities = preferences.priorities || customer.preferences.priorities;
+  const distance = Number(milesBetween(customer.coordinates, provider.coordinates).toFixed(1));
+  const providerWords = [...provider.specialties, ...provider.reviewThemes.map((item) => item.theme)].join(' ').toLowerCase();
+  const goals = preferences.goals || [];
+  const goalMatches = goals.filter((goal) => providerWords.includes(goal.toLowerCase()));
+  const specialtyFit = goals.length ? goalMatches.length / goals.length : 0.5;
+  const distanceFit = Math.max(0, 1 - distance / Math.max(preferences.maxDistanceMiles || 8, 1));
+  const startingPrice = Math.min(...provider.services.map((service) => service.price));
+  const valueFit = Math.max(0, Math.min(1, (preferences.maxPrice || 150) / Math.max(startingPrice, 1)));
+  const trustFit = ((provider.rating / 5) * 0.65) + (Math.min(provider.reviews / 400, 1) * 0.2) + (provider.reviewThemes.reduce((sum, item) => sum + item.sentiment, 0) / provider.reviewThemes.length * 0.15);
+  const availabilityFit = provider.slots.some((slot) => slot.date === (requested.date || '2026-09-10')) ? 1 : 0.35;
+  const weighted = specialtyFit * priorities.specialty + distanceFit * priorities.distance + valueFit * priorities.value + trustFit * priorities.trust + availabilityFit * priorities.availability;
+  const languageMatch = !preferences.spokenLanguage || provider.languages.includes(preferences.spokenLanguage);
+  const accessibilityMatch = !preferences.accessibleOnly || provider.accessible;
+  const score = Math.round(Math.max(0, Math.min(100, weighted - (languageMatch ? 0 : 18) - (accessibilityMatch ? 0 : 25))));
+  const reasons = [
+    ...(goalMatches.length ? [`Matches ${goalMatches.join(', ')}`] : []),
+    ...(languageMatch && preferences.spokenLanguage ? [`Speaks ${preferences.spokenLanguage}`] : []),
+    `${distance} miles from ${customer.home}`,
+    `${provider.rating} from ${provider.reviews} reviews`,
+    `From $${startingPrice}`,
+  ];
+  const tradeoffs = [
+    ...(!languageMatch && preferences.spokenLanguage ? [`Does not list ${preferences.spokenLanguage}`] : []),
+    ...(distance > (preferences.maxDistanceMiles || 8) ? [`Outside preferred ${preferences.maxDistanceMiles}-mile radius`] : []),
+    ...(startingPrice > (preferences.maxPrice || 150) ? [`Starts above $${preferences.maxPrice} budget`] : []),
+    ...(!accessibilityMatch ? ['Does not list wheelchair accessibility'] : []),
+  ];
+  return { distance, startingPrice, matchScore: score, matchedGoals: goalMatches, reasons, tradeoffs, scoreBreakdown: { specialty: Math.round(specialtyFit * priorities.specialty), distance: Math.round(distanceFit * priorities.distance), value: Math.round(valueFit * priorities.value), trust: Math.round(trustFit * priorities.trust), availability: Math.round(availabilityFit * priorities.availability) } };
 }
 
 function invalidate(state) {
@@ -37,8 +83,32 @@ export function createMarketplaceEngine({ database = createDatabase(), onChange 
     let value;
     switch (action) {
       case 'get_marketplace_context':
-        value = { mode: 'sandbox_marketplace', city: 'Tampa', supportedLocales: ['en', 'es'], categories: ['barber', 'hair', 'nails', 'skincare', 'massage'], nextBestAction: state.results.length ? 'compare_providers' : 'search_providers', chargesMoney: false, contactsRealProviders: false };
+        value = { mode: 'sandbox_marketplace', city: 'Tampa', supportedLocales: ['en', 'es'], categories: ['barber', 'hair', 'nails', 'skincare', 'massage', 'medspa'], personalizationSignals: ['goals', 'distance', 'budget', 'review themes', 'language', 'accessibility', 'availability', 'new-provider promotions'], nextBestAction: state.results.length ? 'compare_providers' : 'personalize_recommendations', chargesMoney: false, contactsRealProviders: false };
         break;
+      case 'list_customer_profiles':
+        value = { profiles: CUSTOMER_PROFILES.map(({ email, phone, ...profile }) => profile), activeProfileId: state.customerProfileId };
+        break;
+      case 'personalize_recommendations': {
+        const customer = customerById(input.customerProfileId || state.customerProfileId);
+        if (!customer) throw new Error('Customer profile not found.');
+        state.customerProfileId = customer.id;
+        const requested = { ...state.preferences, ...customer.preferences, ...input, category: input.category ?? '' };
+        state.preferences = requested;
+        state.results = PROVIDERS
+          .filter((provider) => !requested.category || provider.category === requested.category)
+          .map((provider) => {
+            const ranking = rankProvider(provider, customer, requested);
+            const { services, slots, bio, bioEs, cancellation, ...summary } = provider;
+            return { ...summary, ...ranking, nextAvailable: slots[0] };
+          })
+          .sort((a, b) => b.matchScore - a.matchScore || a.distance - b.distance);
+        state.comparison = null;
+        state.selectedProviderId = null;
+        state.selectedServiceId = null;
+        invalidate(state);
+        value = { customer: { id: customer.id, name: customer.name, headline: customer.headline, home: customer.home }, count: state.results.length, recommendations: state.results, explanation: 'Scores are deterministic weighted fit, not paid placement.' };
+        break;
+      }
       case 'set_marketplace_preferences':
         state.preferences = { ...state.preferences, ...input };
         if (input.interfaceLanguage) state.locale = input.interfaceLanguage;
@@ -52,12 +122,17 @@ export function createMarketplaceEngine({ database = createDatabase(), onChange 
       case 'search_providers': {
         const requested = { ...state.preferences, ...input };
         state.preferences = requested;
+        const customer = customerById(state.customerProfileId) || DEMO_CUSTOMER;
         state.results = PROVIDERS.filter((provider) =>
           (!requested.category || provider.category === requested.category) &&
           (!requested.spokenLanguage || provider.languages.includes(requested.spokenLanguage)) &&
           (!requested.minimumRating || provider.rating >= requested.minimumRating) &&
           (!requested.accessibleOnly || provider.accessible)
-        ).map(({ services, slots, bio, bioEs, cancellation, ...provider }) => ({ ...provider, startingPrice: Math.min(...services.map((service) => service.price)), nextAvailable: slots[0] }));
+        ).map((provider) => {
+          const ranking = rankProvider(provider, customer, requested);
+          const { services, slots, bio, bioEs, cancellation, ...summary } = provider;
+          return { ...summary, ...ranking, nextAvailable: slots[0] };
+        }).sort((a, b) => b.matchScore - a.matchScore || a.distance - b.distance);
         state.comparison = null;
         state.selectedProviderId = null;
         state.selectedServiceId = null;
@@ -69,8 +144,8 @@ export function createMarketplaceEngine({ database = createDatabase(), onChange 
         if (!state.results.length) throw new Error('Search providers before comparing them.');
         const ids = input.providerIds?.length ? input.providerIds : state.results.map((item) => item.id);
         const candidates = state.results.filter((item) => ids.includes(item.id));
-        state.comparison = candidates.map((item) => ({ id: item.id, name: item.name, business: item.business, rating: item.rating, reviews: item.reviews, distanceMiles: item.distance, startingPrice: item.startingPrice, languages: item.languages, accessible: item.accessible }));
-        value = { comparison: state.comparison, bestRatedProviderId: [...candidates].sort((a, b) => b.rating - a.rating)[0]?.id ?? null, recommendationBasis: ['requested category', 'spoken language', 'minimum rating', 'distance', 'starting price'] };
+        state.comparison = candidates.map((item) => ({ id: item.id, name: item.name, business: item.business, matchScore: item.matchScore, rating: item.rating, reviews: item.reviews, distanceMiles: item.distance, startingPrice: item.startingPrice, languages: item.languages, specialties: item.specialties, reviewThemes: item.reviewThemes, reasons: item.reasons, tradeoffs: item.tradeoffs, scoreBreakdown: item.scoreBreakdown, accessible: item.accessible }));
+        value = { comparison: state.comparison, recommendedProviderId: [...candidates].sort((a, b) => b.matchScore - a.matchScore)[0]?.id ?? null, recommendationBasis: ['customer goals', 'specialty fit', 'proximity', 'budget', 'review themes', 'language', 'accessibility', 'availability'], paidPlacement: false };
         break;
       }
       case 'get_provider_profile': {
@@ -116,7 +191,8 @@ export function createMarketplaceEngine({ database = createDatabase(), onChange 
         const service = provider?.services.find((item) => item.id === state.selectedServiceId);
         const slot = state.availability.find((item) => item.id === state.selectedSlotId);
         if (!provider || !service || !slot) throw new Error('Select an available appointment first.');
-        state.review = { customer: { ...DEMO_CUSTOMER, ...input.customer }, provider: { id: provider.id, name: provider.name, business: provider.business, neighborhood: provider.neighborhood, languages: provider.languages }, service, slot, price: service.price, cancellation: provider.cancellation, paymentDueNow: 0, sandbox: true };
+        const activeCustomer = customerById(state.customerProfileId) || DEMO_CUSTOMER;
+        state.review = { customer: { ...activeCustomer, ...input.customer }, provider: { id: provider.id, name: provider.name, business: provider.business, neighborhood: provider.neighborhood, languages: provider.languages }, service, slot, price: service.price, cancellation: provider.cancellation, paymentDueNow: 0, sandbox: true };
         state.approved = false;
         value = { review: state.review, requiresVisibleHumanApproval: true };
         break;
