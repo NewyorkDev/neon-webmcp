@@ -1,0 +1,203 @@
+<template>
+  <style>
+    #root {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      container-type: size;
+      color: #171717;
+    }
+
+    .provider03-ground {
+      position: absolute;
+      inset: 0;
+      background: #FFFDF8;
+    }
+
+    .provider03-kicker {
+      position: absolute;
+      top: 3.3cqh;
+      left: 5cqw;
+      padding: 0.55cqw 1cqw;
+      background: #171717;
+      color: #FFFDF8;
+      font: 700 1.25cqw/1 sans-serif;
+      letter-spacing: 0.14em;
+    }
+
+    .provider03-counter {
+      position: absolute;
+      top: 3.3cqh;
+      right: 5cqw;
+      border: 0.2cqw solid #171717;
+      border-radius: 999px;
+      padding: 0.4cqw 1.1cqw;
+      font: 700 1.25cqw/1 sans-serif;
+      letter-spacing: 0.06em;
+    }
+
+    .provider03-stage {
+      position: absolute;
+      inset: 0;
+    }
+
+    .provider03-card {
+      position: absolute;
+      top: 47%;
+      left: 50%;
+      width: 27cqw;
+      height: 28cqh;
+      border: 0.4cqw solid #171717;
+      background: #FFFDF8;
+      display: grid;
+      grid-template-columns: 10.5cqw 1fr;
+      overflow: hidden;
+      will-change: transform, opacity;
+    }
+
+    .provider03-card.provider03-featured {
+      background: #915DFF;
+      box-shadow: 1.25cqw 1.25cqw 0 #D9C7FF, 1.25cqw 1.25cqw 0 0.2cqw #171717;
+      z-index: 3;
+    }
+
+    .provider03-portrait {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+      border-right: 0.3cqw solid #171717;
+      background: #E8FFA9;
+    }
+
+    .provider03-copy {
+      min-width: 0;
+      padding: 1.15cqw 1.15cqw 0.85cqw;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .provider03-name {
+      font: 900 1.8cqw/0.92 sans-serif;
+      text-transform: uppercase;
+      letter-spacing: -0.01em;
+    }
+
+    .provider03-fact,
+    .provider03-proof,
+    .provider03-new,
+    .provider03-offer {
+      font: 700 1.03cqw/1.15 monospace;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    .provider03-fact {
+      align-self: flex-start;
+      padding: 0.45cqw 0.55cqw;
+      background: #171717;
+      color: #FFFDF8;
+    }
+
+    .provider03-proof {
+      border-top: 0.2cqw solid #171717;
+      padding-top: 0.7cqw;
+    }
+
+    .provider03-new {
+      position: absolute;
+      top: 0.8cqw;
+      right: 0.8cqw;
+      padding: 0.45cqw 0.6cqw;
+      background: #C8FF35;
+      border: 0.2cqw solid #171717;
+      transform: rotate(-4deg);
+      z-index: 5;
+    }
+
+    .provider03-offer {
+      position: absolute;
+      right: 1cqw;
+      bottom: 1cqw;
+      padding: 0.7cqw 0.8cqw;
+      background: #171717;
+      color: #FFFDF8;
+      z-index: 5;
+    }
+  </style>
+
+  <div id="root" data-composition-id="03-provider-evidence" data-width="1920" data-height="1080">
+    <div class="clip provider03-ground" data-start="0" data-duration="12" data-track-index="0"></div>
+    <div class="clip provider03-kicker" data-start="0" data-duration="12" data-track-index="1">PROVIDER EVIDENCE</div>
+    <div class="clip provider03-counter" data-start="0" data-duration="12" data-track-index="3">06 PROFILES</div>
+    <div class="clip provider03-stage" data-start="0" data-duration="12" data-track-index="2">
+      <article class="provider03-card" data-target-x="-560" data-target-y="-170">
+        <img class="provider03-portrait" src="assets/fictional-provider-marco-ruiz.png" alt="Marco Ruiz">
+        <div class="provider03-copy"><div class="provider03-name">Marco Ruiz</div><div class="provider03-fact">Specialty</div><div class="provider03-proof">Reviews • {count}</div></div>
+      </article>
+      <article class="provider03-card" data-target-x="0" data-target-y="-170">
+        <img class="provider03-portrait" src="assets/fictional-provider-nia-brooks.png" alt="Nia Brooks">
+        <div class="provider03-copy"><div class="provider03-name">Nia Brooks</div><div class="provider03-fact">Reviews</div><div class="provider03-proof">Reviews • {count}</div></div>
+      </article>
+      <article class="provider03-card" data-target-x="560" data-target-y="-170">
+        <img class="provider03-portrait" src="assets/fictional-provider-mei-chen.png" alt="Mei Chen">
+        <div class="provider03-copy"><div class="provider03-name">Mei Chen</div><div class="provider03-fact">Price</div><div class="provider03-proof">Reviews • {count}</div></div>
+      </article>
+      <article class="provider03-card" data-target-x="-560" data-target-y="170">
+        <img class="provider03-portrait" src="assets/fictional-provider-sofa-alvarez.png" alt="Sofia Alvarez">
+        <div class="provider03-copy"><div class="provider03-name">Sofia Alvarez</div><div class="provider03-fact">Distance</div><div class="provider03-proof">Reviews • {count}</div></div>
+      </article>
+      <article class="provider03-card" data-target-x="0" data-target-y="170">
+        <img class="provider03-portrait" src="assets/fictional-provider-darius-cole.png" alt="Darius Cole">
+        <div class="provider03-copy"><div class="provider03-name">Darius Cole</div><div class="provider03-fact">Language</div><div class="provider03-proof">Reviews • {count}</div></div>
+      </article>
+      <article class="provider03-card provider03-featured" data-target-x="560" data-target-y="170">
+        <img class="provider03-portrait" src="assets/fictional-provider-amaya-patel.png" alt="Amaya Patel">
+        <div class="provider03-copy"><div class="provider03-name">Amaya Patel</div><div class="provider03-fact">Availability</div><div class="provider03-proof">Open now</div></div>
+        <div class="provider03-new" data-layout-allow-overlap>New provider</div>
+        <div class="provider03-offer">$59 launch offer</div>
+      </article>
+    </div>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script>
+    (() => {
+      const tl = gsap.timeline({ paused: true });
+      const cards = Array.from(document.querySelectorAll('.provider03-card'));
+      const facts = Array.from(document.querySelectorAll('.provider03-fact'));
+      const proofs = Array.from(document.querySelectorAll('.provider03-proof'));
+      const featured = document.querySelector('.provider03-featured');
+      const newcomer = document.querySelector('.provider03-new');
+      const offer = document.querySelector('.provider03-offer');
+
+      tl.fromTo('.provider03-kicker', { opacity: 0, y: -18 }, { opacity: 1, y: 0, duration: 0.45, ease: 'power2.out' }, 0)
+        .fromTo('.provider03-counter', { opacity: 0, y: -18 }, { opacity: 1, y: 0, duration: 0.45, ease: 'power2.out' }, 0.1);
+
+      cards.forEach((card, index) => {
+        tl.fromTo(card,
+          { xPercent: -50, yPercent: -50, x: Number(card.dataset.targetX) * 0.28, y: Number(card.dataset.targetY) * 0.28, scale: 0.6, opacity: 0 },
+          { x: Number(card.dataset.targetX), y: Number(card.dataset.targetY), scale: 1, opacity: 1, duration: 1.55, ease: 'power3.out' },
+          0.18 + index * 0.07
+        );
+      });
+
+      facts.forEach((fact, index) => {
+        tl.fromTo(fact, { clipPath: 'inset(0 100% 0 0)', opacity: 0 }, { clipPath: 'inset(0 0% 0 0)', opacity: 1, duration: 0.65, ease: 'power2.out' }, 3.05 + index * 0.82);
+      });
+
+      proofs.slice(0, 5).forEach((proof, index) => {
+        tl.fromTo(proof, { opacity: 0, y: 14 }, { opacity: 1, y: 0, duration: 0.5, ease: 'power2.out' }, 8.55 + index * 0.36);
+      });
+      tl.fromTo(featured, { filter: 'brightness(1)' }, { filter: 'brightness(1.05)', duration: 0.5, ease: 'power2.out' }, 8.55)
+        .fromTo(newcomer, { opacity: 0, scale: 0.55, rotation: -4 }, { opacity: 1, scale: 1, rotation: -4, duration: 0.65, ease: 'back.out(1.5)' }, 9.0)
+        .fromTo(offer, { opacity: 0, clipPath: 'inset(0 100% 0 0)' }, { opacity: 1, clipPath: 'inset(0 0% 0 0)', duration: 0.8, ease: 'power2.out' }, 10.25)
+        .fromTo('.provider03-counter', { color: '#171717', backgroundColor: '#FFFDF8' }, { color: '#FFFDF8', backgroundColor: '#171717', duration: 0.45, ease: 'power2.out' }, 11.15);
+
+      window.__timelines = window.__timelines || {};
+      window.__timelines['03-provider-evidence'] = tl;
+    })();
+  </script>
+</template>

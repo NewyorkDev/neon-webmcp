@@ -13,11 +13,13 @@ function execute() {
   const started = performance.now();
   engine.run('get_marketplace_context');
   engine.run('list_customer_profiles');
-  engine.run('personalize_recommendations', { customerProfileId: 'alex-morgan', category: '', date: '2026-09-10' });
+  engine.run('get_customer_history', { customerProfileId: 'alex-morgan' });
+  engine.run('find_rebooking_options', { customerProfileId: 'alex-morgan', requestedDate: '2026-09-03', timePreference: 'lunch' });
+  engine.run('personalize_recommendations', { customerProfileId: 'alex-morgan', category: '', date: '2026-09-03' });
   engine.run('compare_providers');
   engine.run('get_provider_profile', { providerId: 'marco-ruiz' });
-  engine.run('find_service_availability', { providerId: 'marco-ruiz', serviceId: 'signature-cut', date: '2026-09-10' });
-  engine.run('select_appointment', { providerId: 'marco-ruiz', serviceId: 'signature-cut', slotId: 'mr-0910-1030' });
+  engine.run('find_service_availability', { providerId: 'marco-ruiz', serviceId: 'signature-cut', date: '2026-09-03' });
+  engine.run('select_appointment', { providerId: 'marco-ruiz', serviceId: 'signature-cut', slotId: 'mr-0903-1130' });
   engine.run('prepare_booking_review');
   engine.approve();
   const result = engine.run('request_booking', { confirmed: true });

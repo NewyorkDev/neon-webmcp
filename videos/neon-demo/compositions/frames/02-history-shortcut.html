@@ -1,0 +1,439 @@
+<template>
+  <div id="root" data-composition-id="02-history-shortcut" data-width="1920" data-height="1080">
+    <div class="clip f02-history-shortcut-ground" data-start="0" data-duration="12" data-track-index="0"></div>
+
+    <div class="clip f02-history-shortcut-stage" data-start="0" data-duration="12" data-track-index="1">
+      <header class="f02-history-shortcut-chrome">
+        <span>RELATIONSHIP HISTORY</span>
+        <span class="f02-history-shortcut-pill">MATCHING PREFERENCES</span>
+      </header>
+
+      <main class="f02-history-shortcut-layout">
+        <section class="f02-history-shortcut-ledger" aria-label="Alex relationship history">
+          <div class="f02-history-shortcut-ledger-head">
+            <div>
+              <span class="f02-history-shortcut-kicker">ALEX · RETURNING CUSTOMER</span>
+              <div class="f02-history-shortcut-visits"><strong>4</strong><span>VISITS</span></div>
+            </div>
+            <span class="f02-history-shortcut-last">LAST VISIT · AUG 6</span>
+          </div>
+
+          <div class="f02-history-shortcut-progress-label">
+            <span>HISTORY RESOLVED</span>
+            <span class="f02-history-shortcut-working">WORKING <i></i><i></i><i></i></span>
+          </div>
+
+          <div class="f02-history-shortcut-checklist">
+            <div class="f02-history-shortcut-row" id="f02-history-shortcut-row-provider">
+              <span class="f02-history-shortcut-badge"><b>1</b><em>✓</em></span>
+              <span class="f02-history-shortcut-row-copy">MARCO RUIZ</span>
+              <span class="f02-history-shortcut-strike"></span>
+            </div>
+            <div class="f02-history-shortcut-row" id="f02-history-shortcut-row-service">
+              <span class="f02-history-shortcut-badge"><b>2</b><em>✓</em></span>
+              <span class="f02-history-shortcut-row-copy">SIGNATURE HAIRCUT</span>
+              <span class="f02-history-shortcut-strike"></span>
+            </div>
+            <div class="f02-history-shortcut-row" id="f02-history-shortcut-row-language">
+              <span class="f02-history-shortcut-badge"><b>3</b><em>✓</em></span>
+              <span class="f02-history-shortcut-row-copy">SPANISH</span>
+              <span class="f02-history-shortcut-strike"></span>
+            </div>
+          </div>
+
+          <div class="f02-history-shortcut-note">
+            <span>CUSTOMER NOTE</span>
+            <strong>LUNCHTIME</strong>
+          </div>
+        </section>
+
+        <aside class="f02-history-shortcut-provider">
+          <div class="f02-history-shortcut-provider-block">
+            <div class="f02-history-shortcut-portrait-wrap">
+              <img src="assets/fictional-provider-marco-ruiz.png" alt="Marco Ruiz" />
+            </div>
+            <div class="f02-history-shortcut-provider-name">MARCO<br />RUIZ</div>
+            <div class="f02-history-shortcut-familiar">FAMILIAR PROVIDER</div>
+          </div>
+        </aside>
+      </main>
+
+      <section class="f02-history-shortcut-options" aria-label="September 3 options">
+        <div class="f02-history-shortcut-date">SEPT 3</div>
+        <div class="f02-history-shortcut-option"><span>OPTION 01</span><strong>11:30 AM</strong></div>
+        <div class="f02-history-shortcut-option"><span>OPTION 02</span><strong>12:30 PM</strong></div>
+        <div class="f02-history-shortcut-approval">REQUIRES CUSTOMER APPROVAL</div>
+      </section>
+    </div>
+  </div>
+
+  <style id="f02-history-shortcut-styles">
+    #root {
+      position: relative;
+      width: 1920px;
+      height: 1080px;
+      overflow: hidden;
+      container-type: size;
+      color: #171717;
+      font-family: sans-serif;
+    }
+
+    .f02-history-shortcut-ground {
+      position: absolute;
+      inset: 0;
+      background: #FFFDF8;
+    }
+
+    .f02-history-shortcut-stage {
+      position: absolute;
+      inset: 0;
+    }
+
+    .f02-history-shortcut-chrome {
+      position: absolute;
+      top: 2.5cqh;
+      left: 3.3cqw;
+      right: 3.3cqw;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-family: monospace;
+      font-size: 1.25cqw;
+      letter-spacing: .1em;
+      font-weight: 700;
+    }
+
+    .f02-history-shortcut-pill {
+      border: .2cqw solid #171717;
+      border-radius: 999px;
+      padding: .55cqh 1.2cqw;
+      background: #FFFDF8;
+    }
+
+    .f02-history-shortcut-layout {
+      position: absolute;
+      top: 10cqh;
+      left: 5cqw;
+      right: 5cqw;
+      height: 64cqh;
+      display: grid;
+      grid-template-columns: 61cqw 24cqw;
+      gap: 4.5cqw;
+    }
+
+    .f02-history-shortcut-ledger {
+      position: relative;
+      border: .4cqw solid #171717;
+      background: #E8FFA9;
+      overflow: hidden;
+    }
+
+    .f02-history-shortcut-ledger-head {
+      height: 20cqh;
+      padding: 2.1cqw 2.2cqw;
+      box-sizing: border-box;
+      display: flex;
+      justify-content: space-between;
+      border-bottom: .3cqw solid #171717;
+      background: #171717;
+      color: #FFFDF8;
+    }
+
+    .f02-history-shortcut-kicker,
+    .f02-history-shortcut-last,
+    .f02-history-shortcut-progress-label,
+    .f02-history-shortcut-note span,
+    .f02-history-shortcut-option span,
+    .f02-history-shortcut-approval,
+    .f02-history-shortcut-familiar {
+      font-family: monospace;
+      font-weight: 700;
+      letter-spacing: .1em;
+    }
+
+    .f02-history-shortcut-kicker { font-size: 1.2cqw; }
+
+    .f02-history-shortcut-visits {
+      display: flex;
+      align-items: flex-end;
+      gap: 1cqw;
+      margin-top: 1.3cqh;
+    }
+
+    .f02-history-shortcut-visits strong {
+      font-size: 7cqw;
+      line-height: .72;
+      font-weight: 950;
+    }
+
+    .f02-history-shortcut-visits span {
+      font-size: 2cqw;
+      font-weight: 950;
+      line-height: 1;
+    }
+
+    .f02-history-shortcut-last {
+      align-self: flex-end;
+      font-size: 1.3cqw;
+      border: .18cqw solid #FFFDF8;
+      padding: .7cqh .8cqw;
+    }
+
+    .f02-history-shortcut-progress-label {
+      height: 5.8cqh;
+      padding: 0 1.4cqw;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: .3cqw solid #171717;
+      font-size: 1.15cqw;
+    }
+
+    .f02-history-shortcut-working {
+      display: inline-flex;
+      align-items: center;
+      gap: .35cqw;
+      color: #6820FF;
+    }
+
+    .f02-history-shortcut-working i {
+      width: .42cqw;
+      height: .42cqw;
+      border-radius: 50%;
+      background: #6820FF;
+    }
+
+    .f02-history-shortcut-checklist { background: #FFFDF8; }
+
+    .f02-history-shortcut-row {
+      position: relative;
+      height: 9cqh;
+      display: flex;
+      align-items: center;
+      gap: 1.15cqw;
+      padding: 0 1.4cqw;
+      box-sizing: border-box;
+      border-bottom: .3cqw solid #171717;
+      font-size: 1.65cqw;
+      font-weight: 950;
+    }
+
+    .f02-history-shortcut-badge {
+      position: relative;
+      flex: 0 0 2.55cqw;
+      width: 2.55cqw;
+      height: 2.55cqw;
+      border: .18cqw solid #171717;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      font-family: monospace;
+      font-size: 1.15cqw;
+      background: #FFFDF8;
+    }
+
+    .f02-history-shortcut-badge em {
+      position: absolute;
+      inset: -.18cqw;
+      display: grid;
+      place-items: center;
+      border: .18cqw solid #171717;
+      border-radius: 50%;
+      background: #7BA900;
+      color: #FFFDF8;
+      font-style: normal;
+      opacity: 0;
+    }
+
+    .f02-history-shortcut-strike {
+      position: absolute;
+      left: 5.1cqw;
+      top: 50%;
+      width: 18cqw;
+      height: .14cqw;
+      background: #171717;
+      transform-origin: left center;
+    }
+
+    #f02-history-shortcut-row-service .f02-history-shortcut-strike { width: 26cqw; }
+    #f02-history-shortcut-row-language .f02-history-shortcut-strike { width: 12cqw; }
+
+    .f02-history-shortcut-note {
+      position: absolute;
+      right: -2.4cqw;
+      bottom: 2.8cqh;
+      width: 24cqw;
+      min-height: 10cqh;
+      padding: 1.25cqw 1.5cqw;
+      box-sizing: border-box;
+      border: .4cqw solid #171717;
+      background: #D9C7FF;
+      box-shadow: 1.25cqw 1.25cqw 0 #915DFF, 1.25cqw 1.25cqw 0 .2cqw #171717;
+      transform: rotate(-4deg);
+    }
+
+    .f02-history-shortcut-note span { display: block; font-size: 1.05cqw; }
+    .f02-history-shortcut-note strong { display: block; margin-top: .5cqh; font-size: 2.3cqw; line-height: .95; }
+
+    .f02-history-shortcut-provider {
+      display: flex;
+      align-items: flex-end;
+      padding-bottom: 1.2cqh;
+    }
+
+    .f02-history-shortcut-provider-block { position: relative; width: 100%; }
+
+    .f02-history-shortcut-portrait-wrap {
+      height: 45cqh;
+      overflow: hidden;
+      border: .4cqw solid #171717;
+      background: #D9C7FF;
+    }
+
+    .f02-history-shortcut-portrait-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      object-position: center bottom;
+      display: block;
+    }
+
+    .f02-history-shortcut-provider-name {
+      margin-top: -1.2cqh;
+      margin-left: -1.3cqw;
+      width: max-content;
+      padding: 1cqh 1.25cqw;
+      border: .4cqw solid #171717;
+      background: #915DFF;
+      font-size: 3.25cqw;
+      line-height: .82;
+      font-weight: 950;
+    }
+
+    .f02-history-shortcut-familiar {
+      margin-top: 1.3cqh;
+      font-size: 1.1cqw;
+      text-align: right;
+    }
+
+    .f02-history-shortcut-options {
+      position: absolute;
+      left: 5cqw;
+      top: 76cqh;
+      width: 90cqw;
+      height: 7.2cqh;
+      display: grid;
+      grid-template-columns: 15cqw 1fr 1fr 24cqw;
+      border: .4cqw solid #171717;
+      background: #FFFDF8;
+      overflow: hidden;
+    }
+
+    .f02-history-shortcut-date,
+    .f02-history-shortcut-option,
+    .f02-history-shortcut-approval {
+      display: flex;
+      align-items: center;
+      box-sizing: border-box;
+    }
+
+    .f02-history-shortcut-date {
+      justify-content: center;
+      background: #171717;
+      color: #FFFDF8;
+      font-size: 2.1cqw;
+      font-weight: 950;
+    }
+
+    .f02-history-shortcut-option {
+      justify-content: space-between;
+      padding: 0 1.2cqw;
+      border-right: .3cqw solid #171717;
+      background: #C8FF35;
+    }
+
+    .f02-history-shortcut-option span { font-size: .9cqw; }
+    .f02-history-shortcut-option strong { font-size: 2cqw; }
+
+    .f02-history-shortcut-approval {
+      justify-content: center;
+      padding: 0 1cqw;
+      font-size: 1cqw;
+      background: #FFFDF8;
+      text-align: center;
+    }
+  </style>
+
+  <script src="node_modules/gsap/dist/gsap.min.js"></script>
+  <script>
+    (() => {
+      const safeSelector = (selector) => selector
+        .replace(/\.f02-history-shortcut-([\w-]+)/g, '[class~="f02-history-shortcut-$1"]')
+        .replace(/#f02-history-shortcut-([\w-]+)/g, '[id="f02-history-shortcut-$1"]');
+      const q = (selector) => document.querySelector(safeSelector(selector));
+      const qa = (selector) => Array.from(document.querySelectorAll(safeSelector(selector)));
+      const tl = gsap.timeline({ paused: true });
+      window.__timelines = window.__timelines || {};
+      window.__timelines["02-history-shortcut"] = tl;
+
+      tl.fromTo(q('.f02-history-shortcut-ledger'),
+        { x: -150, opacity: 0 },
+        { x: 0, opacity: 1, duration: .65, ease: 'back.out(1.25)' }, 0)
+        .fromTo(q('.f02-history-shortcut-chrome'),
+          { y: -28, opacity: 0 },
+          { y: 0, opacity: 1, duration: .45, ease: 'power3.out' }, .12)
+        .fromTo(q('.f02-history-shortcut-visits strong'),
+          { scale: .45, transformOrigin: 'left bottom' },
+          { scale: 1, duration: .55, ease: 'back.out(1.8)' }, .35)
+        .fromTo(q('.f02-history-shortcut-last'),
+          { x: 40, opacity: 0 },
+          { x: 0, opacity: 1, duration: .45, ease: 'power3.out' }, 1.05)
+        .fromTo(q('.f02-history-shortcut-provider'),
+          { x: 120, opacity: 0, scale: .92 },
+          { x: 0, opacity: 1, scale: 1, duration: .7, ease: 'back.out(1.2)' }, 2.2)
+        .fromTo(q('.f02-history-shortcut-provider-name'),
+          { y: 45, opacity: 0 },
+          { y: 0, opacity: 1, duration: .45, ease: 'power3.out' }, 2.8)
+        .fromTo(qa('.f02-history-shortcut-row'),
+          { y: 34, opacity: 0 },
+          { y: 0, opacity: 1, duration: .42, stagger: .13, ease: 'power3.out' }, 3.35)
+        .fromTo(qa('.f02-history-shortcut-working i'),
+          { scale: .5, opacity: .25 },
+          { scale: 1, opacity: 1, duration: .22, stagger: .12, repeat: 8, yoyo: true, ease: 'sine.inOut' }, 3.55);
+
+      const checks = [
+        ['#f02-history-shortcut-row-provider', 4.15],
+        ['#f02-history-shortcut-row-service', 5.45],
+        ['#f02-history-shortcut-row-language', 6.75]
+      ];
+      checks.forEach(([selector, time]) => {
+        const row = q(selector);
+        tl.to(row.querySelector('.f02-history-shortcut-badge b'), { opacity: 0, duration: .12 }, time)
+          .fromTo(row.querySelector('.f02-history-shortcut-badge em'),
+            { opacity: 0, scale: .35 },
+            { opacity: 1, scale: 1, duration: .34, ease: 'back.out(2)' }, time)
+          .fromTo(row.querySelector('.f02-history-shortcut-strike'),
+            { scaleX: 0 },
+            { scaleX: 1, duration: .32, ease: 'power2.out' }, time + .12)
+          .to(row.querySelector('.f02-history-shortcut-row-copy'), { opacity: .5, duration: .25 }, time + .12);
+      });
+
+      tl.fromTo(q('.f02-history-shortcut-note'),
+        { y: 55, scale: .72, opacity: 0 },
+        { y: 0, scale: 1, opacity: 1, duration: .55, ease: 'back.out(1.7)' }, 7.55)
+        .to(q('.f02-history-shortcut-working'), { opacity: 0, duration: .16 }, 8.45)
+        .fromTo(q('.f02-history-shortcut-options'),
+          { clipPath: 'inset(0 83% 0 0)' },
+          { clipPath: 'inset(0 0% 0 0)', duration: .72, ease: 'power3.inOut' }, 8.5)
+        .fromTo(q('.f02-history-shortcut-date'),
+          { scaleY: .55, transformOrigin: 'left center' },
+          { scaleY: 1, duration: .38, ease: 'back.out(1.4)' }, 8.55)
+        .fromTo(qa('.f02-history-shortcut-option'),
+          { y: 70, opacity: 0 },
+          { y: 0, opacity: 1, duration: .5, stagger: .55, ease: 'back.out(1.25)' }, 9.15)
+        .fromTo(q('.f02-history-shortcut-approval'),
+          { x: 55, opacity: 0 },
+          { x: 0, opacity: 1, duration: .45, ease: 'power3.out' }, 10.45);
+    })();
+  </script>
+</template>

@@ -88,6 +88,33 @@ export function createMarketplaceEngine({ database = createDatabase(), onChange 
       case 'list_customer_profiles':
         value = { profiles: CUSTOMER_PROFILES.map(({ email, phone, ...profile }) => profile), activeProfileId: state.customerProfileId };
         break;
+      case 'get_customer_history': {
+        const customer = customerById(input.customerProfileId || state.customerProfileId);
+        if (!customer) throw new Error('Customer profile not found.');
+        const previousProvider = providerById(customer.relationship.lastProviderId);
+        const previousService = previousProvider?.services.find((service) => service.id === customer.relationship.lastServiceId);
+        value = { customer: { id: customer.id, name: customer.name, home: customer.home }, relationship: customer.relationship, previousProvider: previousProvider ? { id: previousProvider.id, name: previousProvider.name, business: previousProvider.business, languages: previousProvider.languages } : null, previousService: previousService || null, safeToRebookWithoutApproval: false };
+        break;
+      }
+      case 'find_rebooking_options': {
+        const customer = customerById(input.customerProfileId || state.customerProfileId);
+        if (!customer) throw new Error('Customer profile not found.');
+        if (!customer.relationship.returning || !customer.relationship.lastProviderId) throw new Error('This customer has no previous provider to rebook. Use personalized recommendations instead.');
+        const provider = providerById(customer.relationship.lastProviderId);
+        const service = provider?.services.find((item) => item.id === customer.relationship.lastServiceId);
+        if (!provider || !service) throw new Error('Previous provider or service is no longer available.');
+        state.customerProfileId = customer.id;
+        state.selectedProviderId = provider.id;
+        state.selectedServiceId = service.id;
+        state.preferences = { ...state.preferences, date: input.requestedDate };
+        state.availability = provider.slots.filter((slot) => slot.date === input.requestedDate && (!input.timePreference || input.timePreference === 'any' || (input.timePreference === 'morning' && /AM$/.test(slot.time)) || (input.timePreference === 'lunch' && /11:|12:/.test(slot.time)) || (input.timePreference === 'afternoon' && /PM$/.test(slot.time))));
+        state.selectedSlotId = null;
+        state.review = null;
+        state.approved = false;
+        state.booking = null;
+        value = { customer: { id: customer.id, name: customer.name }, rememberedRelationship: { visits: customer.relationship.visits, lastVisit: customer.relationship.lastVisit, note: customer.relationship.note }, previousProvider: { id: provider.id, name: provider.name, business: provider.business }, previousService: service, requestedDate: input.requestedDate, timePreference: input.timePreference || 'any', slots: state.availability, fallback: state.availability.length ? null : 'No matching time with the previous provider. Run personalize_recommendations to compare alternatives.', requiresVisibleHumanApproval: true };
+        break;
+      }
       case 'personalize_recommendations': {
         const customer = customerById(input.customerProfileId || state.customerProfileId);
         if (!customer) throw new Error('Customer profile not found.');

@@ -1,12 +1,14 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-09-01T06:12:12.564Z",
+  "generatedAt": "2026-09-01T06:18:24.535Z",
   "browser": "Google Chrome with WebMCP enabled",
   "url": "http://127.0.0.1:5175/",
   "toolNames": [
     "compare_providers",
+    "find_rebooking_options",
     "find_service_availability",
     "get_booking_status",
+    "get_customer_history",
     "get_marketplace_context",
     "get_provider_profile",
     "list_customer_profiles",
@@ -47,16 +49,19 @@
     "contactsRealProviders": false
   },
   "customerProfiles": 3,
+  "previousProviderId": "marco-ruiz",
+  "rememberedServiceId": "signature-cut",
+  "rebookingSlotCount": 2,
   "searchCount": 6,
   "recommendedProviderId": "marco-ruiz",
   "topMatchScore": 93,
-  "slotCount": 3,
+  "slotCount": 2,
   "reviewProviderId": "marco-ruiz",
   "preApprovalBlocked": true,
   "finalBooking": {
-    "reference": "NEON-MR-0910-1030",
+    "reference": "NEON-MR-0903-1130",
     "status": "confirmed",
-    "createdAt": "2026-09-01T06:12:12.181Z",
+    "createdAt": "2026-09-01T06:18:24.129Z",
     "customer": {
       "id": "alex-morgan",
       "name": "Alex Morgan",
@@ -68,6 +73,14 @@
         -82.4572
       ],
       "headline": "Busy, bilingual, and value conscious",
+      "relationship": {
+        "returning": true,
+        "visits": 4,
+        "lastProviderId": "marco-ruiz",
+        "lastServiceId": "signature-cut",
+        "lastVisit": "2026-08-06",
+        "note": "Usually books the same cut around lunch and prefers Spanish when available."
+      },
       "preferences": {
         "goals": [
           "precision fades",
@@ -106,9 +119,9 @@
       "price": 46
     },
     "slot": {
-      "id": "mr-0910-1030",
-      "date": "2026-09-10",
-      "time": "10:30 AM"
+      "id": "mr-0903-1130",
+      "date": "2026-09-03",
+      "time": "11:30 AM"
     },
     "price": 46,
     "cancellation": "Free cancellation up to 12 hours before the appointment.",
@@ -119,6 +132,6 @@
     "consumesProductionInventory": false
   },
   "providerCalendarUpdated": true,
-  "providerCalendarText": "WEBMCP · JUST NOW\nAlex Morgan\nSignature haircut · 45 min\n10:30 AM · $46 · confirmed",
+  "providerCalendarText": "WEBMCP · JUST NOW\nAlex Morgan\nSignature haircut · 45 min\n11:30 AM · $46 · confirmed",
   "methodology": "Discovered and invoked all tools through document.modelContext.getTools() and document.modelContext.executeTool(). The visible customer approval button was clicked between the blocked and successful booking calls."
 }

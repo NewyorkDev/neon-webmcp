@@ -20,15 +20,17 @@ try {
     };
     const context = await call('get_marketplace_context');
     const profiles = await call('list_customer_profiles');
-    const search = await call('personalize_recommendations', { customerProfileId: 'alex-morgan', category: '', date: '2026-09-10' });
+    const history = await call('get_customer_history', { customerProfileId: 'alex-morgan' });
+    const rebooking = await call('find_rebooking_options', { customerProfileId: 'alex-morgan', requestedDate: '2026-09-03', timePreference: 'lunch' });
+    const search = await call('personalize_recommendations', { customerProfileId: 'alex-morgan', category: '', date: '2026-09-03' });
     const comparison = await call('compare_providers');
     await call('get_provider_profile', { providerId: 'marco-ruiz' });
-    const availability = await call('find_service_availability', { providerId: 'marco-ruiz', serviceId: 'signature-cut', date: '2026-09-10' });
-    await call('select_appointment', { providerId: 'marco-ruiz', serviceId: 'signature-cut', slotId: 'mr-0910-1030' });
+    const availability = await call('find_service_availability', { providerId: 'marco-ruiz', serviceId: 'signature-cut', date: '2026-09-03' });
+    await call('select_appointment', { providerId: 'marco-ruiz', serviceId: 'signature-cut', slotId: 'mr-0903-1130' });
     const review = await call('prepare_booking_review');
     let preApprovalBlocked = false;
     try { await call('request_booking', { confirmed: true }); } catch { preApprovalBlocked = true; }
-    return { toolNames: tools.map((tool) => tool.name).sort(), context, customerProfiles: profiles.profiles.length, searchCount: search.count, recommendedProviderId: comparison.recommendedProviderId, topMatchScore: comparison.comparison[0].matchScore, slotCount: availability.slots.length, reviewProviderId: review.review.provider.id, preApprovalBlocked };
+    return { toolNames: tools.map((tool) => tool.name).sort(), context, customerProfiles: profiles.profiles.length, previousProviderId: history.previousProvider.id, rememberedServiceId: history.previousService.id, rebookingSlotCount: rebooking.slots.length, searchCount: search.count, recommendedProviderId: comparison.recommendedProviderId, topMatchScore: comparison.comparison[0].matchScore, slotCount: availability.slots.length, reviewProviderId: review.review.provider.id, preApprovalBlocked };
   });
 
   await page.locator('#approve-button').click();
@@ -57,7 +59,7 @@ try {
   };
   await writeFile(new URL('../artifacts/native-webmcp-verification.json', import.meta.url), `${JSON.stringify(artifact, null, 2)}\n`);
   console.log(JSON.stringify(artifact, null, 2));
-  if (result.toolNames.length !== 12 || !result.preApprovalBlocked || result.customerProfiles !== 3 || result.searchCount < 5 || result.recommendedProviderId !== 'marco-ruiz' || !bookingResult.providerCalendarUpdated || !providerText.includes('Alex Morgan')) process.exitCode = 1;
+  if (result.toolNames.length !== 14 || !result.preApprovalBlocked || result.customerProfiles !== 3 || result.previousProviderId !== 'marco-ruiz' || result.rememberedServiceId !== 'signature-cut' || result.rebookingSlotCount !== 2 || result.searchCount < 5 || result.recommendedProviderId !== 'marco-ruiz' || !bookingResult.providerCalendarUpdated || !providerText.includes('Alex Morgan')) process.exitCode = 1;
 } finally {
   await browser.close();
 }

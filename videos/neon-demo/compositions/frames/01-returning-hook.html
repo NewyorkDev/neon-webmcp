@@ -1,0 +1,212 @@
+<template>
+  <div id="root" data-composition-id="01-returning-hook" data-width="1920" data-height="1080">
+    <div class="clip f01-returning-hook-ground" data-start="0" data-duration="8" data-track-index="0"></div>
+    <div class="clip f01-returning-hook-stage" data-start="0" data-duration="8" data-track-index="1">
+      <div class="f01-returning-hook-kicker">RETURNING CUSTOMER</div>
+
+      <div class="f01-returning-hook-prompt" id="f01-returning-hook-prompt">
+        <div class="f01-returning-hook-prompt-label">BOOKING REQUEST</div>
+        <div class="f01-returning-hook-terminal">
+          <span id="f01-returning-hook-text"></span><span id="f01-returning-hook-cursor"></span>
+        </div>
+      </div>
+
+      <div class="f01-returning-hook-chip-row" id="f01-returning-hook-chip-row">
+        <div class="f01-returning-hook-chip" id="f01-returning-hook-chip-usual">USUAL</div>
+        <div class="f01-returning-hook-chip f01-returning-hook-chip-accent" id="f01-returning-hook-chip-third">3RD</div>
+        <div class="f01-returning-hook-chip" id="f01-returning-hook-chip-lunch">LUNCH</div>
+      </div>
+
+      <div class="f01-returning-hook-marker" id="f01-returning-hook-marker">
+        <span>NEON REMEMBERS</span>
+        <span>THE RELATIONSHIP</span>
+      </div>
+    </div>
+
+    <style>
+      #root {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        container-type: size;
+        color: #171717;
+      }
+
+      @font-face { font-family: "DM Sans"; src: local("DM Sans"); }
+      .f01-returning-hook-ground {
+        position: absolute;
+        inset: 0;
+        background: #FFFDF8;
+      }
+
+      .f01-returning-hook-ground::before {
+        content: "";
+        position: absolute;
+        inset: 3.3cqw;
+        border-top: 0.2cqw solid #171717;
+      }
+
+      .f01-returning-hook-stage {
+        position: absolute;
+        inset: 0;
+      }
+
+      .f01-returning-hook-kicker {
+        position: absolute;
+        left: 5cqw;
+        top: 5.2cqh;
+        padding: 0.5cqw 1cqw;
+        background: #171717;
+        color: #FFFDF8;
+        font-family: monospace;
+        font-size: 1.25cqw;
+        line-height: 1;
+        letter-spacing: 0.14em;
+      }
+
+      .f01-returning-hook-prompt {
+        position: absolute;
+        left: 5cqw;
+        top: 20cqh;
+        width: 90cqw;
+        height: 30cqh;
+        box-sizing: border-box;
+        padding: 2.1cqw 2.5cqw;
+        border: 0.4cqw solid #171717;
+        background: #FFFDF8;
+      }
+
+      .f01-returning-hook-prompt-label {
+        margin-bottom: 2.2cqh;
+        font-family: monospace;
+        font-size: 1.25cqw;
+        line-height: 1;
+        letter-spacing: 0.06em;
+      }
+
+      .f01-returning-hook-terminal {
+        display: flex;
+        align-items: baseline;
+        min-width: 82cqw;
+        white-space: pre;
+        font-family: monospace;
+        font-size: 3.45cqw;
+        font-weight: 700;
+        line-height: 1.1;
+        letter-spacing: -0.03em;
+      }
+
+      #f01-returning-hook-text {
+        white-space: pre;
+      }
+
+      #f01-returning-hook-cursor {
+        display: inline-block;
+        width: 0.7cqw;
+        height: 3.15cqw;
+        margin-left: 0.35cqw;
+        background: #915DFF;
+        vertical-align: -0.35cqw;
+      }
+
+      .f01-returning-hook-chip-row {
+        position: absolute;
+        left: 5cqw;
+        top: 58cqh;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        width: 90cqw;
+        gap: 1.5cqw;
+      }
+
+      .f01-returning-hook-chip {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 17cqh;
+        border: 0.4cqw solid #171717;
+        background: #FFFDF8;
+        color: #171717;
+        font-family: "DM Sans", sans-serif;
+        font-size: 4.2cqw;
+        line-height: 0.92;
+        letter-spacing: -0.01em;
+      }
+
+      .f01-returning-hook-chip-accent {
+        background: #D9C7FF;
+      }
+
+      .f01-returning-hook-marker {
+        position: absolute;
+        left: 9cqw;
+        top: 25cqh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        width: 82cqw;
+        height: 48cqh;
+        box-sizing: border-box;
+        border: 0.4cqw solid #171717;
+        background: #C8FF35;
+        box-shadow: 1.25cqw 1.25cqw 0 #D9C7FF, 1.25cqw 1.25cqw 0 0.2cqw #171717;
+        color: #171717;
+        font-family: "DM Sans", sans-serif;
+        font-size: 5.7cqw;
+        line-height: 0.92;
+        letter-spacing: -0.01em;
+        text-align: center;
+      }
+    </style>
+
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+    <script>
+      (() => {
+        const tl = gsap.timeline({ paused: true });
+        window.__timelines = window.__timelines || {};
+        window.__timelines["01-returning-hook"] = tl;
+
+        const fullText = "My usual haircut on the 3rd around lunch";
+        const textEl = document.getElementById("f01-returning-hook-text");
+        const cursorEl = document.getElementById("f01-returning-hook-cursor");
+        const typeDriver = { length: 0 };
+        const blinkDriver = { phase: 0 };
+
+        tl.fromTo("#f01-returning-hook-prompt", { opacity: 0, y: 22 }, { opacity: 1, y: 0, duration: 0.42, ease: "power2.out" }, 0.02);
+        tl.fromTo(".f01-returning-hook-kicker", { opacity: 0, x: -18 }, { opacity: 1, x: 0, duration: 0.35, ease: "power2.out" }, 0.12);
+        tl.to(typeDriver, {
+          length: fullText.length,
+          duration: 2.72,
+          ease: "none",
+          onUpdate: () => {
+            textEl.textContent = fullText.slice(0, Math.floor(typeDriver.length));
+          }
+        }, 0.28);
+        tl.to(blinkDriver, {
+          phase: Math.PI * 2 * 10,
+          duration: 8,
+          ease: "none",
+          onUpdate: () => {
+            const typing = typeDriver.length > 0 && typeDriver.length < fullText.length;
+            cursorEl.style.opacity = typing || Math.sin(blinkDriver.phase) > 0 ? "1" : "0";
+            const n = Math.floor(typeDriver.length);
+            cursorEl.style.background = n >= 35 ? "#7BA900" : n >= 22 ? "#6820FF" : "#915DFF";
+          }
+        }, 0);
+
+        tl.fromTo("#f01-returning-hook-chip-usual", { opacity: 0, y: 30, scale: 0.9 }, { opacity: 1, y: 0, scale: 1, duration: 0.5, ease: "back.out(1.7)" }, 3.28);
+        tl.fromTo("#f01-returning-hook-chip-third", { opacity: 0, y: 30, scale: 0.9 }, { opacity: 1, y: 0, scale: 1, duration: 0.5, ease: "back.out(1.7)" }, 4.18);
+        tl.fromTo("#f01-returning-hook-chip-lunch", { opacity: 0, y: 30, scale: 0.9 }, { opacity: 1, y: 0, scale: 1, duration: 0.5, ease: "back.out(1.7)" }, 5.08);
+
+        tl.to("#f01-returning-hook-prompt", { opacity: 0.18, y: -20, duration: 0.5, ease: "power2.inOut" }, 5.64);
+        tl.to(".f01-returning-hook-kicker", { opacity: 0.25, duration: 0.4, ease: "power1.out" }, 5.72);
+        tl.to("#f01-returning-hook-chip-usual", { x: 310, y: -128, scale: 0.72, opacity: 0, duration: 0.65, ease: "power3.in" }, 6.12);
+        tl.to("#f01-returning-hook-chip-third", { y: -128, scale: 0.72, opacity: 0, duration: 0.65, ease: "power3.in" }, 6.2);
+        tl.to("#f01-returning-hook-chip-lunch", { x: -310, y: -128, scale: 0.72, opacity: 0, duration: 0.65, ease: "power3.in" }, 6.28);
+        tl.fromTo("#f01-returning-hook-marker", { opacity: 0, scale: 0.82, y: 38 }, { opacity: 1, scale: 1, y: 0, duration: 0.72, ease: "back.out(1.5)" }, 6.48);
+      })();
+    </script>
+  </div>
+</template>

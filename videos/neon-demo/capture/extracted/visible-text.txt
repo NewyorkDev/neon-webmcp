@@ -7,20 +7,30 @@
 [h1] appointment is
 [em] closer.
 [p] Tell your assistant what matters. Neon compares the details and keeps every decision visible.
+[span] SEE THE SAME MARKET THROUGH:
+[b] Alex Morgan
+[small] Busy, bilingual, and value conscious
+[b] Jamie Rivera
+[small] Sensitive skin, Spanish guidance, no hard sell
+[b] Taylor Kim
+[small] Quiet experience and meticulous care
 [span] What are you looking for?
+[option] Best fit across services
 [option] Barbers
 [option] Hair
 [option] Nails
 [option] Skin care
 [option] Massage
+[option] Med spa
 [span] Provider language
+[option] Any language
 [option] English
 [option] Spanish
 [option] Mandarin
 [span] Date
 [button] Find my person
-[b] Try the shared agent flow
-[small] Find a Spanish-speaking Tampa barber rated 4.8+
+[b] Run the personalized agent flow
+[small] Rank six providers for Alex, explain the winner, then prepare a booking
 [p] EXPLORE
 [h2] Book by mood.
 [p] Five ways to feel more like yourself.
@@ -29,13 +39,20 @@
 [b] Nails
 [b] Skin care
 [b] Massage
-[p] CURATED IN TAMPA
+[b] Med spa
+[p] EXPLAINABLE FIT · NO PAID PLACEMENT
 [h2] People worth meeting.
+[b] Proximity changes the answer
+[span] OpenStreetMap and Leaflet, no location API key required
+[a] Leaflet
+[div] © OpenStreetMap contributors
 [span] Next 10:30 AM
 [div] 4.96
 [span] (418)
 [h3] Cigar City Cuts
 [p] Marco Ruiz · Ybor City
+[span] precision fades
+[span] beard design
 [span] English + Spanish
 [span] 2.1 mi
 [strong] From $34
@@ -45,6 +62,8 @@
 [span] (286)
 [h3] The Edit Tampa
 [p] Nia Brooks · Hyde Park
+[span] healthy hair
+[span] texture expertise
 [span] English
 [span] 3.4 mi
 [strong] From $82
@@ -54,6 +73,8 @@
 [span] (193)
 [h3] Soft Set Studio
 [p] Mei Chen · Channelside
+[span] natural nail health
+[span] minimal nail art
 [span] English + Mandarin
 [span] 1.6 mi
 [strong] From $68
@@ -63,6 +84,8 @@
 [span] (241)
 [h3] Luz Skin Room
 [p] Sofía Alvarez · West Tampa
+[span] barrier repair
+[span] acne support
 [span] English + Spanish
 [span] 4.2 mi
 [strong] From $72
@@ -72,12 +95,28 @@
 [span] (167)
 [h3] Palmetto Bodywork
 [p] Darius Cole · Seminole Heights
+[span] desk tension
+[span] athletic recovery
 [span] English
 [span] 3.8 mi
 [strong] From $110
 [button] View times
+[span] Next 9:30 AM
+[span] NEW PROVIDER
+[div] 4.82
+[span] (11)
+[h3] Gulf Glow Med Spa
+[p] Amaya Patel · Tampa Heights
+[span] hydration facials
+[span] first-time med spa guidance
+[b] New client launch offer
+[span] $59 consultation and express hydrafacial
+[span] English + Spanish
+[span] 2.8 mi
+[strong] From $35
+[button] View times
 [b] Live WebMCP evidence
-[small] 10 site tools available
+[small] 12 site tools available
 [span] calls
 [span] estimated I/O tokens
 [li] No agent actions yet.

@@ -1,0 +1,264 @@
+<template>
+  <style>
+    #root {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      container-type: size;
+      color: #171717;
+    }
+
+    #f04-three-winners-ground,
+    #f04-three-winners-stage {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+    }
+
+    #f04-three-winners-ground { background: #fffdf8; }
+
+    #f04-three-winners-stage {
+      box-sizing: border-box;
+      padding: 3.2cqw 5cqw 0;
+    }
+
+    .f04-three-winners-kicker {
+      display: inline-block;
+      padding: 0.45cqw 0.85cqw;
+      border: 0.2cqw solid #171717;
+      border-radius: 999px;
+      background: #fffdf8;
+      font-size: 1.25cqw;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      line-height: 1;
+      text-transform: uppercase;
+    }
+
+    .f04-three-winners-ledger {
+      position: absolute;
+      top: 7.4cqw;
+      left: 5cqw;
+      right: 5cqw;
+      height: 35.2cqw;
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 1.5cqw;
+      perspective: 1500px;
+    }
+
+    .f04-three-winners-card-shell { min-width: 0; }
+
+    .f04-three-winners-card {
+      position: relative;
+      height: 100%;
+      box-sizing: border-box;
+      display: grid;
+      grid-template-rows: auto 12cqw auto auto 1fr;
+      overflow: hidden;
+      border: 0.4cqw solid #171717;
+      background: #e8ffa9;
+      transform-style: preserve-3d;
+    }
+
+    .f04-three-winners-card--left { transform: rotateY(3deg); }
+    .f04-three-winners-card--center {
+      transform: rotateY(0deg);
+      background: #d9c7ff;
+      box-shadow: 1.05cqw 1.05cqw 0 #915dff, 1.05cqw 1.05cqw 0 0.2cqw #171717;
+    }
+    .f04-three-winners-card--right { transform: rotateY(-3deg); }
+
+    .f04-three-winners-customer {
+      padding: 0.8cqw 1cqw;
+      border-bottom: 0.3cqw solid #171717;
+      background: #171717;
+      color: #fffdf8;
+      font-size: 1.45cqw;
+      font-weight: 900;
+      letter-spacing: -0.01em;
+      line-height: 1;
+      text-transform: uppercase;
+    }
+
+    .f04-three-winners-portrait-wrap {
+      position: relative;
+      overflow: hidden;
+      border-bottom: 0.3cqw solid #171717;
+      background: #fffdf8;
+    }
+
+    .f04-three-winners-portrait {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      object-position: center bottom;
+    }
+
+    .f04-three-winners-score-row {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 0.8cqw;
+      padding: 0.8cqw 1cqw 0.55cqw;
+    }
+
+    .f04-three-winners-name {
+      max-width: 55%;
+      font-size: 1.55cqw;
+      font-weight: 900;
+      line-height: 0.95;
+      text-transform: uppercase;
+    }
+
+    .f04-three-winners-score {
+      color: #587900;
+      font-size: 3.25cqw;
+      font-weight: 900;
+      letter-spacing: -0.04em;
+      line-height: 0.82;
+    }
+
+    .f04-three-winners-track {
+      height: 0.7cqw;
+      margin: 0 1cqw 0.8cqw;
+      overflow: hidden;
+      border: 0.18cqw solid #171717;
+      background: #fffdf8;
+    }
+
+    .f04-three-winners-fill {
+      width: 100%;
+      height: 100%;
+      background: #7ba900;
+      transform-origin: left center;
+    }
+
+    .f04-three-winners-tags {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-content: start;
+      border-top: 0.3cqw solid #171717;
+    }
+
+    .f04-three-winners-tag {
+      min-height: 2.8cqw;
+      box-sizing: border-box;
+      display: flex;
+      align-items: center;
+      padding: 0.55cqw 0.7cqw;
+      border-right: 0.2cqw solid #171717;
+      border-bottom: 0.2cqw solid #171717;
+      background: #fffdf8;
+      font-size: 1.02cqw;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      line-height: 1.05;
+      text-transform: uppercase;
+    }
+
+    .f04-three-winners-tag:nth-child(even) { border-right: 0; }
+    .f04-three-winners-tag--wide { grid-column: 1 / -1; border-right: 0; }
+
+    .f04-three-winners-lockup {
+      position: absolute;
+      z-index: 5;
+      top: 2.3cqw;
+      left: 50%;
+      width: 66cqw;
+      margin-left: -33cqw;
+      padding: 0.65cqw 1cqw;
+      border: 0.35cqw solid #171717;
+      background: #915dff;
+      color: #171717;
+      text-align: center;
+      font-size: 2.15cqw;
+      font-weight: 900;
+      letter-spacing: -0.01em;
+      line-height: 0.92;
+      text-transform: uppercase;
+    }
+  </style>
+
+  <div id="root" data-composition-id="04-three-winners" data-width="1920" data-height="1080">
+    <div id="f04-three-winners-ground" class="clip" data-start="0" data-duration="16" data-track-index="0"></div>
+    <div id="f04-three-winners-stage" class="clip" data-start="0" data-duration="16" data-track-index="1">
+      <div class="f04-three-winners-kicker">One provider pool · three rankings</div>
+
+      <div class="f04-three-winners-ledger">
+        <div id="f04-three-winners-alex-shell" class="f04-three-winners-card-shell">
+          <section class="f04-three-winners-card f04-three-winners-card--left">
+            <div class="f04-three-winners-customer">Alex</div>
+            <div class="f04-three-winners-portrait-wrap"><img id="f04-three-winners-marco-image" class="f04-three-winners-portrait" src="assets/fictional-provider-marco-ruiz.png" alt="Marco Ruiz"></div>
+            <div class="f04-three-winners-score-row"><div id="f04-three-winners-marco-name" class="f04-three-winners-name">Marco</div><div id="f04-three-winners-marco-score" class="f04-three-winners-score">93%</div></div>
+            <div class="f04-three-winners-track"><div id="f04-three-winners-marco-fill" class="f04-three-winners-fill"></div></div>
+            <div class="f04-three-winners-tags"><div id="f04-three-winners-marco-tag1" class="f04-three-winners-tag">Spanish</div><div id="f04-three-winners-marco-tag2" class="f04-three-winners-tag">Value</div><div id="f04-three-winners-marco-tag3" class="f04-three-winners-tag f04-three-winners-tag--wide">1.1 mi</div></div>
+          </section>
+        </div>
+
+        <div id="f04-three-winners-jamie-shell" class="f04-three-winners-card-shell">
+          <section class="f04-three-winners-card f04-three-winners-card--center">
+            <div class="f04-three-winners-customer">Jamie</div>
+            <div class="f04-three-winners-portrait-wrap"><img id="f04-three-winners-sofia-image" class="f04-three-winners-portrait" src="assets/fictional-provider-sofa-alvarez.png" alt="Sofía Alvarez"></div>
+            <div class="f04-three-winners-score-row"><div id="f04-three-winners-sofia-name" class="f04-three-winners-name">Sofía</div><div id="f04-three-winners-sofia-score" class="f04-three-winners-score">96%</div></div>
+            <div class="f04-three-winners-track"><div id="f04-three-winners-sofia-fill" class="f04-three-winners-fill"></div></div>
+            <div class="f04-three-winners-tags"><div id="f04-three-winners-sofia-tag1" class="f04-three-winners-tag">Sensitive skin</div><div id="f04-three-winners-sofia-tag2" class="f04-three-winners-tag">Trust</div><div id="f04-three-winners-sofia-tag3" class="f04-three-winners-tag f04-three-winners-tag--wide">0.7 mi</div></div>
+          </section>
+        </div>
+
+        <div id="f04-three-winners-taylor-shell" class="f04-three-winners-card-shell">
+          <section class="f04-three-winners-card f04-three-winners-card--right">
+            <div class="f04-three-winners-customer">Taylor</div>
+            <div class="f04-three-winners-portrait-wrap"><img id="f04-three-winners-mei-image" class="f04-three-winners-portrait" src="assets/fictional-provider-mei-chen.png" alt="Mei Chen"></div>
+            <div class="f04-three-winners-score-row"><div id="f04-three-winners-mei-name" class="f04-three-winners-name">Mei</div><div id="f04-three-winners-mei-score" class="f04-three-winners-score">79%</div></div>
+            <div class="f04-three-winners-track"><div id="f04-three-winners-mei-fill" class="f04-three-winners-fill"></div></div>
+            <div class="f04-three-winners-tags"><div id="f04-three-winners-mei-tag1" class="f04-three-winners-tag">Quiet studio</div><div id="f04-three-winners-mei-tag2" class="f04-three-winners-tag">Meticulous</div><div id="f04-three-winners-mei-tag3" class="f04-three-winners-tag f04-three-winners-tag--wide">0.7 mi</div></div>
+          </section>
+        </div>
+      </div>
+
+      <div id="f04-three-winners-lockup" class="f04-three-winners-lockup">Same market. Different answer.</div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+  <script>
+    window.__timelines = window.__timelines || {};
+    const tl = gsap.timeline({ paused: true });
+    window.__timelines["04-three-winners"] = tl;
+
+    tl.fromTo(".f04-three-winners-kicker", { y: -34, opacity: 0 }, { y: 0, opacity: 1, duration: 0.7, ease: "power3.out" }, 0.05);
+
+    tl.fromTo("#f04-three-winners-alex-shell", { x: -620, scale: 0.85, opacity: 0 }, { x: 0, scale: 1, opacity: 1, duration: 1.05, ease: "power3.out" }, 0.08)
+      .fromTo("#f04-three-winners-marco-image", { y: 42, opacity: 0 }, { y: 0, opacity: 1, duration: 0.6, ease: "power3.out" }, 0.42)
+      .fromTo("#f04-three-winners-marco-name", { x: -28, opacity: 0 }, { x: 0, opacity: 1, duration: 0.45, ease: "power3.out" }, 1.1)
+      .fromTo("#f04-three-winners-marco-score", { scale: 0.72, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.55, ease: "back.out(1.35)" }, 1.45)
+      .fromTo("#f04-three-winners-marco-fill", { scaleX: 0 }, { scaleX: 0.93, duration: 1, ease: "power2.out" }, 1.45)
+      .fromTo("#f04-three-winners-marco-tag1", { y: 18, opacity: 0 }, { y: 0, opacity: 1, duration: 0.45, ease: "power3.out" }, 2.45)
+      .fromTo("#f04-three-winners-marco-tag2", { y: 18, opacity: 0 }, { y: 0, opacity: 1, duration: 0.45, ease: "power3.out" }, 3.15)
+      .fromTo("#f04-three-winners-marco-tag3", { y: 18, opacity: 0 }, { y: 0, opacity: 1, duration: 0.45, ease: "power3.out" }, 3.85);
+
+    tl.fromTo("#f04-three-winners-jamie-shell", { y: -520, scale: 0.85, opacity: 0 }, { y: 0, scale: 1, opacity: 1, duration: 1.05, ease: "power3.out" }, 4.8)
+      .fromTo("#f04-three-winners-sofia-image", { y: 42, opacity: 0 }, { y: 0, opacity: 1, duration: 0.6, ease: "power3.out" }, 5.25)
+      .fromTo("#f04-three-winners-sofia-name", { y: 22, opacity: 0 }, { y: 0, opacity: 1, duration: 0.45, ease: "power3.out" }, 6.0)
+      .fromTo("#f04-three-winners-sofia-score", { scale: 0.72, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.55, ease: "back.out(1.35)" }, 6.45)
+      .fromTo("#f04-three-winners-sofia-fill", { scaleX: 0 }, { scaleX: 0.96, duration: 1, ease: "power2.out" }, 6.45)
+      .fromTo("#f04-three-winners-sofia-tag1", { y: 18, opacity: 0 }, { y: 0, opacity: 1, duration: 0.45, ease: "power3.out" }, 7.55)
+      .fromTo("#f04-three-winners-sofia-tag2", { y: 18, opacity: 0 }, { y: 0, opacity: 1, duration: 0.45, ease: "power3.out" }, 8.3)
+      .fromTo("#f04-three-winners-sofia-tag3", { y: 18, opacity: 0 }, { y: 0, opacity: 1, duration: 0.45, ease: "power3.out" }, 9.05);
+
+    tl.fromTo("#f04-three-winners-taylor-shell", { x: 620, scale: 0.85, opacity: 0 }, { x: 0, scale: 1, opacity: 1, duration: 1.05, ease: "power3.out" }, 10.0)
+      .fromTo("#f04-three-winners-mei-image", { y: 42, opacity: 0 }, { y: 0, opacity: 1, duration: 0.6, ease: "power3.out" }, 10.35)
+      .fromTo("#f04-three-winners-mei-name", { x: 28, opacity: 0 }, { x: 0, opacity: 1, duration: 0.45, ease: "power3.out" }, 11.0)
+      .fromTo("#f04-three-winners-mei-score", { scale: 0.72, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.55, ease: "back.out(1.35)" }, 11.35)
+      .fromTo("#f04-three-winners-mei-fill", { scaleX: 0 }, { scaleX: 0.79, duration: 1, ease: "power2.out" }, 11.35)
+      .fromTo("#f04-three-winners-mei-tag1", { y: 18, opacity: 0 }, { y: 0, opacity: 1, duration: 0.4, ease: "power3.out" }, 12.15)
+      .fromTo("#f04-three-winners-mei-tag2", { y: 18, opacity: 0 }, { y: 0, opacity: 1, duration: 0.4, ease: "power3.out" }, 12.75)
+      .fromTo("#f04-three-winners-mei-tag3", { y: 18, opacity: 0 }, { y: 0, opacity: 1, duration: 0.4, ease: "power3.out" }, 13.3)
+      .fromTo("#f04-three-winners-lockup", { y: -42, opacity: 0 }, { y: 0, opacity: 1, duration: 0.75, ease: "power3.out" }, 14.0);
+  </script>
+</template>

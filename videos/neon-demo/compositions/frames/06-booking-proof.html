@@ -1,0 +1,114 @@
+<template>
+  <style>
+    #root { position:relative; width:100%; height:100%; overflow:hidden; container-type:size; color:#171717; }
+    .booking06-ground { position:absolute; inset:0; background:#FFFDF8; }
+    .booking06-surface { position:absolute; inset:0; overflow:hidden; }
+    .booking06-page { position:absolute; inset:4cqh 4cqw 17cqh; width:92cqw; height:79cqh; object-fit:cover; object-position:top center; opacity:.34; filter:saturate(.72); }
+    .booking06-veil { position:absolute; inset:0; background:rgba(255,253,248,.38); }
+    .booking06-tools { position:absolute; left:6cqw; top:12cqh; width:49cqw; }
+    .booking06-numberline { display:flex; align-items:flex-end; gap:1.4cqw; height:16cqh; }
+    .booking06-count { display:inline-block; width:13cqw; font:900 8cqw/.82 sans-serif; letter-spacing:-.02em; font-variant-numeric:tabular-nums; transform-origin:left bottom; }
+    .booking06-tools-label { width:31cqw; padding-bottom:.6cqh; font:900 4.2cqw/.9 sans-serif; letter-spacing:-.01em; text-transform:uppercase; }
+    .booking06-checks { display:grid; grid-template-columns:1fr 1fr; width:42cqw; margin-top:4cqh; border:.4cqw solid #171717; background:#FFFDF8; }
+    .booking06-check { display:flex; align-items:center; gap:1cqw; min-height:8.5cqh; padding:0 1.4cqw; border-bottom:.25cqw solid #171717; font:700 1.25cqw/1 monospace; letter-spacing:.06em; }
+    .booking06-check:nth-child(odd) { border-right:.25cqw solid #171717; }
+    .booking06-check:nth-child(n+3) { border-bottom:0; }
+    .booking06-tick { display:grid; place-items:center; width:2.2cqw; height:2.2cqw; flex:0 0 auto; border:.2cqw solid #171717; border-radius:50%; background:#C8FF35; font:900 1.25cqw/1 sans-serif; }
+    .booking06-provider { position:absolute; right:5cqw; top:14cqh; width:28cqw; height:49cqh; border:.4cqw solid #171717; background:#915DFF; box-shadow:1.25cqw 1.25cqw 0 #D9C7FF,1.25cqw 1.25cqw 0 .2cqw #171717; overflow:hidden; }
+    .booking06-provider img { width:100%; height:31cqh; object-fit:cover; object-position:center top; border-bottom:.3cqw solid #171717; }
+    .booking06-provider-name { padding:1.1cqw 1.3cqw .4cqw; font:900 2.35cqw/.9 sans-serif; text-transform:uppercase; }
+    .booking06-provider-meta { padding:0 1.3cqw; font:700 1.15cqw/1.2 monospace; letter-spacing:.08em; text-transform:uppercase; }
+    .booking06-ledger { position:absolute; left:10cqw; top:10cqh; width:80cqw; height:66cqh; display:grid; grid-template-columns:1.15fr .85fr; border:.4cqw solid #171717; background:#E8FFA9; }
+    .booking06-ledger-main { padding:2.2cqw; border-right:.3cqw solid #171717; }
+    .booking06-kicker { display:inline-block; padding:.55cqw 1cqw; background:#171717; color:#FFFDF8; font:700 1.25cqw/1 monospace; letter-spacing:.14em; text-transform:uppercase; }
+    .booking06-ledger-title { margin-top:2.5cqh; font:900 4.2cqw/.92 sans-serif; text-transform:uppercase; }
+    .booking06-detail { display:grid; grid-template-columns:1fr auto; padding:1.55cqh 0; border-bottom:.2cqw solid #171717; font:700 1.25cqw/1.1 monospace; letter-spacing:.05em; text-transform:uppercase; }
+    .booking06-statusrail { display:flex; flex-direction:column; justify-content:center; gap:3cqh; padding:2cqw; background:#FFFDF8; }
+    .booking06-status { padding:1.4cqw; border:.3cqw solid #171717; font:900 2cqw/.95 sans-serif; text-transform:uppercase; }
+    .booking06-status.approved { background:#C8FF35; }
+    .booking06-status small { display:block; margin-bottom:.7cqh; font:700 1cqw/1 monospace; letter-spacing:.08em; }
+    .booking06-receipt { position:absolute; left:7cqw; top:9cqh; width:86cqw; height:69cqh; display:grid; grid-template-columns:42% 58%; border:.4cqw solid #171717; background:#FFFDF8; overflow:hidden; }
+    .booking06-confirm { padding:2.6cqw; background:#915DFF; border-right:.3cqw solid #171717; }
+    .booking06-confirm-word { margin-top:4cqh; font:900 5.2cqw/.86 sans-serif; text-transform:uppercase; }
+    .booking06-code { display:inline-block; margin-top:4cqh; padding:.8cqw 1cqw; background:#171717; color:#FFFDF8; font:700 1.35cqw/1 monospace; letter-spacing:.08em; }
+    .booking06-calendar { position:relative; padding:2cqw 2.3cqw; background:#E8FFA9; }
+    .booking06-calendar-head { display:flex; justify-content:space-between; padding-bottom:1.6cqh; border-bottom:.3cqw solid #171717; font:700 1.2cqw/1 monospace; letter-spacing:.08em; text-transform:uppercase; }
+    .booking06-grid { display:grid; grid-template-columns:5.5cqw 1fr; margin-top:2cqh; }
+    .booking06-time { min-height:8cqh; border-right:.2cqw solid #171717; font:700 1.05cqw/1 monospace; }
+    .booking06-slot { min-height:8cqh; border-bottom:.2cqw solid #171717; }
+    .booking06-event { position:absolute; left:9.5cqw; right:2.5cqw; top:25cqh; padding:1.4cqw; border:.3cqw solid #171717; background:#C8FF35; font:900 2.15cqw/.95 sans-serif; text-transform:uppercase; }
+    .booking06-event span { display:block; margin-top:.7cqh; font:700 1.2cqw/1 monospace; letter-spacing:.08em; }
+    .booking06-cutbar { position:absolute; top:0; bottom:0; left:41.7%; width:.65cqw; background:#171717; transform-origin:center; }
+    .booking06-close { position:absolute; inset:0; background:#7BA900; color:#FFFDF8; display:grid; place-items:center; text-align:center; }
+    .booking06-close-copy { width:78cqw; font:900 6.2cqw/.9 sans-serif; letter-spacing:-.01em; text-transform:uppercase; }
+    .booking06-url { position:absolute; top:72cqh; left:50%; padding:.85cqw 1.35cqw; border:.2cqw solid #FFFDF8; border-radius:999px; font:700 1.25cqw/1 monospace; letter-spacing:.08em; }
+  </style>
+
+  <div id="root" data-composition-id="06-booking-proof" data-width="1920" data-height="1080">
+    <div class="clip booking06-ground" data-start="0" data-duration="15" data-track-index="0"></div>
+    <section class="clip booking06-surface" data-start="0" data-duration="15" data-track-index="1" data-layout-allow-overlap>
+      <img class="booking06-page" src="assets/providers-section-page-width.png" alt="Personalized provider results">
+      <div class="booking06-veil"></div>
+      <div class="booking06-tools">
+        <div class="booking06-numberline"><span id="f06-booking-proof-counter" class="booking06-count">0</span><span class="booking06-tools-label">Native tools</span></div>
+        <div class="booking06-checks">
+          <div class="booking06-check"><span class="booking06-tick">✓</span>History</div>
+          <div class="booking06-check"><span class="booking06-tick">✓</span>Rank</div>
+          <div class="booking06-check"><span class="booking06-tick">✓</span>Compare</div>
+          <div class="booking06-check"><span class="booking06-tick">✓</span>Availability</div>
+        </div>
+      </div>
+      <article class="booking06-provider"><img src="assets/fictional-provider-marco-ruiz.png" alt="Marco Ruiz"><div class="booking06-provider-name">Marco Ruiz</div><div class="booking06-provider-meta">Match ready · availability found</div></article>
+    </section>
+
+    <section class="clip booking06-ledger" data-start="0" data-duration="15" data-track-index="2" data-layout-allow-overlap>
+      <div class="booking06-ledger-main"><div class="booking06-kicker">Exact review ledger</div><div class="booking06-ledger-title">Review before action</div><div class="booking06-detail"><span>Provider</span><strong>Marco Ruiz</strong></div><div class="booking06-detail"><span>Customer</span><strong>Alex Morgan</strong></div><div class="booking06-detail"><span>Time</span><strong>11:30 AM</strong></div></div>
+      <div class="booking06-statusrail"><div class="booking06-status booking06-required"><small>01 · SAFETY GATE</small>Approval required</div><div class="booking06-status approved"><small>02 · RECEIPT</small>Customer approved</div></div>
+    </section>
+
+    <section class="clip booking06-receipt" data-start="0" data-duration="15" data-track-index="3" data-layout-allow-overlap>
+      <div class="booking06-confirm"><div class="booking06-kicker">Booking receipt</div><div class="booking06-confirm-word">Confirmed</div><div class="booking06-code">NEON-MR-0903-1130</div></div>
+      <div class="booking06-calendar"><div class="booking06-calendar-head"><span>Provider calendar</span><span>September 03</span></div><div class="booking06-grid"><div><div class="booking06-time">10 AM</div><div class="booking06-time">11 AM</div><div class="booking06-time">12 PM</div><div class="booking06-time">1 PM</div></div><div><div class="booking06-slot"></div><div class="booking06-slot"></div><div class="booking06-slot"></div><div class="booking06-slot"></div></div></div><div class="booking06-event">Alex Morgan<span>11:30 AM · Confirmed</span></div></div>
+      <div class="booking06-cutbar"></div>
+    </section>
+
+    <section class="clip booking06-close" data-start="0" data-duration="15" data-track-index="4" data-layout-allow-overlap><div class="booking06-close-copy">People choose.<br>Agents handle the work.</div><div class="booking06-url">newyorkdev.github.io/neon-webmcp/</div></section>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script>
+    (() => {
+      const tl = gsap.timeline({ paused: true });
+      const counter = document.getElementById('f06-booking-proof-counter');
+      const countState = { value: 0 };
+
+      tl.fromTo('.booking06-page', { opacity: 0, scale: 1.04 }, { opacity: .34, scale: 1, duration: .6, ease: 'power2.out' }, 0)
+        .fromTo('.booking06-provider', { opacity: 0, x: 70, scale: .88 }, { opacity: 1, x: 0, scale: 1, duration: .65, ease: 'back.out(1.35)' }, .15)
+        .fromTo('.booking06-tools-label', { opacity: 0, y: 22 }, { opacity: 1, y: 0, duration: .5, ease: 'power2.out' }, .2)
+        .to(countState, { value: 14, duration: 1.8, ease: 'power3.out', onUpdate: () => { counter.textContent = Math.round(countState.value); } }, .15)
+        .fromTo(counter, { scale: .48, opacity: 0 }, { scale: 1, opacity: 1, duration: 1.8, ease: 'power3.out' }, .15)
+        .fromTo('.booking06-checks', { opacity: 0, scaleY: .15, transformOrigin: 'top' }, { opacity: 1, scaleY: 1, duration: .55, ease: 'back.out(1.25)' }, 1.75)
+        .fromTo('.booking06-check', { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: .4, stagger: .35, ease: 'power2.out' }, 2.15)
+        .fromTo('.booking06-tick', { scale: 0, rotation: -70 }, { scale: 1, rotation: 0, duration: .38, stagger: .35, ease: 'back.out(1.8)' }, 2.35)
+        .to('.booking06-surface', { opacity: 0, duration: .25, ease: 'power2.out' }, 3.75)
+        .fromTo('.booking06-ledger', { opacity: 0, scale: 1.08, filter: 'blur(12px)' }, { opacity: 1, scale: 1, filter: 'blur(0px)', duration: .55, ease: 'power3.out' }, 4)
+        .fromTo('.booking06-ledger-main > *', { opacity: 0, x: -28 }, { opacity: 1, x: 0, duration: .45, stagger: .22, ease: 'power2.out' }, 4.35)
+        .fromTo('.booking06-required', { opacity: 0, y: 28 }, { opacity: 1, y: 0, duration: .55, ease: 'back.out(1.3)' }, 6.0)
+        .fromTo('.booking06-status.approved', { opacity: 0, y: 28, scale: .92 }, { opacity: 1, y: 0, scale: 1, duration: .65, ease: 'back.out(1.55)' }, 7.15)
+        .to('.booking06-ledger', { opacity: 0, duration: .25, ease: 'power2.out' }, 8.25)
+        .fromTo('.booking06-receipt', { opacity: 0, scale: .96 }, { opacity: 1, scale: 1, duration: .45, ease: 'power2.out' }, 8.5)
+        .fromTo('.booking06-confirm-word', { opacity: 0, y: 28 }, { opacity: 1, y: 0, duration: .55, ease: 'power2.out' }, 8.75)
+        .fromTo('.booking06-code', { opacity: 0, clipPath: 'inset(0 100% 0 0)' }, { opacity: 1, clipPath: 'inset(0 0% 0 0)', duration: .7, ease: 'power2.out' }, 9.35)
+        .fromTo('.booking06-calendar', { clipPath: 'inset(0 100% 0 0)' }, { clipPath: 'inset(0 0% 0 0)', duration: .75, ease: 'power3.out' }, 10.0)
+        .fromTo('.booking06-cutbar', { scaleY: 0 }, { scaleY: 1, duration: .45, ease: 'power2.out' }, 10.0)
+        .fromTo('.booking06-event', { opacity: 0, x: 45 }, { opacity: 1, x: 0, duration: .6, ease: 'back.out(1.4)' }, 10.8)
+        .to('.booking06-receipt', { opacity: 0, duration: .25, ease: 'power2.out' }, 11.75)
+        .fromTo('.booking06-close', { opacity: 0, scale: 1.06 }, { opacity: 1, scale: 1, duration: .65, ease: 'power3.out' }, 12)
+        .fromTo('.booking06-close-copy', { opacity: 0, y: 34 }, { opacity: 1, y: 0, duration: .75, ease: 'power2.out' }, 12.25)
+        .fromTo('.booking06-url', { opacity: 0, xPercent: -50, y: 20 }, { opacity: 1, xPercent: -50, y: 0, duration: .65, ease: 'back.out(1.35)' }, 13.75);
+
+      window.__timelines = window.__timelines || {};
+      window.__timelines['06-booking-proof'] = tl;
+    })();
+  </script>
+</template>

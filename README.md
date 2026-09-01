@@ -22,9 +22,9 @@ npm run benchmark
 npm run verify:native
 ```
 
-In a WebMCP-capable browser, Neon registers twelve tools through `document.modelContext.registerTool(...)`. Two personalization tools let an agent inspect three fictional customer profiles and rank the same provider pool using goals, specialty fit, proximity, budget, review themes, language, accessibility, promotions, and availability. Unsupported browsers retain the complete human demo.
+In a WebMCP-capable browser, Neon registers fourteen tools through `document.modelContext.registerTool(...)`. Personalization tools rank the same provider pool using goals, specialty fit, proximity, budget, review themes, language, accessibility, promotions, and availability. Returning-customer tools can inspect a prior relationship and find the usual provider and service for a requested date and time window. Unsupported browsers retain the complete human demo.
 
-The repository includes a public native-browser verification artifact showing all twelve tools discovered on the deployed HTTPS page and the personalized booking path invoked through the native browser API.
+The repository includes a public native-browser verification artifact showing all fourteen tools discovered on the deployed HTTPS page and the returning-customer booking path invoked through the native browser API.
 
 ## Demo safety
 

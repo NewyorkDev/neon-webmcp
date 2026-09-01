@@ -55,14 +55,14 @@ function customerView(state) {
       <p class="eyebrow">TAMPA · ${t(state, 'AGENT-READY MARKETPLACE', 'MERCADO PARA AGENTES')}</p>
       <h1>${t(state, 'Your next favorite<br>appointment is <em>closer.</em>', 'Tu próxima cita<br>favorita está <em>cerca.</em>')}</h1>
       <p class="hero-lede">${t(state, 'Tell your assistant what matters. Neon compares the details and keeps every decision visible.', 'Dile a tu asistente lo que importa. Neon compara los detalles y mantiene cada decisión visible.')}</p>
-      <div class="persona-switcher"><span>${t(state, 'SEE THE SAME MARKET THROUGH:', 'VER EL MISMO MERCADO COMO:')}</span>${CUSTOMER_PROFILES.map((customer) => `<button data-customer="${customer.id}" class="${state.customerProfileId === customer.id ? 'active' : ''}"><b>${customer.name}</b><small>${customer.headline}</small></button>`).join('')}</div>
+      <div class="persona-switcher"><span>${t(state, 'SEE THE SAME MARKET THROUGH:', 'VER EL MISMO MERCADO COMO:')}</span>${CUSTOMER_PROFILES.map((customer) => `<button data-customer="${customer.id}" class="${state.customerProfileId === customer.id ? 'active' : ''}"><b>${customer.name} ${customer.relationship.returning ? `<em>${customer.relationship.visits} ${t(state, 'visits', 'visitas')}</em>` : `<em>${t(state, 'new', 'nuevo')}</em>`}</b><small>${customer.headline}</small></button>`).join('')}</div>
       <div class="search-shell">
         <label><span>${t(state, 'What are you looking for?', '¿Qué estás buscando?')}</span><select id="category-select"><option value="">${t(state, 'Best fit across services', 'Mejor opción entre servicios')}</option>${CATEGORIES.map((category) => `<option value="${category.id}" ${category.id === state.preferences.category ? 'selected' : ''}>${state.locale === 'es' ? category.labelEs : category.label}</option>`).join('')}</select></label>
         <label><span>${t(state, 'Provider language', 'Idioma del profesional')}</span><select id="language-select"><option value="">${t(state, 'Any language', 'Cualquier idioma')}</option><option>English</option><option ${state.preferences.spokenLanguage === 'Spanish' ? 'selected' : ''}>Spanish</option><option>Mandarin</option></select></label>
         <label><span>${t(state, 'Date', 'Fecha')}</span><input id="date-input" type="date" value="${state.preferences.date}"></label>
         <button id="search-button" class="search-button">${t(state, 'Find my person', 'Encontrar profesional')} ${icon('arrow')}</button>
       </div>
-        <button id="agent-demo" class="agent-prompt"><span class="agent-dot"></span><b>${t(state, 'Run the personalized agent flow', 'Probar el flujo personalizado')}</b><small>${t(state, 'Rank six providers for Alex, explain the winner, then prepare a booking', 'Comparar seis profesionales, explicar el ganador y preparar una cita')}</small></button>
+        <div class="agent-prompts"><button id="agent-demo" class="agent-prompt"><span class="agent-dot"></span><b>${t(state, 'Discover the best fit', 'Descubrir la mejor opción')}</b><small>${t(state, 'Rank six providers for Alex and explain every tradeoff', 'Comparar seis profesionales y explicar cada diferencia')}</small></button><button id="rebook-demo" class="agent-prompt rebook"><span class="agent-dot"></span><b>${t(state, 'Rebook what I usually get', 'Reservar lo de siempre')}</b><small>${t(state, 'Haircut on September 3 around lunch', 'Corte el 3 de septiembre cerca del mediodía')}</small></button></div>
     </section>
 
     <section class="category-section page-width">
@@ -125,7 +125,7 @@ function activityPanel(state) {
 function providerView(state) {
   const bookings = engine.getBookings().filter((booking) => booking.provider.id === 'marco-ruiz');
   return `<main class="business-main"><section class="business-hero page-width"><div><p class="eyebrow">NEON FOR BUSINESS · CIGAR CITY CUTS</p><h1>${t(state, 'Good morning, Marco.', 'Buenos días, Marco.')}</h1><p>${t(state, 'Your schedule is current. New WebMCP appointments appear here immediately.', 'Tu calendario está actualizado. Las nuevas citas WebMCP aparecen aquí de inmediato.')}</p></div><div class="business-stat"><small>${t(state, 'CONFIRMED TODAY', 'CONFIRMADAS HOY')}</small><b>${bookings.length}</b><span>+$${bookings.reduce((sum, item) => sum + item.price, 0)} ${t(state, 'booked', 'reservado')}</span></div></section>
-    <section class="calendar-shell page-width"><div class="calendar-head"><div><p class="eyebrow dark">${t(state, 'PROVIDER CALENDAR', 'CALENDARIO')}</p><h2>${t(state, 'Thursday, September 10', 'Jueves, 10 de septiembre')}</h2></div><div class="calendar-actions"><button>${t(state, 'Block time', 'Bloquear hora')}</button><button class="dark-button">+ ${t(state, 'New appointment', 'Nueva cita')}</button></div></div>
+    <section class="calendar-shell page-width"><div class="calendar-head"><div><p class="eyebrow dark">${t(state, 'PROVIDER CALENDAR', 'CALENDARIO')}</p><h2>${bookings[0] ? dateLabel(bookings[0].slot.date, state.locale) : t(state, 'Thursday, September 10', 'Jueves, 10 de septiembre')}</h2></div><div class="calendar-actions"><button>${t(state, 'Block time', 'Bloquear hora')}</button><button class="dark-button">+ ${t(state, 'New appointment', 'Nueva cita')}</button></div></div>
       <div class="calendar-grid"><div class="time-column"><span>9 AM</span><span>10 AM</span><span>11 AM</span><span>12 PM</span><span>1 PM</span><span>2 PM</span><span>3 PM</span><span>4 PM</span></div><div class="day-column"><div class="grid-lines"></div><article class="existing appt-one"><b>Jordan Lee</b><span>Signature haircut · 45 min</span></article><article class="existing appt-two"><b>Sam Patel</b><span>Cut and beard detail · 60 min</span></article>${bookings.map((booking) => `<article class="new-booking"><div class="new-label"><span class="agent-dot"></span> WEBMCP · JUST NOW</div><b>${escapeHtml(booking.customer.name)}</b><span>${state.locale === 'es' ? booking.service.nameEs : booking.service.name} · ${booking.service.duration} min</span><small>${booking.slot.time} · ${money(booking.price)} · ${booking.status}</small></article>`).join('')}</div><aside class="business-feed"><h3>${t(state, 'Appointment feed', 'Actividad de citas')}</h3>${bookings.length ? bookings.map((booking) => `<div class="feed-item"><span>${icon('check')}</span><div><b>${t(state, 'New confirmed appointment', 'Nueva cita confirmada')}</b><p>${booking.customer.name} booked ${booking.service.name}.</p><small>${booking.reference}</small></div></div>`).join('') : `<div class="feed-empty">${t(state, 'Complete the customer demo and the appointment will appear here.', 'Completa la demostración del cliente y la cita aparecerá aquí.')}</div>`}<div class="provider-proof"><b>${t(state, 'Sandbox guarantees', 'Garantías de prueba')}</b><span>✓ ${t(state, 'No real customer notification', 'Sin notificación real')}</span><span>✓ ${t(state, 'No payment or production inventory', 'Sin pago ni inventario real')}</span><span>✓ ${t(state, 'Browser-local persistence', 'Persistencia local')}</span></div></aside></div>
     </section><button id="reset-demo" class="reset-demo">${t(state, 'Reset all demo data', 'Restablecer datos')}</button></main>`;
 }
@@ -148,6 +148,7 @@ function bind(state) {
   root.querySelector('#approve-button')?.addEventListener('click', () => { lastError = ''; engine.approve(); });
   root.querySelector('#book-button')?.addEventListener('click', () => safeRun('request_booking', { confirmed: true }));
   root.querySelector('#agent-demo')?.addEventListener('click', runGuidedDemo);
+  root.querySelector('#rebook-demo')?.addEventListener('click', runRebookDemo);
   root.querySelector('#toggle-activity')?.addEventListener('click', () => root.querySelector('.activity-panel')?.classList.toggle('expanded'));
   root.querySelector('#reset-demo')?.addEventListener('click', () => engine.reset());
 }
@@ -165,6 +166,12 @@ function runGuidedDemo() {
   safeRun('select_appointment', { providerId: 'marco-ruiz', serviceId: 'signature-cut', slotId: 'mr-0910-1030' });
   safeRun('prepare_booking_review', {});
   setTimeout(() => document.querySelector('#review')?.scrollIntoView({ behavior: 'smooth', block: 'center' }), 50);
+}
+
+function runRebookDemo() {
+  safeRun('get_customer_history', { customerProfileId: 'alex-morgan' });
+  safeRun('find_rebooking_options', { customerProfileId: 'alex-morgan', requestedDate: '2026-09-03', timePreference: 'lunch' });
+  setTimeout(() => document.querySelector('#profile')?.scrollIntoView({ behavior: 'smooth', block: 'center' }), 50);
 }
 
 function render(state = engine.getState()) {

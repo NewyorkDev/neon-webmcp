@@ -26,7 +26,7 @@ Appointment marketplaces are useful, but finding one good appointment can still 
 
 ## What we built
 
-Neon is an original bilingual marketplace for six fictional beauty and wellness professionals in Tampa, Florida. Three customer profiles see the same provider pool ranked differently. An AI agent can use twelve WebMCP tools to weigh goals, specialties, proximity, budget, review themes, language, accessibility, promotions, and availability, explain every score and tradeoff, inspect services, find sandbox availability, and prepare an exact appointment review.
+Neon is an original bilingual marketplace for six fictional beauty and wellness professionals in Tampa, Florida. Three customer profiles see the same provider pool ranked differently. Returning customers can ask for their usual service in natural language without starting over. An AI agent can use fourteen WebMCP tools to inspect relationship history, find rebooking options, weigh goals, specialties, proximity, budget, review themes, language, accessibility, promotions, and availability, explain every score and tradeoff, and prepare an exact appointment review.
 
 The customer sees every choice and must approve the exact provider, service, price, date, time, and cancellation policy. After approval, the final tool creates one idempotent sandbox appointment. Switching to the provider account shows that same appointment on the professional's calendar and activity feed.
 
@@ -38,7 +38,7 @@ This is not a generic booking form. It is a two-sided marketplace demonstration.
 
 ## How we built it
 
-Neon registers twelve top-level imperative tools through `document.modelContext.registerTool(...)`. Human controls and agent tools call the same deterministic marketplace engine. The recommendation score is inspectable and has no paid placement. A new med spa can compete through price, specialty fit, and availability while its shorter review history remains visible. Closed JSON schemas limit every input. Read-only actions are annotated, and the final booking tool requires both `confirmed: true` from the caller and a separate visible approval from the customer.
+Neon registers fourteen top-level imperative tools through `document.modelContext.registerTool(...)`. Human controls and agent tools call the same deterministic marketplace engine. The recommendation score is inspectable and has no paid placement. A new med spa can compete through price, specialty fit, and availability while its shorter review history remains visible. Returning-customer history is explicit site data, not invisible model memory. Closed JSON schemas limit every input. Read-only actions are annotated, and the final booking tool requires both `confirmed: true` from the caller and a separate visible approval from the customer.
 
 The English and Spanish interface uses the same provider and appointment state. All marketplace records and generated portraits are original fictional demo assets. A small browser-local database keeps the public project credentialless and lets a booking created in the customer account appear in the provider calendar without exposing a public production backend.
 
@@ -62,4 +62,4 @@ Neon is a sandbox. It contacts no real provider, collects no payment, sends no n
 
 ## What was built during the challenge
 
-The Neon application, original interface, fictional marketplace data, generated provider portraits, bilingual experience, personalized customer and provider views, browser-local persistence, twelve WebMCP tools, tests, native browser verifier, benchmark, and submission materials were created during the challenge.
+The Neon application, original interface, fictional marketplace data, generated provider portraits, bilingual experience, personalized and returning-customer flows, customer and provider views, browser-local persistence, fourteen WebMCP tools, tests, native browser verifier, benchmark, and submission materials were created during the challenge.

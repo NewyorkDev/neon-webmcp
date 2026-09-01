@@ -33,6 +33,16 @@ describe('Neon marketplace engine', () => {
     expect(comparison.paidPlacement).toBe(false);
   });
 
+  it('uses a returning customer relationship to find the usual service around lunch', () => {
+    const engine = createMarketplaceEngine({ database: createDatabase(memoryStorage()) });
+    const history = engine.run('get_customer_history', { customerProfileId: 'alex-morgan' });
+    const options = engine.run('find_rebooking_options', { customerProfileId: 'alex-morgan', requestedDate: '2026-09-03', timePreference: 'lunch' });
+    expect(history.previousProvider.id).toBe('marco-ruiz');
+    expect(history.previousService.id).toBe('signature-cut');
+    expect(options.slots.map((slot) => slot.id)).toEqual(['mr-0903-1130', 'mr-0903-1230']);
+    expect(options.requiresVisibleHumanApproval).toBe(true);
+  });
+
   it('finds the requested bilingual Tampa barber', () => {
     const engine = createMarketplaceEngine({ database: createDatabase(memoryStorage()) });
     const result = engine.run('search_providers', { category: 'barber', spokenLanguage: 'Spanish', minimumRating: 4.8, accessibleOnly: false });

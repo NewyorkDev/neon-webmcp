@@ -1,0 +1,308 @@
+<template>
+  <style>
+    #root {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      container-type: size;
+      color: #171717;
+      perspective: 1800px;
+    }
+
+    .tradeoff05-ground {
+      position: absolute;
+      inset: 0;
+      background: #FFFDF8;
+    }
+
+    .tradeoff05-field {
+      position: absolute;
+      top: 7.4cqh;
+      bottom: 17cqh;
+      width: 44cqw;
+      border: 0.4cqw solid #171717;
+      opacity: 0.18;
+    }
+
+    .tradeoff05-field-left {
+      left: -3cqw;
+      background: #C8FF35;
+    }
+
+    .tradeoff05-field-right {
+      right: -3cqw;
+      background: #D9C7FF;
+    }
+
+    .tradeoff05-heading {
+      position: absolute;
+      top: 4.6cqh;
+      left: 50%;
+      width: 66cqw;
+      margin-left: -33cqw;
+      text-align: center;
+      font: 400 3.2cqw/0.92 sans-serif;
+      letter-spacing: -0.01em;
+      text-transform: uppercase;
+      z-index: 8;
+    }
+
+    .tradeoff05-heading span {
+      display: inline-block;
+      padding: 0.65cqw 1.1cqw;
+      border: 0.35cqw solid #171717;
+    }
+
+    .tradeoff05-heading .tradeoff05-paid {
+      background: #171717;
+      color: #FFFDF8;
+    }
+
+    .tradeoff05-heading .tradeoff05-show {
+      background: #C8FF35;
+      margin-left: -0.35cqw;
+    }
+
+    .tradeoff05-stage {
+      position: absolute;
+      left: 5cqw;
+      right: 5cqw;
+      top: 17cqh;
+      height: 63cqh;
+      transform-style: preserve-3d;
+      z-index: 4;
+    }
+
+    .tradeoff05-card-shell {
+      position: absolute;
+      top: 0;
+      height: 61cqh;
+      transform-style: preserve-3d;
+      will-change: transform, opacity;
+    }
+
+    .tradeoff05-left-shell {
+      left: 0;
+      width: 54cqw;
+    }
+
+    .tradeoff05-right-shell {
+      right: 0;
+      width: 34cqw;
+    }
+
+    .tradeoff05-card {
+      position: absolute;
+      inset: 0;
+      border: 0.4cqw solid #171717;
+      background: #FFFDF8;
+      overflow: hidden;
+      transform-style: preserve-3d;
+    }
+
+    .tradeoff05-left-card {
+      display: grid;
+      grid-template-columns: 58% 42%;
+      box-shadow: -1.15cqw 1.15cqw 0 #D9C7FF, -1.15cqw 1.15cqw 0 0.2cqw #171717;
+    }
+
+    .tradeoff05-right-card {
+      display: grid;
+      grid-template-rows: 60% 40%;
+      box-shadow: 0.8cqw 0.8cqw 0 #171717;
+    }
+
+    .tradeoff05-portrait {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+      background: #E8FFA9;
+    }
+
+    .tradeoff05-left-card .tradeoff05-portrait {
+      border-right: 0.3cqw solid #171717;
+    }
+
+    .tradeoff05-right-card .tradeoff05-portrait {
+      border-bottom: 0.3cqw solid #171717;
+    }
+
+    .tradeoff05-copy {
+      padding: 1.4cqw;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      min-width: 0;
+    }
+
+    .tradeoff05-provider {
+      font: 400 2.25cqw/0.92 sans-serif;
+      letter-spacing: -0.01em;
+      text-transform: uppercase;
+    }
+
+    .tradeoff05-micro {
+      font: 600 1.1cqw/1.2 monospace;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .tradeoff05-strength {
+      padding: 0.8cqw 0.7cqw 0.55cqw;
+      border: 0.28cqw solid #171717;
+      font: 400 2.55cqw/0.9 sans-serif;
+      letter-spacing: -0.01em;
+      text-transform: uppercase;
+    }
+
+    .tradeoff05-offer {
+      background: #915DFF;
+    }
+
+    .tradeoff05-open {
+      background: #C8FF35;
+    }
+
+    .tradeoff05-review {
+      position: absolute;
+      top: 38cqh;
+      width: 14cqw;
+      min-height: 14cqh;
+      padding: 1cqw;
+      border: 0.35cqw solid #171717;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      z-index: 10;
+      will-change: transform, opacity;
+    }
+
+    .tradeoff05-review-left {
+      right: -5.5cqw;
+      background: #915DFF;
+    }
+
+    .tradeoff05-review-right {
+      left: -5.5cqw;
+      background: #FFFDF8;
+    }
+
+    .tradeoff05-review strong {
+      font: 400 3.75cqw/0.86 sans-serif;
+      letter-spacing: -0.01em;
+    }
+
+    .tradeoff05-review span {
+      margin-top: 0.45cqw;
+      font: 600 1.05cqw/1 monospace;
+      letter-spacing: 0.06em;
+    }
+
+    .tradeoff05-balance {
+      position: absolute;
+      left: 50%;
+      top: 73cqh;
+      width: 15cqw;
+      margin-left: -7.5cqw;
+      padding: 0.6cqw 0.9cqw;
+      border: 0.2cqw solid #171717;
+      border-radius: 999px;
+      background: #FFFDF8;
+      text-align: center;
+      font: 600 1.1cqw/1 monospace;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      z-index: 14;
+    }
+  </style>
+
+  <div id="root" data-composition-id="05-new-provider-tradeoff" data-width="1920" data-height="1080">
+    <div class="clip tradeoff05-ground" data-start="0" data-duration="12" data-track-index="0"></div>
+    <div class="clip tradeoff05-field tradeoff05-field-left" data-start="0" data-duration="12" data-track-index="1"></div>
+    <div class="clip tradeoff05-field tradeoff05-field-right" data-start="0" data-duration="12" data-track-index="5"></div>
+    <div class="clip tradeoff05-heading" data-start="0" data-duration="12" data-track-index="3">
+      <span class="tradeoff05-paid">No paid placement</span><span class="tradeoff05-show">Show the tradeoff</span>
+    </div>
+    <div class="clip tradeoff05-stage" data-start="0" data-duration="12" data-track-index="2">
+      <div class="tradeoff05-card-shell tradeoff05-left-shell">
+        <article class="tradeoff05-card tradeoff05-left-card">
+          <img class="tradeoff05-portrait" src="assets/fictional-provider-amaya-patel.png" alt="Amaya Patel">
+          <div class="tradeoff05-copy">
+            <div>
+              <div class="tradeoff05-micro">Gulf Glow Med Spa</div>
+              <div class="tradeoff05-provider">Amaya Patel</div>
+            </div>
+            <div class="tradeoff05-strength tradeoff05-offer">$59<br>Offer</div>
+            <div class="tradeoff05-strength tradeoff05-open">Open<br>Today</div>
+          </div>
+        </article>
+        <div class="tradeoff05-review tradeoff05-review-left"><strong>11</strong><span>Reviews</span></div>
+      </div>
+      <div class="tradeoff05-card-shell tradeoff05-right-shell">
+        <article class="tradeoff05-card tradeoff05-right-card">
+          <img class="tradeoff05-portrait" src="assets/fictional-provider-sofa-alvarez.png" alt="Sofia Alvarez">
+          <div class="tradeoff05-copy">
+            <div class="tradeoff05-micro">Established provider</div>
+            <div class="tradeoff05-provider">Sofia Alvarez</div>
+          </div>
+        </article>
+        <div class="tradeoff05-review tradeoff05-review-right"><strong>241</strong><span>Reviews</span></div>
+      </div>
+    </div>
+    <div class="clip tradeoff05-balance" data-start="0" data-duration="12" data-track-index="4">Balanced discovery</div>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script>
+    (() => {
+      const tl = gsap.timeline({ paused: true });
+
+      tl.fromTo('.tradeoff05-field-left',
+        { opacity: 0, scale: 0.86 },
+        { opacity: 0.18, scale: 1, duration: 1.05, ease: 'power2.out' }, 0);
+      tl.fromTo('.tradeoff05-left-shell',
+        { x: -760, scale: 0.85, rotateY: 18, opacity: 0 },
+        { x: 0, scale: 1, rotateY: 8, opacity: 1, duration: 1.35, ease: 'power3.out' }, 0.05);
+      tl.fromTo('.tradeoff05-left-card .tradeoff05-provider, .tradeoff05-left-card .tradeoff05-micro',
+        { opacity: 0, y: 24 },
+        { opacity: 1, y: 0, duration: 0.65, stagger: 0.08, ease: 'power2.out' }, 0.72);
+      tl.fromTo('.tradeoff05-offer',
+        { opacity: 0, x: -45 },
+        { opacity: 1, x: 0, duration: 0.72, ease: 'power3.out' }, 1.4);
+      tl.fromTo('.tradeoff05-open',
+        { opacity: 0, x: -45 },
+        { opacity: 1, x: 0, duration: 0.72, ease: 'power3.out' }, 2.45);
+
+      tl.fromTo('.tradeoff05-field-right',
+        { opacity: 0, scale: 0.86 },
+        { opacity: 0.18, scale: 1, duration: 0.9, ease: 'power2.out' }, 3.75);
+      tl.fromTo('.tradeoff05-right-shell',
+        { x: 650, scale: 0.85, rotateY: -18, opacity: 0 },
+        { x: 0, scale: 1, rotateY: -8, opacity: 1, duration: 1.3, ease: 'power3.out' }, 3.82);
+      tl.fromTo('.tradeoff05-right-card .tradeoff05-provider, .tradeoff05-right-card .tradeoff05-micro',
+        { opacity: 0, y: 24 },
+        { opacity: 1, y: 0, duration: 0.62, stagger: 0.08, ease: 'power2.out' }, 4.55);
+      tl.fromTo('.tradeoff05-review-right',
+        { opacity: 0, scale: 0.55 },
+        { opacity: 1, scale: 1, duration: 0.68, ease: 'back.out(1.55)' }, 5.65);
+      tl.fromTo('.tradeoff05-review-left',
+        { opacity: 0, scale: 0.55 },
+        { opacity: 1, scale: 1, duration: 0.68, ease: 'back.out(1.55)' }, 6.15);
+      tl.to('.tradeoff05-left-shell', { y: -5, duration: 0.55, ease: 'sine.inOut' }, 7.15);
+      tl.to('.tradeoff05-right-shell', { y: 5, duration: 0.55, ease: 'sine.inOut' }, 7.15);
+      tl.to('.tradeoff05-left-shell, .tradeoff05-right-shell', { y: 0, duration: 0.55, ease: 'sine.inOut' }, 7.7);
+
+      tl.fromTo('.tradeoff05-heading',
+        { opacity: 0, y: -55 },
+        { opacity: 1, y: 0, duration: 0.85, ease: 'power3.out' }, 8.8);
+      tl.fromTo('.tradeoff05-balance',
+        { opacity: 0, scale: 0.55 },
+        { opacity: 1, scale: 1, duration: 0.7, ease: 'back.out(1.45)' }, 9.35);
+
+      window.__timelines = window.__timelines || {};
+      window.__timelines['05-new-provider-tradeoff'] = tl;
+    })();
+  </script>
+</template>
