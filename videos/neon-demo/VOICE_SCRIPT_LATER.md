@@ -1,27 +1,27 @@
-# Neon demo voice script
+# Booksy Reloaded voice script
 
-This file is intentionally separate from HyperFrames' canonical `SCRIPT.md`. The current video is silent. Record these lines later and provide the finished audio file for timing and mix.
+This script is timed for the current 60-second visual master. Record it naturally, with short pauses between sections. The video remains silent until the finished audio is supplied and approved for mixing.
 
-## 00:00–00:08
+## 00:00 to 00:07
 
-A returning customer should not have to explain everything again. They should be able to ask for their usual haircut on the third, around lunch.
+I already use a booking marketplace. I wanted to see what would happen if I could just ask AI to rebook my usual appointment.
 
-## 00:08–00:20
+## 00:07 to 00:16
 
-Neon reads Alex's relationship history: four visits, Marco Ruiz, the Signature haircut, Spanish when available, and a preference for lunchtime.
+The customer signs in on the website. The AI never receives the password. The account already knows the usual provider and the customer's booking rules.
 
-## 00:20–00:32
+## 00:16 to 00:33
 
-When someone wants a change, Neon compares six realistic fictional profiles across specialty, review themes, price, proximity, language, accessibility, availability, and promotions.
+The page exposes fifteen native WebMCP tools. Here, Marco is not available in the requested window, so the system does not quietly pick something else. It gives the customer a clear choice between another day or another provider.
 
-## 00:32–00:48
+## 00:33 to 00:45
 
-The same six providers produce different winners. Marco is a 93 percent fit for Alex. Sofía is 96 percent for Jamie. Mei is 79 percent for Taylor.
+The customer chooses another day. It is still Marco, the usual haircut, pay in person, and forty-six dollars. That fits the customer's fifty-dollar limit, so it books without asking the same question again.
 
-## 00:48–01:00
+## 00:45 to 00:54
 
-A new provider can compete on price, fit, and open availability without hiding the tradeoff. Gulf Glow has a strong launch offer, but only eleven reviews.
+The customer gets the confirmation, and the exact same appointment appears in Marco's provider calendar and activity feed.
 
-## 01:00–01:15
+## 00:54 to 01:00
 
-Fourteen native WebMCP tools carry memory or discovery into a safe workflow. The customer approves the exact details, and the same confirmed appointment appears on the provider calendar.
+Booksy Reloaded. Fifteen native tools, smart booking limits, and one appointment shared on both sides.
