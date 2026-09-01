@@ -309,6 +309,16 @@ export function createMarketplaceEngine({ database = createDatabase(), onChange 
       state.bookingPermission = permission;
       publish();
     },
+    setBookingPolicy(patch) {
+      const next = { ...state.bookingPolicy, ...patch };
+      if (![25, 35, 50, 75, 100].includes(Number(next.maxServicePrice))) throw new Error('Unsupported service price limit.');
+      if (next.paymentTiming !== 'in_person') throw new Error('This demo only supports pay in person.');
+      if (next.substitutions !== 'ask_customer') throw new Error('Substitutions must require customer choice.');
+      state.bookingPolicy = { ...next, maxServicePrice: Number(next.maxServicePrice) };
+      state.review = null;
+      state.approved = false;
+      publish();
+    },
     setRole(role) {
       if (!['customer', 'provider'].includes(role)) throw new Error('Unknown demo role.');
       state.role = role;

@@ -81,6 +81,17 @@ describe('Neon marketplace engine', () => {
     expect(engine.run('request_booking', { confirmed: true }).booking.reference).toBe('BR-MR-0903-1130');
   });
 
+  it('lets the customer change the automatic booking price ceiling', () => {
+    const engine = createMarketplaceEngine({ database: createDatabase(memoryStorage()) });
+    engine.authenticate('alex-morgan');
+    engine.setBookingPolicy({ maxServicePrice: 35 });
+    engine.run('find_rebooking_options', { customerProfileId: 'alex-morgan', requestedDate: '2026-09-03', timePreference: 'lunch' });
+    engine.run('select_appointment', { providerId: 'marco-ruiz', serviceId: 'signature-cut', slotId: 'mr-0903-1130' });
+    const review = engine.run('prepare_booking_review', {});
+    expect(review.authorizationMode).toBe('explicit_review');
+    expect(review.review.authorizationReason).toBe('price_above_customer_limit');
+  });
+
   it('persists one idempotent booking for the provider calendar', () => {
     const storage = memoryStorage();
     const database = createDatabase(storage);
