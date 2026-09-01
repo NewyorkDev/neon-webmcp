@@ -1,13 +1,13 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-09-01T20:07:26.462Z",
-  "methodology": "One warm-up plus 25 deterministic engine runs. Timings exclude rendering, networking, native WebMCP transport, and model inference. Token figures are ceil(JSON characters / 4) over serialized tool inputs and outputs, not provider-billed model tokens.",
+  "generatedAt": "2026-09-01T22:45:07.669Z",
+  "methodology": "One warm-up plus 25 deterministic policy-aware rebooking runs. Each run covers signed-out status, site-owned authentication, scoped history, an unavailable-provider exception, an exact standing-policy match, idempotent sandbox booking, and final booking status. Timings exclude rendering, networking, native WebMCP transport, and model inference. Token figures are ceil(JSON characters / 4) over serialized tool inputs and outputs, not provider-billed model tokens.",
   "iterations": 25,
   "successful": 25,
-  "medianElapsedMs": 1.326,
-  "p95ElapsedMs": 1.471,
-  "calls": 11,
-  "estimatedInputTokens": 105,
-  "estimatedOutputTokens": 4768,
-  "estimatedCombinedTokens": 4873
+  "medianElapsedMs": 0.374,
+  "p95ElapsedMs": 0.432,
+  "calls": 10,
+  "estimatedInputTokens": 84,
+  "estimatedOutputTokens": 1968,
+  "estimatedCombinedTokens": 2052
 }

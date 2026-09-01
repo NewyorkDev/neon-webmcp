@@ -12,20 +12,19 @@ function execute() {
   const engine = createMarketplaceEngine({ database: createDatabase(memoryStorage()) });
   const started = performance.now();
   engine.run('get_marketplace_context');
-  engine.run('list_customer_profiles');
+  engine.run('get_authentication_status');
+  engine.authenticate('alex-morgan');
+  engine.run('get_authentication_status');
   engine.run('get_customer_history', { customerProfileId: 'alex-morgan' });
-  engine.run('find_rebooking_options', { customerProfileId: 'alex-morgan', requestedDate: '2026-09-03', timePreference: 'lunch' });
-  engine.run('personalize_recommendations', { customerProfileId: 'alex-morgan', category: '', date: '2026-09-03' });
-  engine.run('compare_providers');
-  engine.run('get_provider_profile', { providerId: 'marco-ruiz' });
-  engine.run('find_service_availability', { providerId: 'marco-ruiz', serviceId: 'signature-cut', date: '2026-09-03' });
-  engine.run('select_appointment', { providerId: 'marco-ruiz', serviceId: 'signature-cut', slotId: 'mr-0903-1130' });
-  engine.run('prepare_booking_review');
-  engine.approve();
+  const exception = engine.run('find_rebooking_options', { customerProfileId: 'alex-morgan', requestedDate: '2026-09-04', timePreference: 'lunch' });
+  engine.run('find_rebooking_options', { customerProfileId: 'alex-morgan', requestedDate: '2026-09-10', timePreference: 'any' });
+  engine.run('select_appointment', { providerId: 'marco-ruiz', serviceId: 'signature-cut', slotId: 'mr-0910-1030' });
+  const review = engine.run('prepare_booking_review');
   const result = engine.run('request_booking', { confirmed: true });
+  const status = engine.run('get_booking_status');
   const elapsedMs = performance.now() - started;
   const events = engine.getState().events;
-  return { elapsedMs, calls: events.length, estimatedInputTokens: events.reduce((sum, event) => sum + event.inputTokensEstimated, 0), estimatedOutputTokens: events.reduce((sum, event) => sum + event.outputTokensEstimated, 0), success: result.booking.status === 'confirmed' && engine.getBookings().length === 1 };
+  return { elapsedMs, calls: events.length, estimatedInputTokens: events.reduce((sum, event) => sum + event.inputTokensEstimated, 0), estimatedOutputTokens: events.reduce((sum, event) => sum + event.outputTokensEstimated, 0), success: exception.substitution?.requiresCustomerChoice === true && review.authorizationMode === 'standing_exact_match_permission' && result.booking.status === 'confirmed' && status.booking.reference === result.booking.reference && engine.getBookings().length === 1 };
 }
 
 execute();
@@ -35,7 +34,7 @@ const representative = runs[0];
 const artifact = {
   schemaVersion: 1,
   generatedAt: new Date().toISOString(),
-  methodology: 'One warm-up plus 25 deterministic engine runs. Timings exclude rendering, networking, native WebMCP transport, and model inference. Token figures are ceil(JSON characters / 4) over serialized tool inputs and outputs, not provider-billed model tokens.',
+  methodology: 'One warm-up plus 25 deterministic policy-aware rebooking runs. Each run covers signed-out status, site-owned authentication, scoped history, an unavailable-provider exception, an exact standing-policy match, idempotent sandbox booking, and final booking status. Timings exclude rendering, networking, native WebMCP transport, and model inference. Token figures are ceil(JSON characters / 4) over serialized tool inputs and outputs, not provider-billed model tokens.',
   iterations: runs.length,
   successful: runs.filter((run) => run.success).length,
   medianElapsedMs: Number(timings[Math.floor(timings.length / 2)].toFixed(3)),

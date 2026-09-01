@@ -32,7 +32,7 @@ The customer sets a practical policy: use the usual provider and service, pay in
 
 ## Why WebMCP
 
-The website owns provider facts, services, prices, availability, and booking policy. The person owns intent and approval. The agent handles the tedious comparison across those constraints. WebMCP lets all three responsibilities meet in one shared visible state without making the agent rediscover cards, buttons, and calendars through visual browser automation.
+The website owns provider facts, services, prices, availability, and booking policy. The person owns intent, preset limits, and exception choices. The agent handles the tedious comparison across those constraints. WebMCP lets all three responsibilities meet in one shared visible state without making the agent rediscover cards, buttons, and calendars through visual browser automation.
 
 This is not a generic booking form. It is a two-sided marketplace demonstration. The agent's completed action becomes visible to both the customer and the fictional provider, while any material change invalidates stale availability, review, approval, and booking state.
 
@@ -52,11 +52,11 @@ The second challenge was protecting customer control without adding a pointless 
 
 WebMCP is most useful when tools describe product intent instead of browser mechanics. `search_providers`, `compare_providers`, and `find_service_availability` are more reliable and understandable than asking an agent to repeatedly scan cards and click through calendars.
 
-We also learned that shared state can make a marketplace feel genuinely collaborative. The agent does not merely recommend a provider in chat. It prepares a visible appointment, waits for the person, and produces a result the provider side can verify.
+We also learned that shared state can make a marketplace feel genuinely collaborative. The agent does not merely recommend a provider in chat. It follows the customer's visible policy, pauses when a substitution needs a choice, and produces a result the provider side can verify.
 
 ## Results
 
-The full customer workflow uses nine WebMCP calls through booking. Across 25 reproducible engine runs, all 25 completed successfully. The workflow measured approximately 115 input plus 1,008 output JSON I/O tokens, for an estimated serialized payload footprint of 1,123 tokens. These are transparent JSON-size estimates, not provider-billed model tokens.
+The current policy-aware benchmark uses ten engine calls through final booking status. Across 25 reproducible runs, all 25 completed successfully. The latest artifact measured approximately 84 input plus 1,968 output JSON I/O tokens, for an estimated serialized payload footprint of 2,052 tokens. These are transparent JSON-size estimates, not provider-billed model tokens, and the benchmark excludes rendering, networking, native WebMCP transport, and model inference.
 
 Booksy Reloaded is a sandbox. It contacts no real provider, collects no payment, sends no notification, and consumes no production inventory.
 
