@@ -4,7 +4,7 @@ import { createDatabase } from './database.js';
 export const initialState = {
   role: 'customer', locale: 'en',
   customerProfileId: 'alex-morgan',
-  preferences: { city: 'Tampa', category: 'barber', spokenLanguage: 'Spanish', minimumRating: 4.8, accessibleOnly: false, date: '2026-09-10' },
+  preferences: { city: 'Tampa', category: 'barber', spokenLanguage: '', minimumRating: 4.8, accessibleOnly: false, date: '2026-09-10' },
   results: [], comparison: null, selectedProviderId: null, selectedServiceId: null,
   availability: [], selectedSlotId: null, review: null, approved: false, booking: null,
   events: [], notice: '',
@@ -74,7 +74,17 @@ export function createMarketplaceEngine({ database = createDatabase(), onChange 
   let state = clone(initialState);
   const publish = () => onChange(clone(state));
   const output = (action, input, value) => {
-    state.events.push({ action, at: new Date().toISOString(), inputTokensEstimated: estimateTokens(input), outputTokensEstimated: estimateTokens(value) });
+    state.events.push({
+      id: `tool-call-${state.events.length + 1}`,
+      action,
+      target: 'document.modelContext',
+      status: 'success',
+      at: new Date().toISOString(),
+      input: clone(input),
+      output: clone(value),
+      inputTokensEstimated: estimateTokens(input),
+      outputTokensEstimated: estimateTokens(value),
+    });
     publish();
     return clone(value);
   };
@@ -225,10 +235,20 @@ export function createMarketplaceEngine({ database = createDatabase(), onChange 
         break;
       }
       case 'request_booking': {
+        if (state.booking) {
+          value = { booking: state.booking, providerCalendarUpdated: true, idempotentReplay: true };
+          break;
+        }
         if (input.confirmed !== true) throw new Error('Caller confirmation must be true.');
         if (!state.review || !state.approved) throw new Error('The customer must approve the exact visible review first.');
-        const reference = `NEON-${state.review.slot.id.toUpperCase()}`;
+        const reference = `BR-${state.review.slot.id.toUpperCase()}`;
         state.booking ??= database.saveBooking({ reference, status: 'confirmed', createdAt: new Date().toISOString(), ...state.review, contactsRealProvider: false, chargesMoney: false, consumesProductionInventory: false });
+        state.review = null;
+        state.approved = false;
+        state.selectedProviderId = null;
+        state.selectedServiceId = null;
+        state.selectedSlotId = null;
+        state.availability = [];
         value = { booking: state.booking, providerCalendarUpdated: true };
         break;
       }
@@ -245,6 +265,10 @@ export function createMarketplaceEngine({ database = createDatabase(), onChange 
     run,
     getState: () => clone(state),
     getBookings: () => database.listBookings(),
+    recordFailure(action, input, error) {
+      state.events.push({ id: `tool-call-${state.events.length + 1}`, action, target: 'document.modelContext', status: 'blocked', at: new Date().toISOString(), input: clone(input), output: { error: error.message }, inputTokensEstimated: estimateTokens(input), outputTokensEstimated: estimateTokens({ error: error.message }) });
+      publish();
+    },
     approve() {
       if (!state.review) throw new Error('Prepare the exact review before approval.');
       state.approved = true;

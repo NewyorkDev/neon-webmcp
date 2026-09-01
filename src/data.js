@@ -168,14 +168,14 @@ export const CUSTOMER_PROFILES = [
   {
     id: 'alex-morgan', name: 'Alex Morgan', email: 'alex@example.test', phone: '(813) 555-0148',
     home: 'Downtown Tampa', coordinates: [27.9506, -82.4572],
-    headline: 'Busy, bilingual, and value conscious',
-    relationship: { returning: true, visits: 4, lastProviderId: 'marco-ruiz', lastServiceId: 'signature-cut', lastVisit: '2026-08-06', note: 'Usually books the same cut around lunch and prefers Spanish when available.' },
-    preferences: { goals: ['precision fades', 'beard design'], spokenLanguage: 'Spanish', maxDistanceMiles: 4, maxPrice: 65, minimumRating: 4.8, accessibleOnly: false, preferredTime: 'morning', priorities: { specialty: 35, distance: 25, value: 20, trust: 15, availability: 5 } },
+    headline: 'Busy, loyal, and value conscious',
+    relationship: { returning: true, visits: 4, lastProviderId: 'marco-ruiz', lastServiceId: 'signature-cut', lastVisit: '2026-08-06', note: 'Usually books the same cut around lunch and values a provider who remembers the details.' },
+    preferences: { goals: ['precision fades', 'beard design'], spokenLanguage: '', maxDistanceMiles: 4, maxPrice: 65, minimumRating: 4.8, accessibleOnly: false, preferredTime: 'morning', priorities: { specialty: 35, distance: 25, value: 20, trust: 15, availability: 5 } },
   },
   {
     id: 'jamie-rivera', name: 'Jamie Rivera', email: 'jamie@example.test', phone: '(813) 555-0183',
     home: 'West Tampa', coordinates: [27.9587, -82.4893],
-    headline: 'Sensitive skin, Spanish guidance, no hard sell',
+    headline: 'Sensitive skin, clear guidance, no hard sell',
     relationship: { returning: true, visits: 2, lastProviderId: 'sofia-alvarez', lastServiceId: 'custom-facial', lastVisit: '2026-07-24', note: 'Rebooks barrier-focused care and wants product recommendations kept simple.' },
     preferences: { goals: ['sensitive skin', 'barrier repair', 'simple home routines'], spokenLanguage: 'Spanish', maxDistanceMiles: 6, maxPrice: 120, minimumRating: 4.85, accessibleOnly: true, preferredTime: 'afternoon', priorities: { specialty: 40, distance: 10, value: 10, trust: 30, availability: 10 } },
   },
@@ -183,7 +183,7 @@ export const CUSTOMER_PROFILES = [
     id: 'taylor-kim', name: 'Taylor Kim', email: 'taylor@example.test', phone: '(813) 555-0116',
     home: 'Channelside', coordinates: [27.9453, -82.4497],
     headline: 'Quiet experience and meticulous care',
-    relationship: { returning: false, visits: 0, lastProviderId: null, lastServiceId: null, lastVisit: null, note: 'New to Neon. No prior provider relationship is used in ranking.' },
+    relationship: { returning: false, visits: 0, lastProviderId: null, lastServiceId: null, lastVisit: null, note: 'New to Booksy Reloaded. No prior provider relationship is used in ranking.' },
     preferences: { goals: ['private appointments', 'natural nail health', 'gentle technique'], spokenLanguage: '', maxDistanceMiles: 3, maxPrice: 85, minimumRating: 4.75, accessibleOnly: true, preferredTime: 'midday', priorities: { specialty: 30, distance: 30, value: 10, trust: 20, availability: 10 } },
   },
 ];

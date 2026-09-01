@@ -2,11 +2,11 @@
 
 ## Name
 
-Neon: Tampa Self-Care at Conversation Speed
+Booksy Reloaded: Tampa Self-Care at Conversation Speed
 
 ## Elevator pitch
 
-Neon lets an AI compare Tampa beauty professionals, find the right service and time, and prepare a booking while the customer approves the exact appointment and the provider sees it arrive.
+Booksy Reloaded lets an AI compare Tampa beauty professionals, find the right service and time, and prepare a booking while the customer approves the exact appointment and the provider sees it arrive.
 
 ## Links
 
@@ -22,11 +22,11 @@ WebMCP imperative API, JavaScript, HTML, CSS, Vite, Vitest, Playwright, Node.js,
 
 ## Inspiration
 
-Appointment marketplaces are useful, but finding one good appointment can still mean opening provider after provider, comparing ratings and prices, checking which languages they speak, and reopening calendars until the details line up. I use this category of product myself and wanted to see what it would look like if the marketplace gave an AI a reliable way to help without taking the final decision away from the customer.
+I use Booksy as a real customer. Booking with someone I already know can still mean opening the app, finding the provider again, checking the calendar, and repeating details the marketplace already has. I wanted to see what would happen if I could simply ask AI to book the appointment while the website supplied reliable data and kept the final decision in my hands.
 
 ## What we built
 
-Neon is an original bilingual marketplace for six fictional beauty and wellness professionals in Tampa, Florida. Three customer profiles see the same provider pool ranked differently. Returning customers can ask for their usual service in natural language without starting over. An AI agent can use fourteen WebMCP tools to inspect relationship history, find rebooking options, weigh goals, specialties, proximity, budget, review themes, language, accessibility, promotions, and availability, explain every score and tradeoff, and prepare an exact appointment review.
+Booksy Reloaded is an original bilingual marketplace for six fictional beauty and wellness professionals in Tampa, Florida. Three customer profiles see the same provider pool ranked differently. Returning customers can ask for their usual service in natural language without starting over. An AI agent can use fourteen WebMCP tools to inspect relationship history, find rebooking options, weigh goals, specialties, proximity, budget, review themes, language, accessibility, promotions, and availability, explain every score and tradeoff, and prepare an exact appointment review.
 
 The customer sees every choice and must approve the exact provider, service, price, date, time, and cancellation policy. After approval, the final tool creates one idempotent sandbox appointment. Switching to the provider account shows that same appointment on the professional's calendar and activity feed.
 
@@ -38,7 +38,7 @@ This is not a generic booking form. It is a two-sided marketplace demonstration.
 
 ## How we built it
 
-Neon registers fourteen top-level imperative tools through `document.modelContext.registerTool(...)`. Human controls and agent tools call the same deterministic marketplace engine. The recommendation score is inspectable and has no paid placement. A new med spa can compete through price, specialty fit, and availability while its shorter review history remains visible. Returning-customer history is explicit site data, not invisible model memory. Closed JSON schemas limit every input. Read-only actions are annotated, and the final booking tool requires both `confirmed: true` from the caller and a separate visible approval from the customer.
+Booksy Reloaded registers fourteen top-level imperative tools through `document.modelContext.registerTool(...)`. Human controls and agent tools call the same deterministic marketplace engine. The recommendation score is inspectable and has no paid placement. A new med spa can compete through price, specialty fit, and availability while its shorter review history remains visible. Returning-customer history is explicit site data, not invisible model memory. Closed JSON schemas limit every input. Read-only actions are annotated, and the final booking tool requires both `confirmed: true` from the caller and a separate visible approval from the customer.
 
 The English and Spanish interface uses the same provider and appointment state. All marketplace records and generated portraits are original fictional demo assets. A small browser-local database keeps the public project credentialless and lets a booking created in the customer account appear in the provider calendar without exposing a public production backend.
 
@@ -46,7 +46,7 @@ The English and Spanish interface uses the same provider and appointment state. 
 
 The main challenge was making the project meaningfully agent-native instead of placing tools around an ordinary appointment form. Provider discovery had to compare real-world tradeoffs such as a strong specialty match versus distance, a promotion versus a shorter track record, and review trust versus budget. The result also needed to cross the marketplace boundary and appear on the business side.
 
-The second challenge was protecting customer control. Neon fails closed before visible approval, keeps the exact review on screen, and makes the final request idempotent. The third challenge was building a polished marketplace with original fictional providers and imagery without copying a real marketplace's branding, data, or interface.
+The second challenge was protecting customer control. Booksy Reloaded fails closed before visible approval, keeps the exact review on screen, and makes the final request idempotent. The third challenge was building a polished two-sided marketplace using original fictional providers, data, appointments, and interface code.
 
 ## What we learned
 
@@ -58,8 +58,8 @@ We also learned that shared state can make a marketplace feel genuinely collabor
 
 The full customer workflow uses nine WebMCP calls through booking. Across 25 reproducible engine runs, all 25 completed successfully. The workflow measured approximately 115 input plus 1,008 output JSON I/O tokens, for an estimated serialized payload footprint of 1,123 tokens. These are transparent JSON-size estimates, not provider-billed model tokens.
 
-Neon is a sandbox. It contacts no real provider, collects no payment, sends no notification, and consumes no production inventory.
+Booksy Reloaded is a sandbox. It contacts no real provider, collects no payment, sends no notification, and consumes no production inventory.
 
 ## What was built during the challenge
 
-The Neon application, original interface, fictional marketplace data, generated provider portraits, bilingual experience, personalized and returning-customer flows, customer and provider views, browser-local persistence, fourteen WebMCP tools, tests, native browser verifier, benchmark, and submission materials were created during the challenge.
+The Booksy Reloaded application, original interface, fictional marketplace data, generated provider portraits, bilingual experience, personalized and returning-customer flows, customer and provider views, browser-local persistence, fourteen WebMCP tools, tests, native browser verifier, benchmark, and submission materials were created during the challenge.

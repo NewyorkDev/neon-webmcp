@@ -1,5 +1,5 @@
 export const TOOL_DEFINITIONS = [
-  ['get_marketplace_context', 'Start here. Read Neon marketplace policy, categories, supported languages, current progress, and the safest next action. This never books an appointment.', {}, [], true],
+  ['get_marketplace_context', 'Start here. Read Booksy Reloaded marketplace policy, categories, supported languages, current progress, and the safest next action. This never books an appointment.', {}, [], true],
   ['list_customer_profiles', 'List the three fictional customer profiles and their goals, constraints, location, budget, and priority weights.', {}, [], true],
   ['get_customer_history', 'Read one fictional customer relationship history, including whether they are returning, their prior provider, prior service, last visit, and booking habits. This never books.', { customerProfileId: { type: 'string', enum: ['alex-morgan', 'jamie-rivera', 'taylor-kim'] } }, ['customerProfileId'], true],
   ['find_rebooking_options', 'For a returning customer, use their prior provider and service to find matching sandbox availability on a requested date and time window. If unavailable, return a clear fallback to personalized comparison. This never selects or books a slot.', { customerProfileId: { type: 'string', enum: ['alex-morgan', 'jamie-rivera', 'taylor-kim'] }, requestedDate: { type: 'string' }, timePreference: { type: 'string', enum: ['any', 'morning', 'lunch', 'afternoon'] } }, ['customerProfileId', 'requestedDate'], true],
@@ -22,14 +22,17 @@ export const TOOL_DEFINITIONS = [
 export async function installWebMcp(engine) {
   const registered = [];
   const modelContext = document.modelContext;
-  window.__NEON_WEBMCP_TEST__ = {
+  window.__BOOKSY_RELOADED_WEBMCP__ = window.__NEON_WEBMCP_TEST__ = {
     definitions: TOOL_DEFINITIONS,
     invoke: (name, input = {}) => engine.run(name, input),
     getState: engine.getState,
   };
   for (const definition of TOOL_DEFINITIONS) {
     if (!modelContext?.registerTool) continue;
-    await modelContext.registerTool({ ...definition, execute: async (input = {}) => JSON.stringify(engine.run(definition.name, input)) });
+    await modelContext.registerTool({ ...definition, execute: async (input = {}) => {
+      try { return JSON.stringify(engine.run(definition.name, input)); }
+      catch (error) { engine.recordFailure(definition.name, input, error); throw error; }
+    } });
     registered.push(definition.name);
   }
   return registered;
