@@ -8,6 +8,7 @@ function memoryStorage() {
 }
 
 function prepare(engine) {
+  engine.authenticate('alex-morgan');
   engine.run('search_providers', { category: 'barber', spokenLanguage: 'Spanish', minimumRating: 4.8, accessibleOnly: false });
   engine.run('compare_providers', {});
   engine.run('get_provider_profile', { providerId: 'marco-ruiz' });
@@ -35,12 +36,31 @@ describe('Neon marketplace engine', () => {
 
   it('uses a returning customer relationship to find the usual service around lunch', () => {
     const engine = createMarketplaceEngine({ database: createDatabase(memoryStorage()) });
+    engine.authenticate('alex-morgan');
     const history = engine.run('get_customer_history', { customerProfileId: 'alex-morgan' });
     const options = engine.run('find_rebooking_options', { customerProfileId: 'alex-morgan', requestedDate: '2026-09-03', timePreference: 'lunch' });
     expect(history.previousProvider.id).toBe('marco-ruiz');
     expect(history.previousService.id).toBe('signature-cut');
     expect(options.slots.map((slot) => slot.id)).toEqual(['mr-0903-1130', 'mr-0903-1230']);
-    expect(options.requiresVisibleHumanApproval).toBe(true);
+    expect(options.canBookExactMatchUnderStandingPermission).toBe(true);
+    expect(options.substitution).toBeNull();
+  });
+
+  it('protects customer history behind the site-owned session', () => {
+    const engine = createMarketplaceEngine({ database: createDatabase(memoryStorage()) });
+    expect(engine.run('get_authentication_status').status).toBe('authentication_required');
+    expect(() => engine.run('get_customer_history', { customerProfileId: 'alex-morgan' })).toThrow(/Authentication required/i);
+    engine.authenticate('alex-morgan');
+    expect(engine.run('get_authentication_status').status).toBe('signed_in');
+  });
+
+  it('asks the customer when the usual provider is unavailable', () => {
+    const engine = createMarketplaceEngine({ database: createDatabase(memoryStorage()) });
+    engine.authenticate('alex-morgan');
+    const options = engine.run('find_rebooking_options', { customerProfileId: 'alex-morgan', requestedDate: '2026-09-04', timePreference: 'lunch' });
+    expect(options.slots).toHaveLength(0);
+    expect(options.substitution.requiresCustomerChoice).toBe(true);
+    expect(options.nextBestAction).toBe('ask_customer_about_substitution');
   });
 
   it('finds the requested bilingual Tampa barber', () => {
@@ -50,10 +70,15 @@ describe('Neon marketplace engine', () => {
     expect(result.providers[0].id).toBe('marco-ruiz');
   });
 
-  it('fails closed before visible approval', () => {
+  it('uses standing permission only for an exact rebook within the customer policy', () => {
     const engine = createMarketplaceEngine({ database: createDatabase(memoryStorage()) });
-    prepare(engine);
-    expect(() => engine.run('request_booking', { confirmed: true })).toThrow(/approve/i);
+    engine.authenticate('alex-morgan');
+    engine.run('find_rebooking_options', { customerProfileId: 'alex-morgan', requestedDate: '2026-09-03', timePreference: 'lunch' });
+    engine.run('select_appointment', { providerId: 'marco-ruiz', serviceId: 'signature-cut', slotId: 'mr-0903-1130' });
+    const review = engine.run('prepare_booking_review', {});
+    expect(review.authorizationMode).toBe('standing_exact_match_permission');
+    expect(review.requiresVisibleHumanApproval).toBe(false);
+    expect(engine.run('request_booking', { confirmed: true }).booking.reference).toBe('BR-MR-0903-1130');
   });
 
   it('persists one idempotent booking for the provider calendar', () => {

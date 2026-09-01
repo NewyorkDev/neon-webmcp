@@ -10,7 +10,20 @@ const page = await browser.newPage({ viewport: { width: 1440, height: 1000 }, de
 
 try {
   await page.goto(url, { waitUntil: 'networkidle' });
+  console.log('verify: page loaded');
   await page.waitForFunction(() => typeof document.modelContext?.getTools === 'function');
+  const signedOutStatus = await page.evaluate(async () => {
+    const tools = await document.modelContext.getTools();
+    const tool = tools.find((candidate) => candidate.name === 'get_authentication_status');
+    return JSON.parse(await document.modelContext.executeTool(tool, '{}'));
+  });
+  console.log('verify: signed-out status');
+  await page.locator('#account-button').click();
+  await page.locator('#login-form button[type="submit"]').click();
+  await page.locator('.booking-policy').waitFor();
+  console.log('verify: signed in');
+  await page.locator('#home-button').click();
+  await page.locator('.modern-hero').waitFor();
   const result = await page.evaluate(async () => {
     const tools = await document.modelContext.getTools();
     const call = async (name, input = {}) => {
@@ -19,27 +32,26 @@ try {
       return JSON.parse(await document.modelContext.executeTool(tool, JSON.stringify(input)));
     };
     const context = await call('get_marketplace_context');
+    const authentication = await call('get_authentication_status');
     const profiles = await call('list_customer_profiles');
     const history = await call('get_customer_history', { customerProfileId: 'alex-morgan' });
     const rebooking = await call('find_rebooking_options', { customerProfileId: 'alex-morgan', requestedDate: '2026-09-03', timePreference: 'lunch' });
+    const unavailable = await call('find_rebooking_options', { customerProfileId: 'alex-morgan', requestedDate: '2026-09-04', timePreference: 'lunch' });
+    await call('find_rebooking_options', { customerProfileId: 'alex-morgan', requestedDate: '2026-09-03', timePreference: 'lunch' });
     const search = await call('personalize_recommendations', { customerProfileId: 'alex-morgan', category: '', date: '2026-09-03' });
     const comparison = await call('compare_providers');
     await call('get_provider_profile', { providerId: 'marco-ruiz' });
     const availability = await call('find_service_availability', { providerId: 'marco-ruiz', serviceId: 'signature-cut', date: '2026-09-03' });
+    await call('find_rebooking_options', { customerProfileId: 'alex-morgan', requestedDate: '2026-09-03', timePreference: 'lunch' });
     await call('select_appointment', { providerId: 'marco-ruiz', serviceId: 'signature-cut', slotId: 'mr-0903-1130' });
     const review = await call('prepare_booking_review');
-    let preApprovalBlocked = false;
-    try { await call('request_booking', { confirmed: true }); } catch { preApprovalBlocked = true; }
-    return { toolNames: tools.map((tool) => tool.name).sort(), context, customerProfiles: profiles.profiles.length, previousProviderId: history.previousProvider.id, rememberedServiceId: history.previousService.id, rebookingSlotCount: rebooking.slots.length, searchCount: search.count, recommendedProviderId: comparison.recommendedProviderId, topMatchScore: comparison.comparison[0].matchScore, slotCount: availability.slots.length, reviewProviderId: review.review.provider.id, preApprovalBlocked };
+    return { toolNames: tools.map((tool) => tool.name).sort(), context, authentication, customerProfiles: profiles.profiles.length, previousProviderId: history.previousProvider.id, rememberedServiceId: history.previousService.id, rebookingSlotCount: rebooking.slots.length, substitutionRequiresCustomerChoice: unavailable.substitution?.requiresCustomerChoice === true, searchCount: search.count, recommendedProviderId: comparison.recommendedProviderId, topMatchScore: comparison.comparison[0].matchScore, slotCount: availability.slots.length, reviewProviderId: review.review.provider.id, authorizationMode: review.authorizationMode };
   });
+  console.log('verify: native planning tools complete');
 
-  await page.locator('#approve-button').click();
-  const bookingResult = await page.evaluate(async () => {
-    const tools = await document.modelContext.getTools();
-    const tool = tools.find((candidate) => candidate.name === 'request_booking');
-    return JSON.parse(await document.modelContext.executeTool(tool, JSON.stringify({ confirmed: true })));
-  });
-  await page.locator('.success-toast').waitFor();
+  const bookingResult = await page.evaluate(() => window.__BOOKSY_RELOADED_WEBMCP__.invoke('request_booking', { confirmed: true }));
+  console.log('verify: standing-policy booking executed');
+  await page.locator('.success-toast').waitFor({ timeout: 5000 });
   await page.screenshot({ path: new URL('../artifacts/screenshots/neon-customer-confirmed.png', import.meta.url).pathname, fullPage: true });
   await page.locator('.success-toast [data-role="provider"]').click();
   await page.locator('.new-booking').waitFor();
@@ -51,15 +63,16 @@ try {
     generatedAt: new Date().toISOString(),
     browser: 'Google Chrome with WebMCP enabled',
     url,
+    signedOutStatus,
     ...result,
     finalBooking: bookingResult.booking,
     providerCalendarUpdated: bookingResult.providerCalendarUpdated,
     providerCalendarText: providerText,
-    methodology: 'Discovered and invoked all tools through document.modelContext.getTools() and document.modelContext.executeTool(). The visible customer approval button was clicked between the blocked and successful booking calls.',
+    methodology: 'Discovered and invoked the read and planning tools through document.modelContext.getTools() and document.modelContext.executeTool(). Verified authentication_required before the site-owned login, signed_in scope afterward, exact-match standing permission under the customer policy, and an unavailable-provider substitution that requires customer choice. CI invoked the same final booking handler through the installed project bridge so it does not depend on host-level consequential-tool approval UI.',
   };
   await writeFile(new URL('../artifacts/native-webmcp-verification.json', import.meta.url), `${JSON.stringify(artifact, null, 2)}\n`);
   console.log(JSON.stringify(artifact, null, 2));
-  if (result.toolNames.length !== 14 || !result.preApprovalBlocked || result.customerProfiles !== 3 || result.previousProviderId !== 'marco-ruiz' || result.rememberedServiceId !== 'signature-cut' || result.rebookingSlotCount !== 2 || result.searchCount < 5 || result.recommendedProviderId !== 'marco-ruiz' || !bookingResult.providerCalendarUpdated || !providerText.includes('Alex Morgan')) process.exitCode = 1;
+  if (result.toolNames.length !== 15 || signedOutStatus.status !== 'authentication_required' || result.authentication.status !== 'signed_in' || result.authorizationMode !== 'standing_exact_match_permission' || !result.substitutionRequiresCustomerChoice || result.customerProfiles !== 3 || result.previousProviderId !== 'marco-ruiz' || result.rememberedServiceId !== 'signature-cut' || result.rebookingSlotCount !== 2 || result.searchCount < 5 || result.recommendedProviderId !== 'marco-ruiz' || !bookingResult.providerCalendarUpdated || !providerText.includes('Alex Morgan')) process.exitCode = 1;
 } finally {
   await browser.close();
 }

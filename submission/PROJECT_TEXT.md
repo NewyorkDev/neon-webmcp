@@ -6,7 +6,7 @@ Booksy Reloaded: Tampa Self-Care at Conversation Speed
 
 ## Elevator pitch
 
-Booksy Reloaded lets an AI compare Tampa beauty professionals, find the right service and time, and prepare a booking while the customer approves the exact appointment and the provider sees it arrive.
+Booksy Reloaded lets an AI compare Tampa professionals, securely use a customer's history, book exact matches within preset limits, and ask only when a substitution needs a decision.
 
 ## Links
 
@@ -26,9 +26,9 @@ I use Booksy as a real customer. Booking with someone I already know can still m
 
 ## What we built
 
-Booksy Reloaded is an original bilingual marketplace for six fictional beauty and wellness professionals in Tampa, Florida. Three customer profiles see the same provider pool ranked differently. Returning customers can ask for their usual service in natural language without starting over. An AI agent can use fourteen WebMCP tools to inspect relationship history, find rebooking options, weigh goals, specialties, proximity, budget, review themes, language, accessibility, promotions, and availability, explain every score and tradeoff, and prepare an exact appointment review.
+Booksy Reloaded is an original bilingual marketplace for six fictional beauty and wellness professionals in Tampa, Florida. Three customer profiles see the same provider pool ranked differently. Returning customers can ask for their usual service in natural language without starting over. An AI agent can use fifteen WebMCP tools to inspect authenticated relationship history, find rebooking options, weigh goals, specialties, proximity, budget, review themes, language, accessibility, promotions, and availability, explain every score and tradeoff, and prepare an appointment.
 
-The customer sees every choice and must approve the exact provider, service, price, date, time, and cancellation policy. After approval, the final tool creates one idempotent sandbox appointment. Switching to the provider account shows that same appointment on the professional's calendar and activity feed.
+The customer sets a practical policy: use the usual provider and service, pay in person, and stay at or below $50. Exact matches can be booked when the customer asks. A different provider, service, requested window, or higher price returns a structured exception and requires a new customer choice. The final tool creates one idempotent sandbox appointment. Switching to the provider account shows that same appointment on the professional's calendar and activity feed.
 
 ## Why WebMCP
 
@@ -38,7 +38,7 @@ This is not a generic booking form. It is a two-sided marketplace demonstration.
 
 ## How we built it
 
-Booksy Reloaded registers fourteen top-level imperative tools through `document.modelContext.registerTool(...)`. Human controls and agent tools call the same deterministic marketplace engine. The recommendation score is inspectable and has no paid placement. A new med spa can compete through price, specialty fit, and availability while its shorter review history remains visible. Returning-customer history is explicit site data, not invisible model memory. Closed JSON schemas limit every input. Read-only actions are annotated, and the final booking tool requires both `confirmed: true` from the caller and a separate visible approval from the customer.
+Booksy Reloaded registers fifteen top-level imperative tools through `document.modelContext.registerTool(...)`. Human controls and agent tools call the same deterministic marketplace engine. The recommendation score is inspectable and has no paid placement. A new med spa can compete through price, specialty fit, and availability while its shorter review history remains visible. Returning-customer history is explicit site data, not invisible model memory. Closed JSON schemas limit every input. Read-only actions are annotated, customer history is unavailable before the site-owned demo session is established, and the final booking tool requires `confirmed: true` plus either an exact policy match or explicit exception approval.
 
 The English and Spanish interface uses the same provider and appointment state. All marketplace records and generated portraits are original fictional demo assets. A small browser-local database keeps the public project credentialless and lets a booking created in the customer account appear in the provider calendar without exposing a public production backend.
 
@@ -46,7 +46,7 @@ The English and Spanish interface uses the same provider and appointment state. 
 
 The main challenge was making the project meaningfully agent-native instead of placing tools around an ordinary appointment form. Provider discovery had to compare real-world tradeoffs such as a strong specialty match versus distance, a promotion versus a shorter track record, and review trust versus budget. The result also needed to cross the marketplace boundary and appear on the business side.
 
-The second challenge was protecting customer control. Booksy Reloaded fails closed before visible approval, keeps the exact review on screen, and makes the final request idempotent. The third challenge was building a polished two-sided marketplace using original fictional providers, data, appointments, and interface code.
+The second challenge was protecting customer control without adding a pointless click to every booking. Booksy Reloaded permits exact matches under a visible preset policy, fails closed on substitutions and price exceptions, and makes the final request idempotent. The third challenge was building a polished two-sided marketplace using original fictional providers, data, appointments, and interface code.
 
 ## What we learned
 
@@ -62,4 +62,4 @@ Booksy Reloaded is a sandbox. It contacts no real provider, collects no payment,
 
 ## What was built during the challenge
 
-The Booksy Reloaded application, original interface, fictional marketplace data, generated provider portraits, bilingual experience, personalized and returning-customer flows, customer and provider views, browser-local persistence, fourteen WebMCP tools, tests, native browser verifier, benchmark, and submission materials were created during the challenge.
+The Booksy Reloaded application, original interface, fictional marketplace data, generated provider portraits, bilingual experience, personalized and returning-customer flows, customer and provider views, browser-local persistence, fifteen WebMCP tools, tests, native browser verifier, benchmark, and submission materials were created during the challenge.

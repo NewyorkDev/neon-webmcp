@@ -3,6 +3,9 @@ import { createDatabase } from './database.js';
 
 export const initialState = {
   role: 'customer', locale: 'en',
+  session: { status: 'signed_out', customerProfileId: null, scope: [] },
+  bookingPermission: 'book_exact_matches',
+  bookingPolicy: { maxServicePrice: 50, paymentTiming: 'in_person', substitutions: 'ask_customer' },
   customerProfileId: 'alex-morgan',
   preferences: { city: 'Tampa', category: 'barber', spokenLanguage: '', minimumRating: 4.8, accessibleOnly: false, date: '2026-09-10' },
   results: [], comparison: null, selectedProviderId: null, selectedServiceId: null,
@@ -68,6 +71,7 @@ function invalidate(state) {
   state.review = null;
   state.approved = false;
   state.booking = null;
+  state.rebookingContext = null;
 }
 
 export function createMarketplaceEngine({ database = createDatabase(), onChange = () => {} } = {}) {
@@ -93,20 +97,27 @@ export function createMarketplaceEngine({ database = createDatabase(), onChange 
     let value;
     switch (action) {
       case 'get_marketplace_context':
-        value = { mode: 'sandbox_marketplace', city: 'Tampa', supportedLocales: ['en', 'es'], categories: ['barber', 'hair', 'nails', 'skincare', 'massage', 'medspa'], personalizationSignals: ['goals', 'distance', 'budget', 'review themes', 'language', 'accessibility', 'availability', 'new-provider promotions'], nextBestAction: state.results.length ? 'compare_providers' : 'personalize_recommendations', chargesMoney: false, contactsRealProviders: false };
+        value = { mode: 'sandbox_marketplace', city: 'Tampa', authenticationStatus: state.session.status, supportedLocales: ['en', 'es'], categories: ['barber', 'hair', 'nails', 'skincare', 'massage', 'medspa'], personalizationSignals: ['goals', 'distance', 'budget', 'review themes', 'language', 'accessibility', 'availability', 'new-provider promotions'], nextBestAction: state.session.status !== 'signed_in' ? 'get_authentication_status' : state.results.length ? 'compare_providers' : 'personalize_recommendations', chargesMoney: false, contactsRealProviders: false };
+        break;
+      case 'get_authentication_status':
+        value = state.session.status === 'signed_in'
+          ? { status: 'signed_in', customerProfileId: state.session.customerProfileId, scope: state.session.scope, credentialHandling: 'site_owned_demo_session', nextBestAction: 'get_customer_history' }
+          : { status: 'authentication_required', credentialHandling: 'sign_in_on_site_never_share_password_with_agent', nextBestAction: 'open_customer_login' };
         break;
       case 'list_customer_profiles':
         value = { profiles: CUSTOMER_PROFILES.map(({ email, phone, ...profile }) => profile), activeProfileId: state.customerProfileId };
         break;
       case 'get_customer_history': {
+        if (state.session.status !== 'signed_in') throw new Error('Authentication required. Sign in through the site before accessing customer history.');
         const customer = customerById(input.customerProfileId || state.customerProfileId);
         if (!customer) throw new Error('Customer profile not found.');
         const previousProvider = providerById(customer.relationship.lastProviderId);
         const previousService = previousProvider?.services.find((service) => service.id === customer.relationship.lastServiceId);
-        value = { customer: { id: customer.id, name: customer.name, home: customer.home }, relationship: customer.relationship, previousProvider: previousProvider ? { id: previousProvider.id, name: previousProvider.name, business: previousProvider.business, languages: previousProvider.languages } : null, previousService: previousService || null, safeToRebookWithoutApproval: false };
+        value = { customer: { id: customer.id, name: customer.name, home: customer.home }, relationship: customer.relationship, previousProvider: previousProvider ? { id: previousProvider.id, name: previousProvider.name, business: previousProvider.business, languages: previousProvider.languages } : null, previousService: previousService || null, bookingPermission: state.bookingPermission, bookingPolicy: state.bookingPolicy, exactMatchCanUseStandingPermission: state.bookingPermission === 'book_exact_matches', substitutionsRequireCustomerChoice: true };
         break;
       }
       case 'find_rebooking_options': {
+        if (state.session.status !== 'signed_in') throw new Error('Authentication required. Sign in through the site before accessing rebooking options.');
         const customer = customerById(input.customerProfileId || state.customerProfileId);
         if (!customer) throw new Error('Customer profile not found.');
         if (!customer.relationship.returning || !customer.relationship.lastProviderId) throw new Error('This customer has no previous provider to rebook. Use personalized recommendations instead.');
@@ -119,10 +130,12 @@ export function createMarketplaceEngine({ database = createDatabase(), onChange 
         state.preferences = { ...state.preferences, date: input.requestedDate };
         state.availability = provider.slots.filter((slot) => slot.date === input.requestedDate && (!input.timePreference || input.timePreference === 'any' || (input.timePreference === 'morning' && /AM$/.test(slot.time)) || (input.timePreference === 'lunch' && /11:|12:/.test(slot.time)) || (input.timePreference === 'afternoon' && /PM$/.test(slot.time))));
         state.selectedSlotId = null;
+        state.rebookingContext = { providerId: provider.id, serviceId: service.id, requestedDate: input.requestedDate, matchingSlotIds: state.availability.map((slot) => slot.id) };
         state.review = null;
         state.approved = false;
         state.booking = null;
-        value = { customer: { id: customer.id, name: customer.name }, rememberedRelationship: { visits: customer.relationship.visits, lastVisit: customer.relationship.lastVisit, note: customer.relationship.note }, previousProvider: { id: provider.id, name: provider.name, business: provider.business }, previousService: service, requestedDate: input.requestedDate, timePreference: input.timePreference || 'any', slots: state.availability, fallback: state.availability.length ? null : 'No matching time with the previous provider. Run personalize_recommendations to compare alternatives.', requiresVisibleHumanApproval: true };
+        const alternatives = provider.slots.filter((slot) => slot.date !== input.requestedDate).slice(0, 3);
+        value = { customer: { id: customer.id, name: customer.name }, rememberedRelationship: { visits: customer.relationship.visits, lastVisit: customer.relationship.lastVisit, note: customer.relationship.note }, previousProvider: { id: provider.id, name: provider.name, business: provider.business }, previousService: service, requestedDate: input.requestedDate, timePreference: input.timePreference || 'any', slots: state.availability, canBookExactMatchUnderStandingPermission: state.bookingPermission === 'book_exact_matches' && state.availability.length > 0, substitution: state.availability.length ? null : { reason: 'usual_provider_unavailable_in_requested_window', requiresCustomerChoice: true, choices: { sameProviderDifferentTime: alternatives, differentProvider: 'personalize_recommendations' } }, nextBestAction: state.availability.length ? 'select_appointment' : 'ask_customer_about_substitution' };
         break;
       }
       case 'personalize_recommendations': {
@@ -229,9 +242,13 @@ export function createMarketplaceEngine({ database = createDatabase(), onChange 
         const slot = state.availability.find((item) => item.id === state.selectedSlotId);
         if (!provider || !service || !slot) throw new Error('Select an available appointment first.');
         const activeCustomer = customerById(state.customerProfileId) || DEMO_CUSTOMER;
-        state.review = { customer: { ...activeCustomer, ...input.customer }, provider: { id: provider.id, name: provider.name, business: provider.business, neighborhood: provider.neighborhood, languages: provider.languages }, service, slot, price: service.price, cancellation: provider.cancellation, paymentDueNow: 0, sandbox: true };
-        state.approved = false;
-        value = { review: state.review, requiresVisibleHumanApproval: true };
+        const exactRebook = state.rebookingContext?.providerId === provider.id && state.rebookingContext?.serviceId === service.id && state.rebookingContext?.matchingSlotIds?.includes(slot.id);
+        const withinPriceLimit = service.price <= state.bookingPolicy.maxServicePrice;
+        const standingPermissionApplies = state.session.status === 'signed_in' && state.bookingPermission === 'book_exact_matches' && exactRebook && withinPriceLimit && state.bookingPolicy.paymentTiming === 'in_person';
+        const authorizationReason = standingPermissionApplies ? null : !exactRebook ? 'substitution_requires_customer_choice' : !withinPriceLimit ? 'price_above_customer_limit' : state.session.status !== 'signed_in' ? 'authentication_required' : 'customer_reviews_every_booking';
+        state.review = { customer: { ...activeCustomer, ...input.customer }, provider: { id: provider.id, name: provider.name, business: provider.business, neighborhood: provider.neighborhood, languages: provider.languages }, service, slot, price: service.price, cancellation: provider.cancellation, paymentDueNow: 0, sandbox: true, authorizationMode: standingPermissionApplies ? 'standing_exact_match_permission' : 'explicit_review', authorizationReason };
+        state.approved = standingPermissionApplies;
+        value = { review: state.review, requiresVisibleHumanApproval: !standingPermissionApplies, authorizationMode: state.review.authorizationMode, policy: state.bookingPolicy, substitutionsRequireCustomerChoice: true };
         break;
       }
       case 'request_booking': {
@@ -272,6 +289,18 @@ export function createMarketplaceEngine({ database = createDatabase(), onChange 
     approve() {
       if (!state.review) throw new Error('Prepare the exact review before approval.');
       state.approved = true;
+      publish();
+    },
+    authenticate(customerProfileId = 'alex-morgan') {
+      const customer = customerById(customerProfileId);
+      if (!customer) throw new Error('Customer profile not found.');
+      state.customerProfileId = customer.id;
+      state.session = { status: 'signed_in', customerProfileId: customer.id, scope: ['customer_history:read', 'booking_preferences:read', 'sandbox_booking:write'] };
+      publish();
+    },
+    setBookingPermission(permission) {
+      if (!['book_exact_matches', 'review_every_booking'].includes(permission)) throw new Error('Unknown booking permission.');
+      state.bookingPermission = permission;
       publish();
     },
     setRole(role) {
