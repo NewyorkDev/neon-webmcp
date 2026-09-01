@@ -8,6 +8,12 @@ Neon: Tampa Self-Care at Conversation Speed
 
 Neon lets an AI compare Tampa beauty professionals, find the right service and time, and prepare a booking while the customer approves the exact appointment and the provider sees it arrive.
 
+## Links
+
+- Live app: https://newyorkdev.github.io/neon-webmcp/
+- Source: https://github.com/NewyorkDev/neon-webmcp
+- Video: TODO
+
 ## Built with
 
 WebMCP imperative API, JavaScript, HTML, CSS, Vite, Vitest, Playwright, Node.js, Google Chrome, GitHub Actions, GitHub Pages
@@ -50,7 +56,7 @@ We also learned that shared state can make a marketplace feel genuinely collabor
 
 ## Results
 
-The full customer workflow uses nine WebMCP calls through booking. Across 25 reproducible engine runs, all 25 completed successfully. The repository publishes the raw benchmark and labels serialized JSON I/O estimates separately from provider-billed model tokens.
+The full customer workflow uses nine WebMCP calls through booking. Across 25 reproducible engine runs, all 25 completed successfully. The workflow measured approximately 115 input plus 1,008 output JSON I/O tokens, for an estimated serialized payload footprint of 1,123 tokens. These are transparent JSON-size estimates, not provider-billed model tokens.
 
 Neon is a sandbox. It contacts no real provider, collects no payment, sends no notification, and consumes no production inventory.
 

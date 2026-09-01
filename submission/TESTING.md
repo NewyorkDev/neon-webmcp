@@ -1,5 +1,7 @@
 # Judge testing guide
 
+Live app: https://newyorkdev.github.io/neon-webmcp/
+
 ## Customer flow
 
 1. Open the live URL in ChatGPT's in-app browser or Chrome with WebMCP enabled.

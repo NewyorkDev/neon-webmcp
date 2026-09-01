@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-09-01T05:53:02.056Z",
+  "generatedAt": "2026-09-01T05:56:36.108Z",
   "browser": "Google Chrome with WebMCP enabled",
-  "url": "http://127.0.0.1:5174/",
+  "url": "https://newyorkdev.github.io/neon-webmcp/",
   "toolNames": [
     "compare_providers",
     "find_service_availability",
@@ -41,7 +41,7 @@
   "finalBooking": {
     "reference": "NEON-MR-0910-1030",
     "status": "confirmed",
-    "createdAt": "2026-09-01T05:53:01.167Z",
+    "createdAt": "2026-09-01T05:56:35.908Z",
     "customer": {
       "id": "alex-morgan",
       "name": "Alex Morgan",
