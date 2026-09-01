@@ -35,6 +35,8 @@ Verified September 1, 2026.
 ## Submission fields
 
 - Project name and elevator pitch: `submission/PROJECT_TEXT.md`
+- Elevator pitch length: 182 characters, within the 200-character limit
+- Built with list includes WebMCP, Leaflet, OpenStreetMap, HyperFrames, testing, browser, and deployment technologies actually used
 - Project story and technical details: `submission/PROJECT_TEXT.md`
 - Judge walkthrough: `submission/TESTING.md`
 - Timed narration: `videos/neon-demo/VOICE_SCRIPT_LATER.md`

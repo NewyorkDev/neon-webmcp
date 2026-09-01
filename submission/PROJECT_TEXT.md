@@ -16,7 +16,7 @@ Booksy Reloaded lets an AI compare Tampa professionals, securely use a customer'
 
 ## Built with
 
-WebMCP imperative API, JavaScript, HTML, CSS, Vite, Vitest, Playwright, Node.js, Google Chrome, GitHub Actions, GitHub Pages
+WebMCP imperative API, JavaScript, HTML, CSS, Vite, Vitest, Playwright, Node.js, Leaflet, OpenStreetMap, HyperFrames, Google Chrome, GitHub Actions, GitHub Pages
 
 # Project story
 
