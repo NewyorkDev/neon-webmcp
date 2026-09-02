@@ -1,27 +1,27 @@
 # Booksy Reloaded voice script
 
-This script is timed for the current 60-second visual master. Record it naturally, with short pauses between sections. The video remains silent until the finished audio is supplied and approved for mixing.
+This script is timed for the approved 60-second visual master. Read it naturally and conversationally. Pause briefly between sections, but do not announce the timestamps.
 
 ## 00:00 to 00:07
 
-I already use a booking marketplace. I wanted to see what would happen if I could just ask AI to rebook my usual appointment.
+I'm an avid Booksy fan, so I wanted to see what booking looks like when I can just ask AI.
 
 ## 00:07 to 00:16
 
-The customer signs in on the website. The AI never receives the password. The account already knows the usual provider and the customer's booking rules.
+We built Booksy Reloaded, an original WebMCP marketplace. The customer signs in on the site, so the AI never gets the password.
 
 ## 00:16 to 00:33
 
-The page exposes fifteen native WebMCP tools. Here, Marco is not available in the requested window, so the system does not quietly pick something else. It gives the customer a clear choice between another day or another provider.
+The customer can lock the usual provider and service, pay in person, and set a fifty-dollar limit. Marco is not available at the requested time, so WebMCP asks whether I want another day or another provider instead of quietly changing the appointment.
 
 ## 00:33 to 00:45
 
-The customer chooses another day. It is still Marco, the usual haircut, pay in person, and forty-six dollars. That fits the customer's fifty-dollar limit, so it books without asking the same question again.
+I choose another day. It is still Marco, the usual haircut, pay in person, and forty-six dollars. That fits my limits, so the AI books without asking me again.
 
 ## 00:45 to 00:54
 
-The customer gets the confirmation, and the exact same appointment appears in Marco's provider calendar and activity feed.
+I get the confirmation, and Marco receives the exact same appointment in his provider calendar and activity feed.
 
 ## 00:54 to 01:00
 
-Booksy Reloaded. Fifteen native tools, smart booking limits, and one appointment shared on both sides.
+Booksy Reloaded: fifteen native tools, customer-controlled limits, and one booking shared on both sides.
