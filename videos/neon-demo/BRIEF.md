@@ -9,7 +9,7 @@ language: en
 audience: WebMCP Challenge judges
 length: 60s
 angle: verified two-sided browser workflow
-narration: no
+narration: supplied Francis voice recording
 ---
 
 ## Intent
@@ -21,6 +21,7 @@ Show Booksy Reloaded as an independent WebMCP prototype inspired by my experienc
 - https://newyorkdev.github.io/neon-webmcp/ is the live product.
 - assets/booksy-reloaded-native-workflow.mp4 is the verified 1920x1080 Chrome recording driven through document.modelContext.
 - assets/booksy-reloaded-logo.png is the supplied Booksy Reloaded identity.
+- assets/booksy-reloaded-francis-voice.mp3 is the supplied 60-second narration, normalized to a safe speech level for the final mix.
 - ../../artifacts/native-webmcp-verification.json proves all fifteen native tools were discovered and invoked.
 - ../../artifacts/benchmark.json contains the reproducible 25-run benchmark.
 
@@ -34,8 +35,8 @@ Show Booksy Reloaded as an independent WebMCP prototype inspired by my experienc
 
 ## Notes
 
-- No narration, music, or sound effects in this visual master.
-- A separate voice track may be supplied later.
+- Use the supplied Francis narration as the only audio track.
+- Do not add music or sound effects that compete with the product explanation.
 - All providers, customers, appointments, and contact details in the demo are fictional.
 - The project is independent and is not affiliated with or endorsed by Booksy.
 - Keep the full video under three minutes.

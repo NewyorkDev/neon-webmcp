@@ -30,7 +30,11 @@ Verified September 1, 2026.
 - Benchmark workflow: 10 calls
 - Estimated serialized JSON footprint: 2,052 tokens
 - HyperFrames composition check: passing with zero errors
-- Video master: 1920 by 1080, 60 seconds, silent until the supplied narration is mixed
+- Final video: 1920 by 1080, 30 fps, exactly 60 seconds
+- Video codec: H.264 High Profile with AAC stereo narration at 48 kHz
+- Final measured audio: -15.7 LUFS integrated, -0.9 dBFS true peak
+- Final MP4: `/Users/francisclase/webmcp/submission/booksy-reloaded/Booksy-Reloaded-WebMCP-Demo.mp4`
+- SHA-256: `8cef23ff407530553ab149b9df3a43b2cc323168b6731e2cd9cbf134b5f68c16`
 
 ## Submission fields
 
@@ -41,13 +45,10 @@ Verified September 1, 2026.
 - Judge walkthrough: `submission/TESTING.md`
 - Timed narration: `videos/neon-demo/VOICE_SCRIPT_LATER.md`
 - Video preview: http://localhost:3019/#project/neon-demo
-- Final video URL: add after the approved MP4 is rendered and uploaded
+- Final video URL: add after the rendered MP4 is uploaded
 
 ## Remaining human gates
 
-- Approve the current video preview.
-- Supply or record the final narration audio if audio will be included.
-- Render and inspect the final MP4 after approval.
 - Upload the final MP4 and replace `Video: TODO` in `submission/PROJECT_TEXT.md`.
 - Add every real team member in Devpost and confirm invitations are accepted.
 - Open the public repository in an incognito window.
